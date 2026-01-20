@@ -3,4 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="azul_claro">#00BCD4</color>
+    <color name="fondo_naranja">#FF9800</color>
+    <color name="crear_principal">#9C27B0</color>
+    <color name="crear_titulo">#673AB7</color>
+
 </resources>
