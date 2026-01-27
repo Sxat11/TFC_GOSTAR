@@ -30,7 +30,7 @@ public class Iniciar extends AppCompatActivity {
         crearCuentaTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Iniciar.this, Crear.class);
+                Intent intent = new Intent(Iniciar.this, Principal.class);
                 startActivity(intent);
             }
         });

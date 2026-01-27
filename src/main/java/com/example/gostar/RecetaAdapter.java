@@ -1,16 +1,23 @@
-package com.example.banda;
+package com.example.gostar;
+
+import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gostar.R;
 import com.example.gostar.Receta;
 
 import java.io.Serializable;
@@ -20,73 +27,60 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.MyViewHold
     // Puede ser cualquier estructura de datos
     ArrayList<Receta> listaRecetas;
     Context contexto;
+    Intent intent;
 
     int selectedPos=RecyclerView.NO_POSITION;
     public int getSelectedPos() {
         return selectedPos;
     }
     public void setSelectedPos(int nuevaPos) {
-// Si se pulsa sobre el elemento marcado
-        if(nuevaPos ==this.selectedPos){
-//            //Intent segunda = new Intent(contexto,Info.class);
-//            segunda.putExtra("Info", listaMusicos.get(nuevaPos));
-//            contexto.startActivity(segunda);
-//            this.selectedPos=RecyclerView.NO_POSITION;
-// Se avisa al adaptador para que desmarque esa posición
-            notifyItemChanged(nuevaPos);
-//        }else{ // El elemento pulsado no está marcado
-//            if(this.selectedPos>=0) { // Si ya hay otra posición marcada
-//// Se desmarca
-//                notifyItemChanged(this.selectedPos);
-//            }
-//// Se actualiza la nueva posición a la posición pulsada
-//            this.selectedPos= nuevaPos;
-// Se marca la nueva posición
-         //   notifyItemChanged(nuevaPos);
+        if (nuevaPos == this.selectedPos) {
+            return; // si pulsas el mismo item, no hacer nada
         }
+        this.selectedPos = nuevaPos;
+        notifyDataSetChanged(); // actualiza RecyclerView si quieres marcar selección
+
+        // Abrir la nueva actividad
+        Intent intent = new Intent(contexto, Iniciar.class); // Cambia al nombre de tu Activity
+        // Pasar datos opcionales, por ejemplo:
+        intent.putExtra("posicion", selectedPos);
+        // Si tienes datos de la receta:
+        // intent.putExtra("nombre", listaRecetas.get(selectedPos).getNombre());
+
+        contexto.startActivity(intent);
     }
 
 
     // Constructor
-    public RecetaAdapter(ArrayList<Musico> listaMusicos , Context contexto) {
-        this.listaMusicos = listaMusicos;
+    public RecetaAdapter(ArrayList<Receta> listaRecetas , Context contexto) {
+        this.listaRecetas = listaRecetas;
         this.contexto = contexto;
     }
-    // Crea nuevos elementos expandiendo el layout definido en el fichero R.layout.celda
-// que usamos para crear el Holder que devolveremos
+
     //  @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View elemento= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_musico,
+        View elemento= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_receta,
                 parent, false);
         MyViewHolder mvh = new MyViewHolder(elemento);
         return mvh ;
         // return new MyViewHolder(elemento);
     }
-    // Establece al objeto holder los valores de la colección de datos que
-// están en la posición position.
+
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Musico m = listaMusicos.get(position);
+        ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+        params.height = Resources.getSystem().getDisplayMetrics().heightPixels / 4;
+        holder.itemView.setLayoutParams(params);
 
-        holder.getNombre().setText(m.getNombre());
-        holder.getApellido().setText(m.getApellido());
-        holder.getBanda().setText(m.getBanda());
-        holder.getInstrumento().setText(m.getInstrumento());
+        Receta r = listaRecetas.get(position);
 
-        if (m.getFoto() != null) {
-            holder.getFoto().setImageURI(m.getFoto());
-        } else {
-            holder.getFoto().setImageResource(R.drawable.manuel);
-        }
+        holder.getNombreReceta().setText(r.getNombre());
+        holder.getDuracion().setText(r.getDuracion());
+        // holder.getFotoPortada().setBackground(r.getFotoPortada());
+        holder.getFotoPortada().setBackgroundResource(r.getFotoPortada());
 
-        if (selectedPos == position) {
-            holder.itemView.setBackgroundResource(R.color.gris);
-        } else {
-            holder.itemView.setBackgroundResource(R.color.white);
-        }
-
-        // 👇 ESTO ES LO QUE FALTABA
         holder.itemView.setOnClickListener(v -> {
             setSelectedPos(holder.getAdapterPosition());
         });
@@ -97,41 +91,32 @@ public class RecetaAdapter extends RecyclerView.Adapter<RecetaAdapter.MyViewHold
 // que se tendrá el RecycleView
     @Override
     public int getItemCount() {
-        return this.listaMusicos.size();
+        return this.listaRecetas.size();
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        // Elementos que queremos mostrar en cada posición del RecyclerView,
-// normalmente se corresponderán con los definidos en el layout
-        TextView nombre, apellido, instrumento, banda;
 
-        ImageView foto;
-        // Constructor: asocia cada atributo de la clase con su
-        // correspondiente componente definido en la layout (ViewElemento)
+        TextView nombreReceta, duracion;
+
+        LinearLayout fotoPortada;
+        // Constructor:
         public MyViewHolder(View viewElemento) {
             super(viewElemento);
-            this.nombre=viewElemento.findViewById(R.id.nombre);
-            this.apellido=viewElemento.findViewById(R.id.apellido);
-            this.banda= viewElemento.findViewById(R.id.banda);
-            this.instrumento = viewElemento.findViewById(R.id.instrumento);
-            this.foto=viewElemento.findViewById(R.id.foto);
+            this.nombreReceta=viewElemento.findViewById(R.id.nombreReceta);
+            this.duracion=viewElemento.findViewById(R.id.duraciontxt);
+            this.fotoPortada = viewElemento.findViewById(R.id.ll1);
+
+
         }
-        public TextView getNombre() {
-            return nombre;
+        public TextView getNombreReceta() {
+            return nombreReceta;
         }
 
-        public TextView getApellido() {
-            return apellido;
+        public TextView getDuracion() {
+            return duracion;
         }
 
-        public TextView getBanda() {
-            return banda;
-        }
-
-        public TextView getInstrumento() {
-            return instrumento;
-        }
-        public ImageView getFoto() {
-            return foto;
+        public LinearLayout getFotoPortada() {
+            return fotoPortada;
         }
     }
 }

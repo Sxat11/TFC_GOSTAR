@@ -1,32 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/pimiento3"
-    android:orientation="vertical">
+    android:layout_marginStart="1dp"
+    android:layout_marginTop="0dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="-20dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    app:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/nombreReceta"
+    <LinearLayout
+        android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pimiento Padron"
-        android:textSize="30sp" />
+        android:background="@drawable/food"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/duraciontxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="20 min" />
+        <TextView
+            android:id="@+id/nombreReceta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cambiar marginbotton para espacios"
+            android:textColor="@android:color/white"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        <TextView
+            android:id="@+id/duraciontxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="20 min"
+            android:textColor="@android:color/white" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-</LinearLayout>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ver" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editar" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
