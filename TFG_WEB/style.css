@@ -1,0 +1,139 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+/* Sección del Logo */
+.logo-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-placeholder {
+    font-size: 300px;
+    font-weight: bold;
+}
+
+/* Sección de Autenticación */
+.auth-section {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 64px;
+    margin-bottom: 40px;
+    letter-spacing: -1px;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.button-group {
+    max-width: 300px;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.3s;
+}
+
+.btn-white { background-color: #fff; color: #000; }
+.btn-white:hover { background-color: #e6e6e6; }
+
+.btn-blue { background-color: #1d9bf0; color: #fff; }
+.btn-blue:hover { background-color: #1a8cd8; }
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid #536471;
+    color: #1d9bf0;
+}
+.btn-outline:hover { background-color: rgba(29, 155, 240, 0.1); }
+
+/* Separador "o" */
+.separator {
+    text-align: center;
+    position: relative;
+    margin: 15px 0;
+}
+
+.separator::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #333;
+    z-index: 1;
+}
+
+.separator span {
+    background-color: #000;
+    padding: 0 10px;
+    position: relative;
+    z-index: 2;
+    color: #fff;
+}
+
+.terms {
+    font-size: 11px;
+    color: #71767b;
+    line-height: 1.5;
+}
+
+.terms a { color: #1d9bf0; text-decoration: none; }
+
+.login-group {
+    margin-top: 40px;
+    max-width: 300px;
+}
+
+.login-group h3 {
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+/* Responsive para móviles */
+@media (max-width: 900px) {
+    .container { flex-direction: column; align-items: flex-start; }
+    .logo-placeholder { font-size: 50px; margin-bottom: 20px; }
+    h1 { font-size: 40px; }
+}
