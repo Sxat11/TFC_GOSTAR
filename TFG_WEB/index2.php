@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,8 @@
         }
 
         body {
-            background-color: #ffffff; /* Pocket usa fondos muy claros o blancos */
+            background-color: #ffffff;
+            /* Pocket usa fondos muy claros o blancos */
             color: #1a1a1a;
             min-height: 100vh;
             display: flex;
@@ -47,7 +49,7 @@
             max-width: 100%;
             height: auto;
             /* Simula el efecto de la imagen de dispositivos de Pocket */
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.05));
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.05));
         }
 
         /* Sección Derecha: El Formulario (La Tarjeta) */
@@ -85,14 +87,16 @@
 
         .input-field:focus {
             outline: none;
-            border-color: #008080; /* El verde azulado de tu logo */
+            border-color: #008080;
+            /* El verde azulado de tu logo */
         }
 
         /* Botón Principal */
         .btn-login {
             width: 100%;
             padding: 14px;
-            background-color: #008080; /* Cambia al verde de GOSTAR */
+            background-color: #008080;
+            /* Cambia al verde de GOSTAR */
             color: white;
             border: none;
             border-radius: 4px;
@@ -124,7 +128,8 @@
             font-size: 14px;
         }
 
-        .separator::before, .separator::after {
+        .separator::before,
+        .separator::after {
             content: '';
             flex: 1;
             border-bottom: 1px solid #eee;
@@ -188,9 +193,12 @@
                 flex-direction: column;
                 gap: 40px;
             }
+
             .promo-section {
-                display: none; /* Ocultamos la imagen en móvil como suele hacer Pocket */
+                display: none;
+                /* Ocultamos la imagen en móvil como suele hacer Pocket */
             }
+
             .auth-card {
                 flex: 1;
                 width: 100%;
@@ -201,6 +209,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <main class="main-wrapper">
@@ -209,21 +218,25 @@
                 <img src="GostarTrans2.png" alt="Gostar Devices Preview">
             </section>
             <div style="text-align: center; margin-bottom: 20px;">
-              <!--   <img src="GostarTrans2.png" alt="GOSTAR" style="height: 40px; width: auto;"> -->
+                <!--   <img src="GostarTrans2.png" alt="GOSTAR" style="height: 40px; width: auto;"> -->
             </div>
             <section class="auth-card">
                 <h1>Log In</h1>
-                
-                <form>
+
+                <!-- En la sección del formulario, cambia el <form> por: -->
+                <form id="loginForm">
                     <div class="input-group">
-                        <input type="text" class="input-field" placeholder="Email o nombre de usuario">
+                        <input type="text" id="username" class="input-field" placeholder="Email o nombre de usuario" required>
                     </div>
                     <div class="input-group">
-                        <input type="password" class="input-field" placeholder="Contraseña">
+                        <input type="password" id="password" class="input-field" placeholder="Contraseña" required>
                     </div>
-                    
+
+                    <div id="error-mensaje" style="color: #ff3333; margin-bottom: 10px; display: none;"></div>
+                    <div id="success-mensaje" style="color: #00cc66; margin-bottom: 10px; display: none;"></div>
+
                     <button type="submit" class="btn-login">Log In</button>
-                    
+
                     <a href="#" class="forgot-link">¿Olvidaste tu usuario o contraseña?</a>
                 </form>
 
@@ -231,8 +244,9 @@
                     <span>o</span>
                 </div>
 
-                <button class="btn-social">
+                <button class="btn-social" onclick="location.href='/vista/vista_principal.php'">
                     <img src="https://www.google.com/favicon.ico" alt="Google"> Continuar con Google
+
                 </button>
                 <button class="btn-social">
                     <img src="https://www.apple.com/favicon.ico" alt="Apple"> Continuar con Apple
@@ -242,7 +256,7 @@
                 </button>
 
                 <p class="signup-text">
-                    ¿No tienes cuenta? <a href="registro.php">Regístrate ahora</a>
+                    ¿No tienes cuenta? <a href="/vista/vista_registro.php">Regístrate ahora</a>
                 </p>
             </section>
         </div>
@@ -252,5 +266,70 @@
         <p>© 2026 GOSTAR. Manuel Hay Fernández. Todos los derechos reservados. </p>
     </footer>
 
+<script>
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Ocultar mensajes anteriores
+    document.getElementById('error-mensaje').style.display = 'none';
+    document.getElementById('success-mensaje').style.display = 'none';
+    
+    const datos = {
+        usernameOrEmail: document.getElementById('username').value,
+        password: document.getElementById('password').value
+    };
+    
+    try {
+        const response = await fetch('http://localhost:8080/mi-primera-api/rest/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos)
+        });
+        
+        const data = await response.json();
+        
+        if (response.status === 200) {
+            mostrarExito('¡Login exitoso! Redirigiendo...');
+            
+            // Guardar token y datos del usuario
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('usuario', JSON.stringify(data.usuario));
+            
+            // Redirigir después de 2 segundos
+            setTimeout(() => {
+                window.location.href = '/vista/vista_principal.php';
+            }, 2000);
+            
+        } else {
+            mostrarError(data.error || 'Error en el login');
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarError('Error de conexión con el servidor');
+    }
+});
+
+function mostrarError(mensaje) {
+    const errorDiv = document.getElementById('error-mensaje');
+    errorDiv.textContent = mensaje;
+    errorDiv.style.display = 'block';
+}
+
+function mostrarExito(mensaje) {
+    const successDiv = document.getElementById('success-mensaje');
+    successDiv.textContent = mensaje;
+    successDiv.style.display = 'block';
+}
+
+// Si ya hay sesión, redirigir
+if (localStorage.getItem('token')) {
+    window.location.href = '/vista/vista_principal.php';
+}
+</script>
+
 </body>
+
 </html>
