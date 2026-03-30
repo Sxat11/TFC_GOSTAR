@@ -31,12 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.pageFavoritos = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.materialButton1 = new MaterialSkin.Controls.MaterialButton();
-            this.materialTextBox1 = new MaterialSkin.Controls.MaterialTextBox();
+            this.pageBuscador = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblGostarBuscador = new System.Windows.Forms.Label();
+            this.txtBuscador = new MaterialSkin.Controls.MaterialTextBox();
+            this.btnBuscar = new MaterialSkin.Controls.MaterialButton();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.materialTextBox23 = new MaterialSkin.Controls.MaterialTextBox2();
@@ -48,28 +49,31 @@
             this.materialTextBox21 = new MaterialSkin.Controls.MaterialTextBox2();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.publicacion6 = new GostarApp.Publicacion();
             this.publicacion5 = new GostarApp.Publicacion();
             this.publicacion4 = new GostarApp.Publicacion();
             this.publicacion3 = new GostarApp.Publicacion();
             this.publicacion2 = new GostarApp.Publicacion();
             this.publicacion1 = new GostarApp.Publicacion();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.materialTabControl1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.pageFavoritos.SuspendLayout();
+            this.pageBuscador.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabControl1
             // 
-            this.materialTabControl1.Controls.Add(this.tabPage3);
-            this.materialTabControl1.Controls.Add(this.tabPage2);
+            this.materialTabControl1.Controls.Add(this.pageFavoritos);
+            this.materialTabControl1.Controls.Add(this.pageBuscador);
             this.materialTabControl1.Controls.Add(this.tabPage5);
             this.materialTabControl1.Controls.Add(this.tabPage4);
             this.materialTabControl1.Controls.Add(this.tabPage1);
@@ -85,19 +89,20 @@
             this.materialTabControl1.ShowToolTips = true;
             this.materialTabControl1.Size = new System.Drawing.Size(1748, 878);
             this.materialTabControl1.TabIndex = 0;
+            this.materialTabControl1.SelectedIndexChanged += new System.EventHandler(this.materialTabControl1_SelectedIndexChanged);
             // 
-            // tabPage3
+            // pageFavoritos
             // 
-            this.tabPage3.Controls.Add(this.panel1);
-            this.tabPage3.ImageKey = "pimi.png";
-            this.tabPage3.Location = new System.Drawing.Point(4, 39);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1740, 835);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Recetas";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
+            this.pageFavoritos.Controls.Add(this.panel1);
+            this.pageFavoritos.ImageKey = "pimi.png";
+            this.pageFavoritos.Location = new System.Drawing.Point(4, 39);
+            this.pageFavoritos.Margin = new System.Windows.Forms.Padding(4);
+            this.pageFavoritos.Name = "pageFavoritos";
+            this.pageFavoritos.Size = new System.Drawing.Size(1740, 835);
+            this.pageFavoritos.TabIndex = 2;
+            this.pageFavoritos.Text = "Recetas";
+            this.pageFavoritos.UseVisualStyleBackColor = true;
+            this.pageFavoritos.Click += new System.EventHandler(this.pageFavoritos_Click);
             // 
             // panel1
             // 
@@ -109,71 +114,83 @@
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // tabPage2
+            // pageBuscador
             // 
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.materialButton1);
-            this.tabPage2.Controls.Add(this.materialTextBox1);
-            this.tabPage2.ImageKey = "lupa1.png";
-            this.tabPage2.Location = new System.Drawing.Point(4, 39);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(1740, 835);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Buscador";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.pageBuscador.Controls.Add(this.panel2);
+            this.pageBuscador.ImageKey = "lupa1.png";
+            this.pageBuscador.Location = new System.Drawing.Point(4, 39);
+            this.pageBuscador.Margin = new System.Windows.Forms.Padding(4);
+            this.pageBuscador.Name = "pageBuscador";
+            this.pageBuscador.Padding = new System.Windows.Forms.Padding(4);
+            this.pageBuscador.Size = new System.Drawing.Size(1740, 835);
+            this.pageBuscador.TabIndex = 1;
+            this.pageBuscador.Text = "Buscador";
+            this.pageBuscador.UseVisualStyleBackColor = true;
+            this.pageBuscador.Click += new System.EventHandler(this.pageBuscador_Click);
+            this.pageBuscador.Paint += new System.Windows.Forms.PaintEventHandler(this.pageBuscador_Paint);
             // 
-            // label1
+            // panel2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.Location = new System.Drawing.Point(500, 171);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(720, 91);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "GOSTAR Searcher";
+            this.panel2.AutoSize = true;
+            this.panel2.Controls.Add(this.lblGostarBuscador);
+            this.panel2.Controls.Add(this.txtBuscador);
+            this.panel2.Controls.Add(this.btnBuscar);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(4, 4);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1732, 827);
+            this.panel2.TabIndex = 3;
             // 
-            // materialButton1
+            // lblGostarBuscador
             // 
-            this.materialButton1.AutoSize = false;
-            this.materialButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.materialButton1.Depth = 0;
-            this.materialButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.materialButton1.HighEmphasis = true;
-            this.materialButton1.Icon = ((System.Drawing.Image)(resources.GetObject("materialButton1.Icon")));
-            this.materialButton1.Location = new System.Drawing.Point(1179, 458);
-            this.materialButton1.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
-            this.materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialButton1.Name = "materialButton1";
-            this.materialButton1.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.materialButton1.Size = new System.Drawing.Size(145, 62);
-            this.materialButton1.TabIndex = 1;
-            this.materialButton1.Text = "Buscar";
-            this.materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.materialButton1.UseAccentColor = false;
-            this.materialButton1.UseVisualStyleBackColor = true;
-            this.materialButton1.Click += new System.EventHandler(this.materialButton1_Click);
+            this.lblGostarBuscador.AutoSize = true;
+            this.lblGostarBuscador.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGostarBuscador.ForeColor = System.Drawing.Color.Lime;
+            this.lblGostarBuscador.Location = new System.Drawing.Point(640, 27);
+            this.lblGostarBuscador.Name = "lblGostarBuscador";
+            this.lblGostarBuscador.Size = new System.Drawing.Size(635, 91);
+            this.lblGostarBuscador.TabIndex = 2;
+            this.lblGostarBuscador.Text = "Gostar Buscador";
             // 
-            // materialTextBox1
+            // txtBuscador
             // 
-            this.materialTextBox1.AnimateReadOnly = false;
-            this.materialTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.materialTextBox1.Depth = 0;
-            this.materialTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialTextBox1.LeadingIcon = null;
-            this.materialTextBox1.Location = new System.Drawing.Point(435, 458);
-            this.materialTextBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.materialTextBox1.MaxLength = 50;
-            this.materialTextBox1.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox1.Multiline = false;
-            this.materialTextBox1.Name = "materialTextBox1";
-            this.materialTextBox1.Size = new System.Drawing.Size(735, 50);
-            this.materialTextBox1.TabIndex = 0;
-            this.materialTextBox1.Text = "";
-            this.materialTextBox1.TrailingIcon = null;
+            this.txtBuscador.AnimateReadOnly = false;
+            this.txtBuscador.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBuscador.Depth = 0;
+            this.txtBuscador.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.txtBuscador.LeadingIcon = null;
+            this.txtBuscador.Location = new System.Drawing.Point(540, 277);
+            this.txtBuscador.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBuscador.MaxLength = 50;
+            this.txtBuscador.MouseState = MaterialSkin.MouseState.OUT;
+            this.txtBuscador.Multiline = false;
+            this.txtBuscador.Name = "txtBuscador";
+            this.txtBuscador.Size = new System.Drawing.Size(735, 50);
+            this.txtBuscador.TabIndex = 0;
+            this.txtBuscador.Text = "";
+            this.txtBuscador.TrailingIcon = null;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.AutoSize = false;
+            this.btnBuscar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnBuscar.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btnBuscar.Depth = 0;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.HighEmphasis = true;
+            this.btnBuscar.Icon = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Icon")));
+            this.btnBuscar.Location = new System.Drawing.Point(1284, 277);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
+            this.btnBuscar.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btnBuscar.Size = new System.Drawing.Size(145, 62);
+            this.btnBuscar.TabIndex = 1;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btnBuscar.UseAccentColor = false;
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // tabPage5
             // 
@@ -360,6 +377,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.panel3);
             this.tabPage4.ImageKey = "favoritos.png";
             this.tabPage4.Location = new System.Drawing.Point(4, 39);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
@@ -369,6 +387,14 @@
             this.tabPage4.Text = "Te Gusta";
             this.tabPage4.UseVisualStyleBackColor = true;
             this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1740, 835);
+            this.panel3.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -390,34 +416,6 @@
             this.tabPage1.Text = "Mi Perfil";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(22, 17);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(201, 189);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(246, 75);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(248, 69);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Mi Perfil";
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "icono.png");
-            this.imageList1.Images.SetKeyName(1, "pimi.png");
-            this.imageList1.Images.SetKeyName(2, "lupa1.png");
-            this.imageList1.Images.SetKeyName(3, "anadir.png");
-            this.imageList1.Images.SetKeyName(4, "favoritos.png");
             // 
             // publicacion6
             // 
@@ -479,6 +477,34 @@
             this.publicacion1.Size = new System.Drawing.Size(400, 250);
             this.publicacion1.TabIndex = 2;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(22, 17);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(201, 189);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(246, 75);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(248, 69);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Mi Perfil";
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "icono.png");
+            this.imageList1.Images.SetKeyName(1, "pimi.png");
+            this.imageList1.Images.SetKeyName(2, "lupa1.png");
+            this.imageList1.Images.SetKeyName(3, "anadir.png");
+            this.imageList1.Images.SetKeyName(4, "favoritos.png");
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -494,11 +520,14 @@
             this.Text = "Gostar";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.materialTabControl1.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.pageFavoritos.ResumeLayout(false);
+            this.pageBuscador.ResumeLayout(false);
+            this.pageBuscador.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -510,15 +539,12 @@
 
         private MaterialSkin.Controls.MaterialTabControl materialTabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage pageBuscador;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.TabPage tabPage4;
-        private MaterialSkin.Controls.MaterialButton materialButton1;
-        private MaterialSkin.Controls.MaterialTextBox materialTextBox1;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage pageFavoritos;
         private System.Windows.Forms.FlowLayoutPanel panel1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private MaterialSkin.Controls.MaterialTextBox2 materialTextBox22;
         private System.Windows.Forms.Label label3;
@@ -536,5 +562,10 @@
         private Publicacion publicacion2;
         private Publicacion publicacion1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lblGostarBuscador;
+        private MaterialSkin.Controls.MaterialTextBox txtBuscador;
+        private MaterialSkin.Controls.MaterialButton btnBuscar;
+        private System.Windows.Forms.Panel panel3;
     }
 }

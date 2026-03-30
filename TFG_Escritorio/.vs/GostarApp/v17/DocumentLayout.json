@@ -1,26 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\",
+  "WorkspaceRootPath": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|c:\\users\\usuario\\desktop\\tfg_escritorio\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|solutionrelative:form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|solutionrelative:form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|c:\\users\\usuario\\desktop\\tfg_escritorio\\publicacionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|solutionrelative:publicacionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|c:\\users\\usuario\\desktop\\tfg_escritorio\\publicacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\publicacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|solutionrelative:publicacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|c:\\users\\usuario\\desktop\\tfg_escritorio\\publicacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|solutionrelative:publicacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\publicacionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|solutionrelative:publicacionmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|c:\\users\\usuario\\desktop\\tfg_escritorio\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|solutionrelative:form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|c:\\users\\usuario\\documents\\github\\tfc_gostar\\tfg_escritorio\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|solutionrelative:form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|c:\\users\\usuario\\documents\\github\\tfc_gostar\\tfg_escritorio\\form2.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|solutionrelative:form2.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\publicacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{48DD8663-B44C-43A2-8386-1A549FEDF0B6}|GostarApp.csproj|solutionrelative:publicacion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -47,23 +51,36 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "Form2.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\Form2.Designer.cs",
+              "RelativeDocumentMoniker": "Form2.Designer.cs",
+              "ToolTip": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\Form2.Designer.cs",
+              "RelativeToolTip": "Form2.Designer.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAkwGgAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-14T22:56:43.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Form2.cs",
-              "DocumentMoniker": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\Form2.cs",
+              "DocumentMoniker": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\Form2.cs",
               "RelativeDocumentMoniker": "Form2.cs",
-              "ToolTip": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\Form2.cs",
+              "ToolTip": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\Form2.cs",
               "RelativeToolTip": "Form2.cs",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAlwJYAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAP4AAAAAAAAAAAA0wCIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-09T18:53:49.685Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Form2.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\Form2.cs",
+              "DocumentMoniker": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\Form2.cs",
               "RelativeDocumentMoniker": "Form2.cs",
-              "ToolTip": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\Form2.cs [Dise\u00F1o]",
+              "ToolTip": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\Form2.cs [Dise\u00F1o]",
               "RelativeToolTip": "Form2.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-09T18:53:43.928Z",
@@ -71,37 +88,37 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PublicacionModel.cs",
-              "DocumentMoniker": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\PublicacionModel.cs",
+              "DocumentMoniker": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\PublicacionModel.cs",
               "RelativeDocumentMoniker": "PublicacionModel.cs",
-              "ToolTip": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\PublicacionModel.cs",
+              "ToolTip": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\PublicacionModel.cs",
               "RelativeToolTip": "PublicacionModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAA1wAgAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAQwAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-09T18:50:15.432Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Publicacion.cs",
-              "DocumentMoniker": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\Publicacion.cs",
+              "DocumentMoniker": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\Publicacion.cs",
               "RelativeDocumentMoniker": "Publicacion.cs",
-              "ToolTip": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\Publicacion.cs",
+              "ToolTip": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\Publicacion.cs",
               "RelativeToolTip": "Publicacion.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAADwvzEAAABFAAAAAAAAAA==",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAswHoAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-09T18:49:22.742Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Publicacion.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\Publicacion.cs",
+              "DocumentMoniker": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\Publicacion.cs",
               "RelativeDocumentMoniker": "Publicacion.cs",
-              "ToolTip": "C:\\Users\\usuario\\Desktop\\TFG_Escritorio\\Publicacion.cs [Dise\u00F1o]",
+              "ToolTip": "C:\\Users\\usuario\\Documents\\GitHub\\TFC_GOSTAR\\TFG_Escritorio\\Publicacion.cs [Dise\u00F1o]",
               "RelativeToolTip": "Publicacion.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-09T18:46:58.712Z",
