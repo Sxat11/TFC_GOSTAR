@@ -1,7 +1,3 @@
-I'll provide the technical documentation in English for you.
-
----
-
 ## 📚 **Technical Documentation – Intermodular Project**
 
 ### **GOSTAR – Social Network for Recipes**
