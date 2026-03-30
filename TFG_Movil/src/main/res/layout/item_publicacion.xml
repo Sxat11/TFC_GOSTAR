@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@color/verde_claro"
+    android:orientation="vertical">
+
+    <!-- CABECERA USUARIO (SE MANTIENE) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/usuarioAvatar"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/azul_claro"
+            android:padding="6dp"
+            android:src="@drawable/icono" />
+
+        <TextView
+            android:id="@+id/usuarioNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Usuario"
+            android:textColor="@color/crear_titulo"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- IMAGEN CON OVERLAY -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+
+        <!-- Imagen -->
+        <ImageView
+            android:id="@+id/imagenPublicacion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop" />
+
+        <!-- Overlay oscuro -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#55000000" />
+
+        <!-- Duración arriba izquierda -->
+        <TextView
+            android:id="@+id/duracionPublicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="#80000000"
+            android:padding="6dp"
+            android:text="10 min"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <!-- Corazón abajo derecha -->
+        <ImageView
+            android:id="@+id/likeButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/corazonblanco"
+            android:tint="@color/white" />
+
+    </FrameLayout>
+
+    <!-- CONTENIDO INFERIOR (SE MANTIENE) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tituloPublicacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Gazpacho Andaluz"
+            android:textColor="@color/crear_principal"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Likes -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/likesCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 likes"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_naranja"
+    android:backgroundTint="@color/crear_principal"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF9800"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="60dp"
+        android:paddingBottom="40dp">
+
+        <!-- TÍTULO -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="Crear cuenta"
+            android:textColor="@color/crear_titulo"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <!-- NOMBRE -->
+        <EditText
+            android:id="@+id/editTextNombre2"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:hint="Nombre"
+            android:paddingHorizontal="16dp"
+            android:textSize="16sp" />
+
+        <!-- APELLIDOS -->
+        <EditText
+            android:id="@+id/editTextApellido2"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:hint="Apellidos"
+            android:paddingHorizontal="16dp"
+            android:textSize="16sp" />
+
+        <!-- PAÍS -->
+        <EditText
+            android:id="@+id/editTextPais"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:hint="País"
+            android:paddingHorizontal="16dp"
+            android:textSize="16sp" />
+
+        <!-- REGIÓN -->
+        <EditText
+            android:id="@+id/editTextRegion"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:hint="Región (opcional)"
+            android:paddingHorizontal="16dp"
+            android:textSize="16sp" />
+
+        <!-- EMAIL -->
+        <EditText
+            android:id="@+id/editTextCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:hint="Correo electrónico"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="16dp"
+            android:textSize="16sp" />
+
+        <!-- PASSWORD -->
+        <EditText
+            android:id="@+id/editTextTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="12dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:paddingHorizontal="16dp"
+            android:textSize="16sp" />
+
+        <!-- REPETIR PASSWORD -->
+        <EditText
+            android:id="@+id/editTextTextPassword2"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginBottom="24dp"
+            android:background="@android:color/white"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:hint="Repite la contraseña"
+            android:inputType="textPassword"
+            android:paddingHorizontal="16dp"
+            android:textSize="16sp" />
+
+        <!-- BOTÓN -->
+        <Button
+            android:id="@+id/btnCrearCuenta"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginHorizontal="40dp"
+            android:backgroundTint="#00BCD4"
+            android:text="Crear cuenta"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>
