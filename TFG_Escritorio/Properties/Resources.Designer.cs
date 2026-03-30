@@ -59,15 +59,5 @@ namespace GostarApp.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap fototrabjo1 {
-            get {
-                object obj = ResourceManager.GetObject("fototrabjo1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

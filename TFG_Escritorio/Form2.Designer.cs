@@ -38,26 +38,26 @@
             this.materialButton1 = new MaterialSkin.Controls.MaterialButton();
             this.materialTextBox1 = new MaterialSkin.Controls.MaterialTextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.label2 = new System.Windows.Forms.Label();
-            this.materialTextBox21 = new MaterialSkin.Controls.MaterialTextBox2();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.materialTextBox22 = new MaterialSkin.Controls.MaterialTextBox2();
             this.label5 = new System.Windows.Forms.Label();
             this.materialTextBox23 = new MaterialSkin.Controls.MaterialTextBox2();
             this.label6 = new System.Windows.Forms.Label();
             this.materialTextBox24 = new MaterialSkin.Controls.MaterialTextBox2();
-            this.label7 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.materialTextBox22 = new MaterialSkin.Controls.MaterialTextBox2();
+            this.label3 = new System.Windows.Forms.Label();
+            this.materialTextBox21 = new MaterialSkin.Controls.MaterialTextBox2();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.publicacion1 = new GostarApp.Publicacion();
-            this.publicacion2 = new GostarApp.Publicacion();
-            this.publicacion3 = new GostarApp.Publicacion();
-            this.publicacion4 = new GostarApp.Publicacion();
-            this.publicacion5 = new GostarApp.Publicacion();
+            this.label7 = new System.Windows.Forms.Label();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.publicacion6 = new GostarApp.Publicacion();
+            this.publicacion5 = new GostarApp.Publicacion();
+            this.publicacion4 = new GostarApp.Publicacion();
+            this.publicacion3 = new GostarApp.Publicacion();
+            this.publicacion2 = new GostarApp.Publicacion();
+            this.publicacion1 = new GostarApp.Publicacion();
             this.materialTabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -107,6 +107,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1740, 835);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // tabPage2
             // 
@@ -161,7 +162,7 @@
             this.materialTextBox1.AnimateReadOnly = false;
             this.materialTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.materialTextBox1.Depth = 0;
-            this.materialTextBox1.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.materialTextBox1.LeadingIcon = null;
             this.materialTextBox1.Location = new System.Drawing.Point(435, 458);
             this.materialTextBox1.Margin = new System.Windows.Forms.Padding(4);
@@ -195,134 +196,6 @@
             this.tabPage5.UseVisualStyleBackColor = true;
             this.tabPage5.Click += new System.EventHandler(this.tabPage5_Click);
             // 
-            // tabPage4
-            // 
-            this.tabPage4.ImageKey = "favoritos.png";
-            this.tabPage4.Location = new System.Drawing.Point(4, 39);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1740, 835);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Te Gusta";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.publicacion6);
-            this.tabPage1.Controls.Add(this.publicacion5);
-            this.tabPage1.Controls.Add(this.publicacion4);
-            this.tabPage1.Controls.Add(this.publicacion3);
-            this.tabPage1.Controls.Add(this.publicacion2);
-            this.tabPage1.Controls.Add(this.publicacion1);
-            this.tabPage1.Controls.Add(this.pictureBox1);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.ImageKey = "icono.png";
-            this.tabPage1.Location = new System.Drawing.Point(4, 39);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(1740, 835);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Mi Perfil";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "icono.png");
-            this.imageList1.Images.SetKeyName(1, "pimi.png");
-            this.imageList1.Images.SetKeyName(2, "lupa1.png");
-            this.imageList1.Images.SetKeyName(3, "anadir.png");
-            this.imageList1.Images.SetKeyName(4, "favoritos.png");
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(389, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(659, 91);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "NUEVA RECETA";
-            // 
-            // materialTextBox21
-            // 
-            this.materialTextBox21.AnimateReadOnly = false;
-            this.materialTextBox21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.materialTextBox21.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBox21.Depth = 0;
-            this.materialTextBox21.Font = new System.Drawing.Font("Roboto", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.materialTextBox21.HideSelection = true;
-            this.materialTextBox21.LeadingIcon = null;
-            this.materialTextBox21.Location = new System.Drawing.Point(733, 210);
-            this.materialTextBox21.MaxLength = 32767;
-            this.materialTextBox21.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox21.Name = "materialTextBox21";
-            this.materialTextBox21.PasswordChar = '\0';
-            this.materialTextBox21.PrefixSuffixText = null;
-            this.materialTextBox21.ReadOnly = false;
-            this.materialTextBox21.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.materialTextBox21.SelectedText = "";
-            this.materialTextBox21.SelectionLength = 0;
-            this.materialTextBox21.SelectionStart = 0;
-            this.materialTextBox21.ShortcutsEnabled = true;
-            this.materialTextBox21.Size = new System.Drawing.Size(250, 48);
-            this.materialTextBox21.TabIndex = 1;
-            this.materialTextBox21.TabStop = false;
-            this.materialTextBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBox21.TrailingIcon = null;
-            this.materialTextBox21.UseSystemPasswordChar = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(490, 226);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 32);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Nombre:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(490, 287);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(171, 32);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Descripcion:";
-            // 
-            // materialTextBox22
-            // 
-            this.materialTextBox22.AnimateReadOnly = false;
-            this.materialTextBox22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.materialTextBox22.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBox22.Depth = 0;
-            this.materialTextBox22.HideSelection = true;
-            this.materialTextBox22.LeadingIcon = null;
-            this.materialTextBox22.Location = new System.Drawing.Point(733, 287);
-            this.materialTextBox22.MaxLength = 32767;
-            this.materialTextBox22.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox22.Name = "materialTextBox22";
-            this.materialTextBox22.PasswordChar = '\0';
-            this.materialTextBox22.PrefixSuffixText = null;
-            this.materialTextBox22.ReadOnly = false;
-            this.materialTextBox22.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.materialTextBox22.SelectedText = "";
-            this.materialTextBox22.SelectionLength = 0;
-            this.materialTextBox22.SelectionStart = 0;
-            this.materialTextBox22.ShortcutsEnabled = true;
-            this.materialTextBox22.Size = new System.Drawing.Size(250, 48);
-            this.materialTextBox22.TabIndex = 3;
-            this.materialTextBox22.TabStop = false;
-            this.materialTextBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBox22.TrailingIcon = null;
-            this.materialTextBox22.UseSystemPasswordChar = false;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -339,6 +212,7 @@
             this.materialTextBox23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.materialTextBox23.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
             this.materialTextBox23.Depth = 0;
+            this.materialTextBox23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.materialTextBox23.HideSelection = true;
             this.materialTextBox23.LeadingIcon = null;
             this.materialTextBox23.Location = new System.Drawing.Point(733, 436);
@@ -398,6 +272,133 @@
             this.materialTextBox24.TrailingIcon = null;
             this.materialTextBox24.UseSystemPasswordChar = false;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(490, 287);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(171, 32);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Descripcion:";
+            // 
+            // materialTextBox22
+            // 
+            this.materialTextBox22.AnimateReadOnly = false;
+            this.materialTextBox22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.materialTextBox22.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.materialTextBox22.Depth = 0;
+            this.materialTextBox22.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialTextBox22.HideSelection = true;
+            this.materialTextBox22.LeadingIcon = null;
+            this.materialTextBox22.Location = new System.Drawing.Point(733, 287);
+            this.materialTextBox22.MaxLength = 32767;
+            this.materialTextBox22.MouseState = MaterialSkin.MouseState.OUT;
+            this.materialTextBox22.Name = "materialTextBox22";
+            this.materialTextBox22.PasswordChar = '\0';
+            this.materialTextBox22.PrefixSuffixText = null;
+            this.materialTextBox22.ReadOnly = false;
+            this.materialTextBox22.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.materialTextBox22.SelectedText = "";
+            this.materialTextBox22.SelectionLength = 0;
+            this.materialTextBox22.SelectionStart = 0;
+            this.materialTextBox22.ShortcutsEnabled = true;
+            this.materialTextBox22.Size = new System.Drawing.Size(250, 48);
+            this.materialTextBox22.TabIndex = 3;
+            this.materialTextBox22.TabStop = false;
+            this.materialTextBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.materialTextBox22.TrailingIcon = null;
+            this.materialTextBox22.UseSystemPasswordChar = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(490, 226);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(122, 32);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Nombre:";
+            // 
+            // materialTextBox21
+            // 
+            this.materialTextBox21.AnimateReadOnly = false;
+            this.materialTextBox21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.materialTextBox21.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
+            this.materialTextBox21.Depth = 0;
+            this.materialTextBox21.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.materialTextBox21.HideSelection = true;
+            this.materialTextBox21.LeadingIcon = null;
+            this.materialTextBox21.Location = new System.Drawing.Point(733, 210);
+            this.materialTextBox21.MaxLength = 32767;
+            this.materialTextBox21.MouseState = MaterialSkin.MouseState.OUT;
+            this.materialTextBox21.Name = "materialTextBox21";
+            this.materialTextBox21.PasswordChar = '\0';
+            this.materialTextBox21.PrefixSuffixText = null;
+            this.materialTextBox21.ReadOnly = false;
+            this.materialTextBox21.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.materialTextBox21.SelectedText = "";
+            this.materialTextBox21.SelectionLength = 0;
+            this.materialTextBox21.SelectionStart = 0;
+            this.materialTextBox21.ShortcutsEnabled = true;
+            this.materialTextBox21.Size = new System.Drawing.Size(250, 48);
+            this.materialTextBox21.TabIndex = 1;
+            this.materialTextBox21.TabStop = false;
+            this.materialTextBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.materialTextBox21.TrailingIcon = null;
+            this.materialTextBox21.UseSystemPasswordChar = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(389, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(659, 91);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "NUEVA RECETA";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.ImageKey = "favoritos.png";
+            this.tabPage4.Location = new System.Drawing.Point(4, 39);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1740, 835);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Te Gusta";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.publicacion6);
+            this.tabPage1.Controls.Add(this.publicacion5);
+            this.tabPage1.Controls.Add(this.publicacion4);
+            this.tabPage1.Controls.Add(this.publicacion3);
+            this.tabPage1.Controls.Add(this.publicacion2);
+            this.tabPage1.Controls.Add(this.publicacion1);
+            this.tabPage1.Controls.Add(this.pictureBox1);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.ImageKey = "icono.png";
+            this.tabPage1.Location = new System.Drawing.Point(4, 39);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Size = new System.Drawing.Size(1740, 835);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Mi Perfil";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(22, 17);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(201, 189);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -408,53 +409,25 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Mi Perfil";
             // 
-            // pictureBox1
+            // imageList1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(22, 17);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(201, 189);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "icono.png");
+            this.imageList1.Images.SetKeyName(1, "pimi.png");
+            this.imageList1.Images.SetKeyName(2, "lupa1.png");
+            this.imageList1.Images.SetKeyName(3, "anadir.png");
+            this.imageList1.Images.SetKeyName(4, "favoritos.png");
             // 
-            // publicacion1
+            // publicacion6
             // 
-            this.publicacion1.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.publicacion1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.publicacion1.Location = new System.Drawing.Point(22, 268);
-            this.publicacion1.Margin = new System.Windows.Forms.Padding(4);
-            this.publicacion1.Name = "publicacion1";
-            this.publicacion1.Size = new System.Drawing.Size(400, 250);
-            this.publicacion1.TabIndex = 2;
-            // 
-            // publicacion2
-            // 
-            this.publicacion2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.publicacion2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.publicacion2.Location = new System.Drawing.Point(444, 268);
-            this.publicacion2.Margin = new System.Windows.Forms.Padding(4);
-            this.publicacion2.Name = "publicacion2";
-            this.publicacion2.Size = new System.Drawing.Size(400, 250);
-            this.publicacion2.TabIndex = 3;
-            // 
-            // publicacion3
-            // 
-            this.publicacion3.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.publicacion3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.publicacion3.Location = new System.Drawing.Point(870, 268);
-            this.publicacion3.Margin = new System.Windows.Forms.Padding(4);
-            this.publicacion3.Name = "publicacion3";
-            this.publicacion3.Size = new System.Drawing.Size(400, 250);
-            this.publicacion3.TabIndex = 4;
-            // 
-            // publicacion4
-            // 
-            this.publicacion4.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.publicacion4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.publicacion4.Location = new System.Drawing.Point(22, 544);
-            this.publicacion4.Margin = new System.Windows.Forms.Padding(4);
-            this.publicacion4.Name = "publicacion4";
-            this.publicacion4.Size = new System.Drawing.Size(400, 250);
-            this.publicacion4.TabIndex = 5;
+            this.publicacion6.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.publicacion6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.publicacion6.Location = new System.Drawing.Point(870, 544);
+            this.publicacion6.Margin = new System.Windows.Forms.Padding(4);
+            this.publicacion6.Name = "publicacion6";
+            this.publicacion6.Size = new System.Drawing.Size(400, 250);
+            this.publicacion6.TabIndex = 7;
             // 
             // publicacion5
             // 
@@ -466,15 +439,45 @@
             this.publicacion5.Size = new System.Drawing.Size(400, 250);
             this.publicacion5.TabIndex = 6;
             // 
-            // publicacion6
+            // publicacion4
             // 
-            this.publicacion6.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.publicacion6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.publicacion6.Location = new System.Drawing.Point(870, 544);
-            this.publicacion6.Margin = new System.Windows.Forms.Padding(4);
-            this.publicacion6.Name = "publicacion6";
-            this.publicacion6.Size = new System.Drawing.Size(400, 250);
-            this.publicacion6.TabIndex = 7;
+            this.publicacion4.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.publicacion4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.publicacion4.Location = new System.Drawing.Point(22, 544);
+            this.publicacion4.Margin = new System.Windows.Forms.Padding(4);
+            this.publicacion4.Name = "publicacion4";
+            this.publicacion4.Size = new System.Drawing.Size(400, 250);
+            this.publicacion4.TabIndex = 5;
+            // 
+            // publicacion3
+            // 
+            this.publicacion3.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.publicacion3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.publicacion3.Location = new System.Drawing.Point(870, 268);
+            this.publicacion3.Margin = new System.Windows.Forms.Padding(4);
+            this.publicacion3.Name = "publicacion3";
+            this.publicacion3.Size = new System.Drawing.Size(400, 250);
+            this.publicacion3.TabIndex = 4;
+            // 
+            // publicacion2
+            // 
+            this.publicacion2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.publicacion2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.publicacion2.Location = new System.Drawing.Point(444, 268);
+            this.publicacion2.Margin = new System.Windows.Forms.Padding(4);
+            this.publicacion2.Name = "publicacion2";
+            this.publicacion2.Size = new System.Drawing.Size(400, 250);
+            this.publicacion2.TabIndex = 3;
+            // 
+            // publicacion1
+            // 
+            this.publicacion1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.publicacion1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.publicacion1.Location = new System.Drawing.Point(22, 268);
+            this.publicacion1.Margin = new System.Windows.Forms.Padding(4);
+            this.publicacion1.Name = "publicacion1";
+            this.publicacion1.Size = new System.Drawing.Size(400, 250);
+            this.publicacion1.TabIndex = 2;
             // 
             // Form2
             // 

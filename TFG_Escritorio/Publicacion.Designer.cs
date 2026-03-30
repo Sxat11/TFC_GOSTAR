@@ -28,23 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.portada = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
+            this.lblLikesCount = new System.Windows.Forms.Label();
+            this.btnLike = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.portada)).BeginInit();
             this.SuspendLayout();
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(348, 207);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(48, 33);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "0";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // portada
             // 
@@ -56,7 +45,6 @@
             this.portada.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.portada.TabIndex = 2;
             this.portada.TabStop = false;
-            this.portada.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // lblTitulo
             // 
@@ -68,7 +56,24 @@
             this.lblTitulo.Size = new System.Drawing.Size(266, 39);
             this.lblTitulo.TabIndex = 3;
             this.lblTitulo.Text = "PAELLA DIEGO";
-            this.lblTitulo.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // lblLikesCount
+            // 
+            this.lblLikesCount.AutoSize = true;
+            this.lblLikesCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLikesCount.Location = new System.Drawing.Point(360, 200);
+            this.lblLikesCount.Name = "lblLikesCount";
+            this.lblLikesCount.Size = new System.Drawing.Size(37, 39);
+            this.lblLikesCount.TabIndex = 4;
+            this.lblLikesCount.Text = "0";
+            // 
+            // btnLike
+            // 
+            this.btnLike.Location = new System.Drawing.Point(277, 202);
+            this.btnLike.Name = "btnLike";
+            this.btnLike.Size = new System.Drawing.Size(45, 37);
+            this.btnLike.TabIndex = 5;
+            this.btnLike.UseVisualStyleBackColor = true;
             // 
             // Publicacion
             // 
@@ -76,9 +81,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Controls.Add(this.btnLike);
+            this.Controls.Add(this.lblLikesCount);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.portada);
-            this.Controls.Add(this.checkBox1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Publicacion";
             this.Size = new System.Drawing.Size(400, 250);
@@ -89,8 +95,9 @@
         }
 
         #endregion
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.PictureBox portada;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblLikesCount;
+        private System.Windows.Forms.Button btnLike;
     }
 }

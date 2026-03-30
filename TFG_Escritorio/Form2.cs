@@ -63,7 +63,7 @@ namespace GostarApp
                         foreach (var pub in publicaciones)
                         {
                             Publicacion card = new Publicacion();
-                            card.SetDatos(pub);
+                            card.SetDatos(pub,Sesion.Token);
                             card.Margin = new Padding(15); // Margen para que no se peguen
 
                             panel1.Controls.Add(card);
@@ -148,7 +148,7 @@ namespace GostarApp
                 {
                     // Duplicamos lógica de CargarPublicaciones aquí mismo porque sí
                     Publicacion p = new Publicacion();
-                    p.SetDatos(pub);
+                    p.SetDatos(pub,Sesion.Token);
                     panel1.Controls.Add(p);
                 }
             }
@@ -165,6 +165,11 @@ namespace GostarApp
                 if (f.Name == "Form1") f.Show();
             }
             this.Close();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
