@@ -6,4 +6,12 @@ Buenos días, buenas tardes y buenas noches. Bienvenido a mi aplicación GOSTAR,
 
 03/02/2026 Hemos avanzado bastante en los últimos días hemos logrado hacer la navigation bar completamente funcional y el fragment inicial ya está bastante avanzado, las funciones del primer fragment funcionan correctamten podemos moder el recycle view y al clickar en cada celda podremos obtener información sobre ella. También hemos implementado el botón de "Me gusta". Hemos comenzado la parte de Aplicación Web, ya está creada la vista de "Inicio de Sesión" y "Crear Cuenta", aunque todavía no tienen funcionamiento real.
 
-10/02/2026 Creamos la Base de Datos y sus respectivas tablas de momento utilizaremos las tablas Usuarios y Publicaciones en las que se guardaran usuarios y tablas respectivamente. Tambien comenzamos a crear el BackEnd en el que se realizaran las llamadas a la API.
+10/02/2026 Creamos la Base de Datos y sus respectivas tablas de momento utilizaremos las tablas Usuarios y Publicaciones en las que se guardaran usuarios y tablas respectivamente. Tambien comenzamos a crear el BackEnd en el que se realizaran las llamadas a la API. 
+
+17/02/2026 Conseguimos hacer funcional el login tanto en Web como en Móvil, e intentamos hacer funcional el crear Cuenta. En móvil hacemos que los fragments ya sean funcionales y muestren algunas cosas. 
+
+20/02/2026 Ya se pueden cargar los datos y se muestran en el muro de Web, tambien implementamos el Editar Perfil en Web, además de intentar mejorar la apariencia Web. 
+
+21/02/2026 Debido a un error humano tenemos que reconstruir gran parte del proyecto de móvil lo que provoca un imporante retroceso en el proyecto
+
+22/02/2026 Implementamos el muro de móvil y ya se pueden crear publicaciones y cuentas tanto en móviles como 
