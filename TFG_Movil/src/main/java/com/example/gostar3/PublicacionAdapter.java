@@ -63,6 +63,10 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             holder.likeButton.setColorFilter(holder.itemView.getContext().getColor(android.R.color.darker_gray));
         }
     }
+    public void updateData(List<Publicacion> nuevasPublicaciones) {
+        this.publicaciones = nuevasPublicaciones;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
@@ -87,4 +91,5 @@ public class PublicacionAdapter extends RecyclerView.Adapter<PublicacionAdapter.
             likeButton = itemView.findViewById(R.id.likeButton);
         }
     }
+
 }

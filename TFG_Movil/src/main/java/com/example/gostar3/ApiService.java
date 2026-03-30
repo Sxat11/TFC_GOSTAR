@@ -63,4 +63,14 @@ public interface ApiService {
         private String mensaje;
         public String getMensaje() { return mensaje; }
     }
+
+    @GET("publicaciones/buscar")
+    Call<List<Publicacion>> buscarPublicaciones(@Header("Authorization") String token,
+                                                @Query("q") String query,
+                                                @Query("page") int page,
+                                                @Query("limit") int limit);
+    @GET("publicaciones/liked/{usuarioId}")
+    Call<List<Publicacion>> getPublicacionesLikedByUser(@Header("Authorization") String token,
+                                                        @Path("usuarioId") int usuarioId,
+                                                        @Query("page") int page);
 }
