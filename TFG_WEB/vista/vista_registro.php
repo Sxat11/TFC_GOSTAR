@@ -79,17 +79,19 @@
         .btn-register {
             width: 100%;
             padding: 12px;
-            background-color: #007bff;
             color: #ffffff;
             border: none;
             border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
             margin-top: 10px;
+            background-color: rgb(0, 179, 21);
+
         }
 
         .btn-register:hover {
-            background-color: #0056b3;
+            background-color: rgb(134, 247, 142);
+
         }
 
         .login-text {
@@ -174,7 +176,7 @@
                     <button type="submit" class="btn-register">Registrarse</button>
                 </form>
                 <p class="login-text">
-                    ¿Ya tienes una cuenta? <a href="index2.php">Inicia sesión aquí</a>
+                    ¿Ya tienes una cuenta? <a href="../index.php">Inicia sesión aquí</a>
                 </p>
             </section>
         </div>
@@ -234,7 +236,7 @@ document.getElementById('registroForm').addEventListener('submit', async functio
             
             // Redirigir después de 2 segundos
             setTimeout(() => {
-                window.location.href = '../index2.php';
+                window.location.href = '../index.php';
             }, 2000);
             
         } else {

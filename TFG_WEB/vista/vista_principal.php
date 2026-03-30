@@ -5,16 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOSTAR - Página Principal</title>
-    <link rel="stylesheet" href="styles.css">
+
     <style>
         @media (min-width: 768px) {
             .auth-section {
-                max-width: 500px;
-                margin-left: auto;
-                margin-right: auto;
+                align-items: center;    
+
             }
         }
+        header {
+        
+           
+        }
 
+        
         .navbar {
             background: white;
             padding: 15px 0;
@@ -22,11 +26,9 @@
         }
 
         .container {
-            /* max-width: 1100px; */
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
-            /* Empuja el grupo de links a la derecha */
             align-items: center;
             padding: 0 20px;
         }
@@ -34,16 +36,13 @@
         .nav-group {
             display: flex;
             gap: 25px;
-            /* Espacio entre Favoritos y Tú */
             align-items: center;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            /* Alinea icono y texto verticalmente al centro */
             gap: 10px;
-            /* Espacio entre el icono y la palabra */
             text-decoration: none;
             color: #333;
             font-family: sans-serif;
@@ -52,148 +51,140 @@
 
         .icon {
             height: 30px;
-            /* Tamaño del icono */
             width: auto;
         }
 
         .nav-link:hover {
             color: rgb(41, 131, 0);
-            /* Color opcional al pasar el mouse */
         }
 
-        /* Estilos para las publicaciones */
-        .publicaciones-container {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
+        /* ===== NUEVO: GRID DE 3 COLUMNAS ===== */
+        .publicaciones-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* 3 columnas */
+            gap: 20px;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
-        .post-container {
-            background: #fff;
-            border: 1px solid #dbdbdb;
-            border-radius: 8px;
-            font-family: sans-serif;
+        /* Tarjetas de recetas (versión compacta) */
+        .post-card {
+            background: white;
+            border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            height: 280px;
+            /* Altura fija para uniformidad */
+            position: relative;
         }
 
-        /* Cabecera */
-        .post-header {
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Imagen de fondo que ocupa toda la tarjeta */
+        .post-card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Overlay oscuro para mejorar legibilidad del texto */
+        .post-card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7));
+            z-index: 2;
+        }
+
+        /* Contenido sobre la imagen */
+        .post-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            color: white;
+            z-index: 3;
+        }
+
+        .post-card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+          
+        }
+
+        .post-card-meta {
             display: flex;
             align-items: center;
-            padding: 12px;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+           
         }
 
-        .post-avatar {
-            width: 35px;
-            height: 35px;
+        .post-card-author {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .post-card-avatar {
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
-            object-fit: cover;
-            background: #008080;
-            color: white;
+            background: rgb(41, 131, 0);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 12px;
             font-weight: bold;
-            font-size: 16px;
-        }
-
-        .post-info {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .post-username {
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .post-date {
-            font-size: 11px;
-            color: #8e8e8e;
-        }
-
-        /* Imagen */
-        .post-image-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .post-image {
-            width: 100%;
-            display: block;
-            max-height: 400px;
-            object-fit: cover;
-        }
-
-        .post-duration {
-            position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 14px;
         }
 
-        /* Contenido y Botones */
-        .post-content {
-            padding: 12px;
-        }
-
-        .post-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #008080;
-            margin-bottom: 8px;
-        }
-
-        .post-description {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 12px;
-        }
-
-        .post-actions {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-
-        .action-btn {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 0;
-            transition: transform 0.2s;
+        .post-card-likes {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
 
-        .action-btn:hover {
-            transform: scale(1.1);
+        .post-card-likes img {
+            width: 18px;
+            height: 18px;
+            filter: brightness(0) invert(1);
+            /* Corazón blanco */
         }
 
-        .like-count {
-            font-size: 14px;
-            color: #333;
+        .post-card-duration {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+           
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 3;
         }
 
-        .post-text {
-            font-size: 14px;
-            line-height: 1.4;
-            color: #262626;
-        }
-
+        /* Loading y estados vacíos (igual que antes) */
         .loading {
             text-align: center;
             padding: 40px;
-            color: #666;
+            
         }
 
         .no-recetas {
@@ -202,12 +193,14 @@
             background: white;
             border-radius: 8px;
             border: 1px solid #dbdbdb;
+            max-width: 500px;
+            margin: 30px auto;
         }
 
         .no-recetas button {
             margin-top: 20px;
             padding: 12px 24px;
-            background: #008080;
+            background: rgb(41, 131, 0);
             color: white;
             border: none;
             border-radius: 4px;
@@ -217,12 +210,26 @@
 
         .loader {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #008080;
+            border-top: 4px solid rgb(41, 131, 0);
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
             margin: 40px auto;
+        }
+
+        .titulo-gostar {
+            font-family: 'Poppins', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            text-align: center;
+            margin-top: 40px;
+
+            background: linear-gradient(90deg, #2E7D32, #43A047, #00C853);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            letter-spacing: 2px;
         }
 
         @keyframes spin {
@@ -241,12 +248,25 @@
         }
 
         .welcome-section h2 {
-            color: #008080;
+            color: rgb(41, 131, 0);
             margin-bottom: 10px;
         }
 
         .welcome-section p {
             color: #666;
+        }
+
+        /* Responsive: tablet 2 columnas, móvil 1 columna */
+        @media (max-width: 900px) {
+            .publicaciones-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .publicaciones-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -260,7 +280,7 @@
 
             // Si no hay token, redirigir al login
             if (!token) {
-                window.location.href = 'index2.php';
+                window.location.href = '../index.php';
                 return;
             }
 
@@ -296,7 +316,7 @@
                     console.warn('Token inválido, redirigiendo a login');
                     localStorage.removeItem('token');
                     localStorage.removeItem('usuario');
-                    window.location.href = 'index2.php';
+                    window.location.href = '../index.php';
                 } else if (data.usuario) {
                     // Actualizar datos del usuario si es necesario
                     localStorage.setItem('usuario', JSON.stringify(data.usuario));
@@ -320,21 +340,17 @@
                 }).finally(() => {
                     localStorage.removeItem('token');
                     localStorage.removeItem('usuario');
-                    window.location.href = '../index2.php';
+                    window.location.href = '../index.php';
                 });
             } else {
-                window.location.href = '../index2.php';
+                window.location.href = '../index.php';
             }
-        }
-
-        function verDetalle(publicacionId) {
-            window.location.href = `vista_detalle_receta.php?id=${publicacionId}`;
         }
 
         // Función para cargar publicaciones
         async function cargarPublicaciones() {
             const token = localStorage.getItem('token');
-            const container = document.getElementById('publicaciones-dinamicas');
+            const container = document.getElementById('publicaciones-grid');
 
             try {
                 const response = await fetch('http://localhost:8080/mi-primera-api/rest/publicaciones?page=1&limit=20', {
@@ -361,7 +377,7 @@
         }
 
         function mostrarPublicaciones(publicaciones) {
-            const container = document.getElementById('publicaciones-dinamicas');
+            const container = document.getElementById('publicaciones-grid');
 
             if (!publicaciones || publicaciones.length === 0) {
                 container.innerHTML = `
@@ -379,44 +395,34 @@
             let html = '';
 
             publicaciones.forEach(pub => {
-                // Formatear fecha
-                const fecha = new Date(pub.fechaCreacion || pub.fecha_creacion);
-                const fechaFormateada = fecha.toLocaleDateString('es-ES', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
-
                 // Obtener inicial para avatar
                 const inicial = (pub.usuarioNombre || 'U').charAt(0).toUpperCase();
 
                 html += `
-                    <div class="post-container">
-                        <div class="post-header">
-                            <div class="post-avatar">${inicial}</div>
-                            <div class="post-info">
-                                <span class="post-username">${pub.usuarioNombre || 'Usuario'}</span>
-                                <span class="post-date">${fechaFormateada}</span>
-                            </div>
-                        </div>
-
-                        <div class="post-image-container">
-                            <img src="${pub.imagenPrincipal}" alt="${pub.titulo}" class="post-image">
-                            <span class="post-duration">⏱️ ${pub.duracion}</span>
-                        </div>
-
-                        <div class="post-content">
-                            <h3 class="post-title">${pub.titulo}</h3>
-                            <p class="post-description">${pub.descripcion || ''}</p>
+                    <div class="post-card" onclick="verDetalle(${pub.id})">
+                        <img src="${pub.imagenPrincipal}" alt="${pub.titulo}" class="post-card-image">
+                        <div class="post-card-overlay"></div>
+                        
+                        <div class="post-card-duration"> ${pub.duracion}</div>
+                        
+                        <div class="post-card-content">
+                            <h3 class="post-card-title">${pub.titulo}</h3>
                             
-                            <div class="post-actions">
-                                <button class="action-btn" onclick="darLike(${pub.id}, this)">
-                                    ❤️ <span class="like-count">${pub.likes || 0}</span>
-                                </button>
-                                <button class="action-btn" onclick="verDetalle(${pub.id})">
-                                    📖 Ver receta
-                                </button>
+                            <div class="post-card-meta">
+                                <div class="post-card-author">
+                                    <div class="post-card-avatar">${inicial}</div>
+                                    <span>${pub.usuarioNombre || 'Usuario'}</span>
+                                </div>
+                                
+                                <div class="post-card-likes">
+                                  
+                                    <span>${pub.likes || 0}</span>
+                                </div>
                             </div>
+                            
+                            <button class="action-btn" onclick="darLike(${pub.id}, event)" style="background: none; border: none; color: white; cursor: pointer; padding: 5px 10px; border-radius: 20px; background: rgba(255,255,255,0.2); margin-top: 10px;">
+                                 Dar like
+                            </button>
                         </div>
                     </div>
                 `;
@@ -425,8 +431,11 @@
             container.innerHTML = html;
         }
 
-        async function darLike(publicacionId, boton) {
+        async function darLike(publicacionId, event) {
+            event.stopPropagation(); // Evitar que se active el clic en la tarjeta
+
             const token = localStorage.getItem('token');
+            const boton = event.currentTarget;
 
             try {
                 const response = await fetch(`http://localhost:8080/mi-primera-api/rest/publicaciones/${publicacionId}/like`, {
@@ -438,10 +447,17 @@
 
                 if (response.ok) {
                     const data = await response.json();
-                    const likeSpan = boton.querySelector('.like-count');
+                    // Actualizar el contador en la tarjeta
+                    const likeSpan = boton.closest('.post-card').querySelector('.post-card-likes span');
                     if (likeSpan) {
                         likeSpan.textContent = data.likes;
                     }
+
+                    // Feedback visual rápido
+                    boton.style.background = '#ff4444';
+                    setTimeout(() => {
+                        boton.style.background = 'rgba(255,255,255,0.2)';
+                    }, 200);
                 }
             } catch (error) {
                 console.error('Error al dar like:', error);
@@ -449,7 +465,6 @@
         }
 
         function verDetalle(publicacionId) {
-            alert('Ver detalle de receta ' + publicacionId + ' - Próximamente');
             window.location.href = `vista_detalle.php?id=${publicacionId}`;
         }
     </script>
@@ -457,7 +472,7 @@
     <header>
         <nav class="navbar">
             <div class="container">
-                <a href="#" class="logo-main">
+                <a href="vista_principal.php" class="logo-main">
                     <img src="../GostarLogoLargo.png" alt="GOSTAR Logo" height="60px">
                 </a>
 
@@ -479,7 +494,7 @@
 
         <nav class="navbar2">
             <div class="nav-group">
-                <a href="/index2.php" class="nav-link">Todas las categorias</a>
+                <a href="/index.php" class="nav-link">Todas las categorias</a>
                 <a href="#" class="nav-link">Desayuno</a>
                 <a href="#" class="nav-link">Comida</a>
                 <a href="#" class="nav-link">Cena</a>
@@ -490,21 +505,23 @@
                 <a href="#" class="nav-link">Sin lactosa</a>
                 <a href="#" class="nav-link">Asiatico</a>
                 <button onclick="window.location.href='vista_crear_publicacion.php'"
-                    style="background: #008080; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-left: 15px;">
-                    + Nueva Receta
+                    style="background: rgb(41, 131, 0);; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-left: 15px;">
+                    Nueva Receta
                 </button>
             </div>
         </nav>
     </header>
 
+    <div class="container2" style="background-image: url('../fondo.png'); background-size: cover; background-position: center; min-height: 80vh;">
     <div class="welcome-section">
-        <h2>Bienvenido a GOSTAR</h2>
+        <h1 class="titulo-gostar">Bienvenido a GOSTAR</h1>
         <p>¿Qué vamos a hacer hoy?</p>
     </div>
 
-    <!-- Contenedor para publicaciones dinámicas -->
-    <div id="publicaciones-dinamicas" class="publicaciones-container">
-        <div class="loader"></div>
+    <!-- Contenedor para publicaciones en GRID de 3 columnas -->
+    <div id="publicaciones-grid" class="publicaciones-grid">
+        <div class="loader" ></div>
+    </div>
     </div>
 
 </body>

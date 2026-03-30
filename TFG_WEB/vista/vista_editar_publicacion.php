@@ -1,5 +1,4 @@
 <?php
-// Iniciar sesión para verificar token
 session_start();
 ?>
 <!DOCTYPE html>
@@ -7,9 +6,8 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOSTAR - Crear Receta</title>
+    <title>GOSTAR - Editar Receta</title>
     <style>
-        /* Mismos estilos que antes */
         * {
             margin: 0;
             padding: 0;
@@ -35,6 +33,7 @@ session_start();
             font-size: 24px;
             font-weight: bold;
             color: #008080;
+            cursor: pointer;
         }
 
         .user-info {
@@ -55,6 +54,20 @@ session_start();
             border: none;
             border-radius: 4px;
             cursor: pointer;
+        }
+
+        .back-btn {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 20px;
         }
 
         .container {
@@ -195,11 +208,26 @@ session_start();
         .col {
             flex: 1;
         }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #008080;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 40px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
-         <a href="vista_principal.php" class="logo-main">
+          <a href="vista_principal.php" class="logo-main">
                     <img src="../GostarLogoLargo.png" alt="GOSTAR Logo" height="60px">
                 </a>
         <div class="user-info">
@@ -209,26 +237,29 @@ session_start();
     </nav>
 
     <div class="container">
+        <button class="back-btn" onclick="window.history.back()">← Volver</button>
+        
         <div class="form-card">
-            <h1>Comparte tu receta</h1>
+            <h1>Editar Receta</h1>
             
             <div id="error-mensaje" class="error"></div>
             <div id="success-mensaje" class="success"></div>
+            <div id="cargando" class="loader"></div>
             
-            <form id="crearRecetaForm">
+            <form id="editarRecetaForm" style="display: none;">
                 <!-- Información básica -->
                 <div class="section-title">Información básica</div>
                 
                 <div class="form-group">
                     <label for="titulo">Título de la receta *</label>
-                    <input type="text" id="titulo" name="titulo" required placeholder="Ej: Tortilla de patatas">
+                    <input type="text" id="titulo" name="titulo" required>
                 </div>
                 
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
                             <label for="duracion">Duración *</label>
-                            <input type="text" id="duracion" name="duracion" required placeholder="Ej: 30 minutos">
+                            <input type="text" id="duracion" name="duracion" required>
                         </div>
                     </div>
                     <div class="col">
@@ -246,68 +277,159 @@ session_start();
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="calorias">Calorías (opcional)</label>
-                            <input type="number" id="calorias" name="calorias" placeholder="Ej: 350">
+                            <label for="calorias">Calorías</label>
+                            <input type="number" id="calorias" name="calorias">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="imagenPrincipal">URL de imagen principal *</label>
-                            <input type="text" id="imagenPrincipal" name="imagenPrincipal" required placeholder="https://ejemplo.com/imagen.jpg">
+                            <input type="text" id="imagenPrincipal" name="imagenPrincipal" required>
                         </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <textarea id="descripcion" name="descripcion" placeholder="Cuéntanos sobre esta receta..."></textarea>
+                    <textarea id="descripcion" name="descripcion"></textarea>
                 </div>
                 
                 <!-- Ingredientes -->
                 <div class="section-title">Ingredientes</div>
-                <div class="dynamic-list" id="ingredientes-container">
-                    <div class="dynamic-item">
-                        <input type="text" class="ingrediente" placeholder="Ej: 4 huevos" required>
-                        <button type="button" class="btn-remove" onclick="eliminarIngrediente(this)">×</button>
-                    </div>
-                </div>
+                <div class="dynamic-list" id="ingredientes-container"></div>
                 <button type="button" class="btn-add" onclick="agregarIngrediente()">+ Añadir ingrediente</button>
                 
                 <!-- Pasos -->
                 <div class="section-title">Pasos de preparación</div>
-                <div class="dynamic-list" id="pasos-container">
-                    <div class="dynamic-item">
-                        <input type="text" class="paso" placeholder="Ej: Pelar y cortar las patatas" required>
-                        <button type="button" class="btn-remove" onclick="eliminarPaso(this)">×</button>
-                    </div>
-                </div>
+                <div class="dynamic-list" id="pasos-container"></div>
                 <button type="button" class="btn-add" onclick="agregarPaso()">+ Añadir paso</button>
                 
                 <!-- Imágenes adicionales -->
-                <div class="section-title">Imágenes adicionales (opcional)</div>
-                <div class="dynamic-list" id="imagenes-container">
-                    <div class="dynamic-item">
-                        <input type="text" class="imagen" placeholder="https://ejemplo.com/imagen1.jpg">
-                        <button type="button" class="btn-remove" onclick="eliminarImagen(this)">×</button>
-                    </div>
-                </div>
+                <div class="section-title">Imágenes adicionales</div>
+                <div class="dynamic-list" id="imagenes-container"></div>
                 <button type="button" class="btn-add" onclick="agregarImagen()">+ Añadir imagen</button>
                 
-                <button type="submit" class="btn-submit">Publicar receta</button>
+                <button type="submit" class="btn-submit">Guardar cambios</button>
             </form>
         </div>
     </div>
 
     <script>
-        // Verificar token al cargar
         const token = localStorage.getItem('token');
-        if (!token) {
-            window.location.href = 'index.php';
+        const urlParams = new URLSearchParams(window.location.search);
+        const publicacionId = urlParams.get('id');
+
+        if (!token) window.location.href = '../index.php';
+        if (!publicacionId) window.location.href = 'vista_principal.php';
+
+        let usuarioActual = null;
+        let publicacionOriginal = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarUsuario();
+            cargarPublicacion();
+        });
+
+        async function cargarUsuario() {
+            try {
+                const response = await fetch('http://localhost:8080/mi-primera-api/rest/auth/perfil', {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+                usuarioActual = await response.json();
+                document.getElementById('username').textContent = usuarioActual.nombre || usuarioActual.username;
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
 
-        // Mostrar nombre de usuario
-        const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
-        document.getElementById('username').textContent = usuario.nombre || usuario.username;
+        async function cargarPublicacion() {
+            try {
+                const response = await fetch(`http://localhost:8080/mi-primera-api/rest/publicaciones/${publicacionId}`, {
+                    headers: { 'Authorization': 'Bearer ' + token }
+                });
+
+                if (!response.ok) {
+                    throw new Error('No se pudo cargar la publicación');
+                }
+
+                publicacionOriginal = await response.json();
+                
+                // Verificar que el usuario es el autor
+                if (publicacionOriginal.usuarioId !== usuarioActual?.id) {
+                    alert('No tienes permiso para editar esta publicación');
+                    window.location.href = 'vista_principal.php';
+                    return;
+                }
+
+                rellenarFormulario();
+                document.getElementById('cargando').style.display = 'none';
+                document.getElementById('editarRecetaForm').style.display = 'block';
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('cargando').style.display = 'none';
+                document.getElementById('error-mensaje').textContent = 'Error al cargar la publicación';
+                document.getElementById('error-mensaje').style.display = 'block';
+            }
+        }
+
+        function rellenarFormulario() {
+            // Datos básicos
+            document.getElementById('titulo').value = publicacionOriginal.titulo || '';
+            document.getElementById('duracion').value = publicacionOriginal.duracion || '';
+            document.getElementById('imagenPrincipal').value = publicacionOriginal.imagenPrincipal || '';
+            document.getElementById('descripcion').value = publicacionOriginal.descripcion || '';
+            document.getElementById('dificultad').value = publicacionOriginal.dificultad || 'Media';
+            document.getElementById('calorias').value = publicacionOriginal.calorias || 0;
+
+            // Ingredientes
+            const ingContainer = document.getElementById('ingredientes-container');
+            if (publicacionOriginal.ingredientes && publicacionOriginal.ingredientes.length > 0) {
+                publicacionOriginal.ingredientes.forEach(ing => {
+                    const div = document.createElement('div');
+                    div.className = 'dynamic-item';
+                    div.innerHTML = `
+                        <input type="text" class="ingrediente" value="${ing}" required>
+                        <button type="button" class="btn-remove" onclick="eliminarIngrediente(this)">×</button>
+                    `;
+                    ingContainer.appendChild(div);
+                });
+            } else {
+                agregarIngrediente();
+            }
+
+            // Pasos
+            const pasosContainer = document.getElementById('pasos-container');
+            if (publicacionOriginal.pasos && publicacionOriginal.pasos.length > 0) {
+                publicacionOriginal.pasos.forEach(paso => {
+                    const div = document.createElement('div');
+                    div.className = 'dynamic-item';
+                    div.innerHTML = `
+                        <input type="text" class="paso" value="${paso}" required>
+                        <button type="button" class="btn-remove" onclick="eliminarPaso(this)">×</button>
+                    `;
+                    pasosContainer.appendChild(div);
+                });
+            } else {
+                agregarPaso();
+            }
+
+            // Imágenes adicionales
+            const imgContainer = document.getElementById('imagenes-container');
+            if (publicacionOriginal.imagenesAdicionales && publicacionOriginal.imagenesAdicionales.length > 0) {
+                publicacionOriginal.imagenesAdicionales.forEach(img => {
+                    const div = document.createElement('div');
+                    div.className = 'dynamic-item';
+                    div.innerHTML = `
+                        <input type="text" class="imagen" value="${img}">
+                        <button type="button" class="btn-remove" onclick="eliminarImagen(this)">×</button>
+                    `;
+                    imgContainer.appendChild(div);
+                });
+            } else {
+                agregarImagen();
+            }
+        }
 
         // Funciones para manejar listas dinámicas
         function agregarIngrediente() {
@@ -361,38 +483,29 @@ session_start();
             boton.parentElement.remove();
         }
 
-        // Enviar formulario - AHORA LLAMA DIRECTAMENTE A LA API
-        document.getElementById('crearRecetaForm').addEventListener('submit', async function(e) {
+        // Enviar formulario
+        document.getElementById('editarRecetaForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             document.getElementById('error-mensaje').style.display = 'none';
             document.getElementById('success-mensaje').style.display = 'none';
             
-            // Recoger ingredientes
+            // Recoger datos
             const ingredientes = [];
             document.querySelectorAll('.ingrediente').forEach(input => {
-                if (input.value.trim()) {
-                    ingredientes.push(input.value.trim());
-                }
+                if (input.value.trim()) ingredientes.push(input.value.trim());
             });
             
-            // Recoger pasos
             const pasos = [];
             document.querySelectorAll('.paso').forEach(input => {
-                if (input.value.trim()) {
-                    pasos.push(input.value.trim());
-                }
+                if (input.value.trim()) pasos.push(input.value.trim());
             });
             
-            // Recoger imágenes adicionales
             const imagenesAdicionales = [];
             document.querySelectorAll('.imagen').forEach(input => {
-                if (input.value.trim()) {
-                    imagenesAdicionales.push(input.value.trim());
-                }
+                if (input.value.trim()) imagenesAdicionales.push(input.value.trim());
             });
             
-            // Validar que haya al menos un ingrediente y un paso
             if (ingredientes.length === 0) {
                 mostrarError('Debes añadir al menos un ingrediente');
                 return;
@@ -409,18 +522,20 @@ session_start();
                 imagenPrincipal: document.getElementById('imagenPrincipal').value,
                 descripcion: document.getElementById('descripcion').value,
                 dificultad: document.getElementById('dificultad').value,
-                calorias: document.getElementById('calorias').value ? parseInt(document.getElementById('calorias').value) : 0,
+                calorias: parseInt(document.getElementById('calorias').value) || 0,
                 ingredientes: ingredientes,
                 pasos: pasos,
                 imagenesAdicionales: imagenesAdicionales
             };
             
-            console.log('Enviando datos:', datos);
+            const submitBtn = document.querySelector('.btn-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Guardando...';
+            submitBtn.disabled = true;
             
             try {
-                // IMPORTANTE: Llamada DIRECTA a la API Java
-                const response = await fetch('http://localhost:8080/mi-primera-api/rest/publicaciones', {
-                    method: 'POST',
+                const response = await fetch(`http://localhost:8080/mi-primera-api/rest/publicaciones/${publicacionId}`, {
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + token
@@ -430,37 +545,44 @@ session_start();
                 
                 const data = await response.json();
                 
-                if (response.status === 201) {
-                    mostrarExito('¡Receta publicada con éxito!');
+                if (response.ok) {
+                    mostrarExito('¡Receta actualizada correctamente!');
                     setTimeout(() => {
-                        window.location.href = 'vista_principal.php';
+                        window.location.href = `vista_detalle.php?id=${publicacionId}`;
                     }, 2000);
                 } else {
-                    mostrarError(data.error || 'Error al publicar la receta');
+                    mostrarError(data.error || 'Error al actualizar');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
                 }
                 
             } catch (error) {
-                console.error('Error completo:', error);
-                mostrarError('Error de conexión: ' + error.message);
+                console.error('Error:', error);
+                mostrarError('Error de conexión');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
             }
         });
 
         function mostrarError(mensaje) {
-            const errorDiv = document.getElementById('error-mensaje');
-            errorDiv.textContent = mensaje;
-            errorDiv.style.display = 'block';
+            document.getElementById('error-mensaje').textContent = mensaje;
+            document.getElementById('error-mensaje').style.display = 'block';
         }
 
         function mostrarExito(mensaje) {
-            const successDiv = document.getElementById('success-mensaje');
-            successDiv.textContent = mensaje;
-            successDiv.style.display = 'block';
+            document.getElementById('success-mensaje').textContent = mensaje;
+            document.getElementById('success-mensaje').style.display = 'block';
         }
 
         function logout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('usuario');
-            window.location.href = '../index.php';
+            fetch('http://localhost:8080/mi-primera-api/rest/auth/logout', {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + token }
+            }).finally(() => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('usuario');
+                window.location.href = '../index.php';
+            });
         }
     </script>
 </body>

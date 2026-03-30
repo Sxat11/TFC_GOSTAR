@@ -51,6 +51,8 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: medium;
+
         }
 
         .crear-btn {
@@ -60,6 +62,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            font-size: medium;
             text-decoration: none;
         }
 
@@ -299,14 +302,17 @@
             background: #e0e0e0;
         }
     </style>
+    <icon href="../GostarIcono.png" type="image/png">
 </head>
 
 <body>
     <nav class="navbar">
-        <div class="logo">GOSTAR</div>
+        <a href="vista_principal.php" class="logo-main">
+                    <img src="../GostarLogoLargo.png" alt="GOSTAR Logo" height="60px">
+                </a>
         <div class="user-info">
             <span class="username" id="username">Cargando...</span>
-            <a href="vista_crear_publicacion.php" class="crear-btn">+ Nueva Receta</a>
+            <a href="vista_crear_publicacion.php" class="crear-btn">Nueva Receta</a>
             <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
         </div>
     </nav>
@@ -318,7 +324,7 @@
             <div class="profile-info">
                 <div class="profile-name" id="profile-name">Cargando...</div>
                 <div class="profile-username" id="profile-username">@cargando</div>
-                <div class="profile-email" id="profile-email">📧 cargando...</div>
+                <div class="profile-email" id="profile-email"> cargando...</div>
 
                 <div class="profile-stats">
                     <div class="stat">
@@ -332,7 +338,7 @@
                 </div>
 
                 <div class="profile-bio" id="profile-bio"></div>
-                <button class="edit-btn" onclick="editarPerfil()">✏️ Editar perfil</button>
+                <button class="edit-btn" onclick="editarPerfil()"> Editar perfil</button>
             </div>
         </div>
 
@@ -355,7 +361,7 @@
 
         // Verificar token al cargar
         if (!token) {
-            window.location.href = 'index2.php';
+            window.location.href = '../index.php';
         }
 
         // Cargar datos al iniciar
@@ -383,7 +389,7 @@
                 document.getElementById('username').textContent = usuario.nombre || usuario.username;
                 document.getElementById('profile-name').textContent = usuario.nombre || 'Usuario';
                 document.getElementById('profile-username').textContent = '@' + (usuario.username || 'usuario');
-                document.getElementById('profile-email').textContent = '📧 ' + (usuario.email || '');
+                document.getElementById('profile-email').textContent = ' ' + (usuario.email || '');
                 document.getElementById('profile-bio').textContent = usuario.bio || 'Sin biografía aún';
 
                 // Avatar con inicial
@@ -399,50 +405,66 @@
             }
         }
 
-        async function cargarMisPublicaciones() {
-            const container = document.getElementById('publicaciones-container');
+       async function cargarMisPublicaciones() {
+    const container = document.getElementById('publicaciones-container');
 
-            try {
-                // Obtener ID del usuario actual
-                const perfilResponse = await fetch('http://localhost:8080/mi-primera-api/rest/auth/perfil', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                });
-                const perfil = await perfilResponse.json();
-                const usuarioId = perfil.id;
+    try {
+        // Obtener ID del usuario actual
+        const perfilResponse = await fetch('http://localhost:8080/mi-primera-api/rest/auth/perfil', {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+        const perfil = await perfilResponse.json();
+        const usuarioId = perfil.id;
+        console.log(' Usuario ID actual:', usuarioId);
 
-                // Cargar publicaciones de este usuario
-                const response = await fetch(`http://localhost:8080/mi-primera-api/rest/publicaciones/usuario/${usuarioId}?page=1`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                });
+        // Obtener TODAS las publicaciones
+        const response = await fetch('http://localhost:8080/mi-primera-api/rest/publicaciones?page=1&limit=100', {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
 
-                if (!response.ok) {
-                    throw new Error('Error al cargar publicaciones');
-                }
-
-                const publicaciones = await response.json();
-
-                // Actualizar contador de recetas
-                document.getElementById('stat-recetas').textContent = publicaciones.length;
-
-                // Calcular total de likes
-                const totalLikes = publicaciones.reduce((sum, pub) => sum + (pub.likes || 0), 0);
-                document.getElementById('stat-likes').textContent = totalLikes;
-
-                mostrarPublicaciones(publicaciones);
-
-            } catch (error) {
-                console.error('Error:', error);
-                container.innerHTML = `
-                    <div class="no-publicaciones">
-                        <p>Error al cargar tus recetas</p>
-                    </div>
-                `;
-            }
+        if (!response.ok) {
+            throw new Error('Error HTTP: ' + response.status);
         }
+
+        const todasPublicaciones = await response.json();
+        console.log(' Respuesta completa:', todasPublicaciones);
+        
+        if (todasPublicaciones.length > 0) {
+            const primeraPub = todasPublicaciones[0];
+            console.log(' PRIMERA PUBLICACIÓN (COMPLETA):', primeraPub);
+            console.log(' CAMPOS DISPONIBLES:', Object.keys(primeraPub));
+            console.log(' Valor de usuarioId:', primeraPub.usuarioId);
+            console.log(' Valor de usuario_id:', primeraPub.usuario_id);
+            console.log(' Valor de userId:', primeraPub.userId);
+        }
+
+        // Filtrar solo las del usuario actual
+        const misPublicaciones = todasPublicaciones.filter(pub => {
+            // Comprobar TODOS los posibles nombres
+            const posibleId = pub.usuarioId || pub.usuario_id || pub.userId || pub.user_id;
+            console.log(`Pub ID ${pub.id}: posibleId=${posibleId}, tipo=${typeof posibleId}, usuarioActual=${usuarioId}, coincide=${posibleId === usuarioId}`);
+            return posibleId === usuarioId;
+        });
+
+        console.log(' Mis publicaciones filtradas:', misPublicaciones);
+
+        // Actualizar estadísticas
+        document.getElementById('stat-recetas').textContent = misPublicaciones.length;
+        const totalLikes = misPublicaciones.reduce((sum, pub) => sum + (pub.likes || 0), 0);
+        document.getElementById('stat-likes').textContent = totalLikes;
+
+        mostrarPublicaciones(misPublicaciones);
+
+    } catch (error) {
+        console.error('Error completo:', error);
+        container.innerHTML = `
+            <div class="no-publicaciones">
+                <p style="color: #ff4444;">Error: ${error.message}</p>
+                <button onclick="location.reload()">Reintentar</button>
+            </div>
+        `;
+    }
+}
 
         async function cargarFavoritos() {
             const container = document.getElementById('publicaciones-container');
@@ -450,46 +472,46 @@
             // Por ahora, mostrar mensaje de próximamente
             container.innerHTML = `
                 <div class="no-publicaciones">
-                    <h3>⭐ Próximamente</h3>
+                    <h3> Próximamente</h3>
                     <p>La sección de favoritos estará disponible pronto</p>
                 </div>
             `;
         }
 
-        function mostrarPublicaciones(publicaciones) {
-            const container = document.getElementById('publicaciones-container');
+       function mostrarPublicaciones(publicaciones) {
+    console.log(' Mostrando publicaciones:', publicaciones);
+    const container = document.getElementById('publicaciones-container');
 
-            if (!publicaciones || publicaciones.length === 0) {
-                container.innerHTML = `
-                    <div class="no-publicaciones">
-                        <h3>¡No has publicado ninguna receta!</h3>
-                        <p>Comparte tu primera receta con la comunidad</p>
-                        <button onclick="window.location.href='vista_crear_publicacion.php'">
-                            Crear primera receta
-                        </button>
-                    </div>
-                `;
-                return;
-            }
+    if (!publicaciones || publicaciones.length === 0) {
+        container.innerHTML = `
+            <div class="no-publicaciones">
+                <h3>¡No has publicado ninguna receta!</h3>
+                <p>Comparte tu primera receta con la comunidad</p>
+                <button onclick="window.location.href='vista_crear_publicacion.php'">
+                    Crear primera receta
+                </button>
+            </div>
+        `;
+        return;
+    }
 
-            let html = '<div class="publicaciones-grid">';
-
-            publicaciones.forEach(pub => {
-                html += `
-                    <div class="publicacion-card" onclick="verDetalle(${pub.id})">
-                        <img src="${pub.imagenPrincipal}" alt="${pub.titulo}" class="publicacion-image">
-                        <div class="publicacion-info">
-                            <div class="publicacion-titulo">${pub.titulo}</div>
-                            <div class="publicacion-duracion">⏱️ ${pub.duracion}</div>
-                            <div class="publicacion-likes">❤️ ${pub.likes || 0}</div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            html += '</div>';
-            container.innerHTML = html;
-        }
+    let html = '<div class="publicaciones-grid">';
+    publicaciones.forEach(pub => {
+        console.log('Renderizando pub:', pub.id, pub.titulo);
+        html += `
+            <div class="publicacion-card" onclick="verDetalle(${pub.id})">
+                <img src="${pub.imagenPrincipal}" alt="${pub.titulo}" class="publicacion-image">
+                <div class="publicacion-info">
+                    <div class="publicacion-titulo">${pub.titulo}</div>
+                    <div class="publicacion-duracion"> ${pub.duracion}</div>
+                    <div class="publicacion-likes"> ${pub.likes || 0}</div>
+                </div>
+            </div>
+        `;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
 
         function cambiarTab(tab) {
             tabActual = tab;
@@ -507,12 +529,11 @@
         }
 
         function verDetalle(publicacionId) {
-            window.location.href = `vista_detalle_receta.php?id=${publicacionId}`;
+            window.location.href = `vista_detalle.php?id=${publicacionId}`;
         }
 
         function editarPerfil() {
-            alert('Función de editar perfil - Próximamente');
-            // window.location.href = 'vista_editar_perfil.php';
+            window.location.href = 'vista_editar_perfil.php';
         }
 
         function logout() {
@@ -525,7 +546,7 @@
                 }).finally(() => {
                     localStorage.removeItem('token');
                     localStorage.removeItem('usuario');
-                    window.location.href = 'index2.php';
+                    window.location.href = '../index.php';
                 });
             }
         }

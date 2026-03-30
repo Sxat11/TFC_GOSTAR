@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,7 @@
         .navbar {
             background: white;
             padding: 15px 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -85,7 +86,7 @@
             background: white;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
         }
 
         /* Imagen principal */
@@ -106,7 +107,7 @@
             position: absolute;
             bottom: 20px;
             right: 20px;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 8px 16px;
             border-radius: 25px;
@@ -354,7 +355,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.9);
+            background-color: rgba(0, 0, 0, 0.9);
             align-items: center;
             justify-content: center;
         }
@@ -385,8 +386,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .error-mensaje {
@@ -408,6 +414,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Modal para imágenes grandes -->
     <div id="imageModal" class="modal" onclick="cerrarModal()">
@@ -416,7 +423,9 @@
     </div>
 
     <nav class="navbar">
-        <div class="logo" onclick="window.location.href='vista_principal.php'">GOSTAR</div>
+          <a href="vista_principal.php" class="logo-main">
+                    <img src="../GostarLogoLargo.png" alt="GOSTAR Logo" height="60px">
+                </a>
         <div class="user-info">
             <span class="username" id="username">Cargando...</span>
             <a href="vista_crear_publicacion.php" style="background: #008080; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; text-decoration: none;">+ Nueva Receta</a>
@@ -440,7 +449,7 @@
         let usuarioActual = null;
 
         if (!token) {
-            window.location.href = 'index2.php';
+            window.location.href = 'index.php';
         }
 
         // Obtener ID de la receta de la URL
@@ -489,7 +498,7 @@
                 console.error('Error:', error);
                 document.getElementById('receta-container').innerHTML = `
                     <div class="error-mensaje">
-                        <h2>😕 Receta no encontrada</h2>
+                        <h2> Receta no encontrada</h2>
                         <p>La receta que buscas no existe o ha sido eliminada</p>
                         <button onclick="window.location.href='vista_principal.php'">Ir al inicio</button>
                     </div>
@@ -499,7 +508,7 @@
 
         function mostrarReceta() {
             const container = document.getElementById('receta-container');
-            
+
             // Formatear fecha
             const fecha = new Date(recetaActual.fechaCreacion);
             const fechaFormateada = fecha.toLocaleDateString('es-ES', {
@@ -512,17 +521,17 @@
             const inicial = (recetaActual.usuarioNombre || 'U').charAt(0).toUpperCase();
 
             // Generar HTML de ingredientes
-            const ingredientesHTML = recetaActual.ingredientes?.map(ing => 
+            const ingredientesHTML = recetaActual.ingredientes?.map(ing =>
                 `<div class="ingrediente-item">${ing}</div>`
             ).join('') || '<p>No hay ingredientes</p>';
 
             // Generar HTML de pasos
-            const pasosHTML = recetaActual.pasos?.map(paso => 
+            const pasosHTML = recetaActual.pasos?.map(paso =>
                 `<li class="paso-item">${paso}</li>`
             ).join('') || '<p>No hay pasos</p>';
 
             // Generar HTML de galería
-            const galeriaHTML = recetaActual.imagenesAdicionales?.map(img => 
+            const galeriaHTML = recetaActual.imagenesAdicionales?.map(img =>
                 `<div class="galeria-item" onclick="abrirModal('${img}')">
                     <img src="${img}" alt="Imagen adicional">
                 </div>`
@@ -550,8 +559,8 @@
                         <h1 class="receta-titulo">${recetaActual.titulo}</h1>
                         
                         <div class="receta-metadata">
-                            <span class="metadata-item">🔥 ${recetaActual.dificultad || 'No especificada'}</span>
-                            <span class="metadata-item">⚡ ${recetaActual.calorias || 0} kcal</span>
+                            <span class="metadata-item"> ${recetaActual.dificultad || 'No especificada'}</span>
+                            <span class="metadata-item"> ${recetaActual.calorias || 0} kcal</span>
                         </div>
 
                         <div class="receta-descripcion">
@@ -559,14 +568,14 @@
                         </div>
 
                         <div class="seccion">
-                            <h2 class="seccion-titulo">📝 Ingredientes</h2>
+                            <h2 class="seccion-titulo"> Ingredientes</h2>
                             <div class="ingredientes-grid">
                                 ${ingredientesHTML}
                             </div>
                         </div>
 
                         <div class="seccion">
-                            <h2 class="seccion-titulo">👩‍🍳 Pasos a seguir</h2>
+                            <h2 class="seccion-titulo"> Pasos a seguir</h2>
                             <ul class="pasos-list">
                                 ${pasosHTML}
                             </ul>
@@ -574,27 +583,29 @@
 
                         ${recetaActual.imagenesAdicionales?.length ? `
                             <div class="seccion">
-                                <h2 class="seccion-titulo">📸 Más imágenes</h2>
+                                <h2 class="seccion-titulo"> Más imágenes</h2>
                                 <div class="galeria">
                                     ${galeriaHTML}
                                 </div>
                             </div>
                         ` : ''}
 
-                        <div class="receta-acciones">
-                            <button class="action-btn like-btn ${recetaActual.likedByCurrentUser ? 'liked' : ''}" onclick="toggleLike()">
-                                ❤️ <span id="like-count">${recetaActual.likes || 0}</span> Me gusta
-                            </button>
-                            
-                            ${esAutor ? `
-                                <button class="action-btn edit-btn" onclick="editarReceta()">
-                                    ✏️ Editar receta
-                                </button>
-                                <button class="action-btn delete-btn" onclick="eliminarReceta()">
-                                    🗑️ Eliminar
-                                </button>
-                            ` : ''}
-                        </div>
+                       
+
+<div class="receta-acciones">
+    <button class="action-btn like-btn ${recetaActual.likedByCurrentUser ? 'liked' : ''}" onclick="toggleLike()">
+         <span id="like-count">${recetaActual.likes || 0}</span> Me gusta
+    </button>
+    
+    ${esAutor ? `
+        <button class="action-btn edit-btn" onclick="editarReceta()">
+             Editar receta
+        </button>
+        <button class="action-btn delete-btn" onclick="eliminarReceta()">
+             Eliminar
+        </button>
+    ` : ''}
+</div>
                     </div>
                 </div>
             `;
@@ -612,14 +623,14 @@
                 if (response.ok) {
                     const data = await response.json();
                     document.getElementById('like-count').textContent = data.likes;
-                    
+
                     const likeBtn = document.querySelector('.like-btn');
                     if (data.liked) {
                         likeBtn.classList.add('liked');
                     } else {
                         likeBtn.classList.remove('liked');
                     }
-                    
+
                     recetaActual.likes = data.likes;
                     recetaActual.likedByCurrentUser = data.liked;
                 }
@@ -641,8 +652,7 @@
         }
 
         function editarReceta() {
-            alert('Función de editar - Próximamente');
-            // window.location.href = `vista_editar_receta.php?id=${recetaId}`;
+            window.location.href = `vista_editar_publicacion.php?id=${recetaId}`;
         }
 
         async function eliminarReceta() {
@@ -680,7 +690,7 @@
                 }).finally(() => {
                     localStorage.removeItem('token');
                     localStorage.removeItem('usuario');
-                    window.location.href = 'index2.php';
+                    window.location.href = 'index.php';
                 });
             }
         }
@@ -691,6 +701,45 @@
                 cerrarModal();
             }
         });
+
+        async function eliminarReceta() {
+            if (!confirm('¿Estás seguro de que quieres eliminar esta receta? Esta acción no se puede deshacer.')) {
+                return;
+            }
+
+            const token = localStorage.getItem('token');
+            const deleteBtn = document.querySelector('.delete-btn');
+            const originalText = deleteBtn.textContent;
+
+            try {
+                deleteBtn.textContent = 'Eliminando...';
+                deleteBtn.disabled = true;
+
+                const response = await fetch(`http://localhost:8080/mi-primera-api/rest/publicaciones/${recetaId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(' Receta eliminada correctamente');
+                    window.location.href = 'vista_perfil.php';
+                } else {
+                    alert(' Error: ' + (data.error || 'No se pudo eliminar la receta'));
+                    deleteBtn.textContent = originalText;
+                    deleteBtn.disabled = false;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert(' Error de conexión al eliminar la receta');
+                deleteBtn.textContent = originalText;
+                deleteBtn.disabled = false;
+            }
+        }
     </script>
 </body>
+
 </html>
