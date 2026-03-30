@@ -234,18 +234,4 @@ Welcome to **GOSTAR**, an application designed to share recipes and traditions w
 - 🔐 Authentication (login & sign up)
 - 🌍 Cross-platform support
 
----
 
-## 📷 Coming Soon
-
-- UI/UX improvements
-- Advanced social interaction features
-- Performance optimization
-
----
-
-## 💡 Author
-
-Project developed as part of learning and practice in multiplatform development.
-
----
