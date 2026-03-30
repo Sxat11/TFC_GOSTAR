@@ -119,6 +119,8 @@
             }
         }
     </style>
+    <link rel="icon" href="FondoNegro.ico" type="image/ico">
+
 </head>
 
 <body>

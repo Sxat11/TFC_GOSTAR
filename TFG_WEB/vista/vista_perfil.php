@@ -24,13 +24,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid #008080;
+            border-bottom: 3px solid #298300;
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #008080;
+            color: #298300;
         }
 
         .user-info {
@@ -57,7 +57,7 @@
 
         .crear-btn {
             padding: 8px 16px;
-            background: #008080;
+            background: #298300;
             color: white;
             border: none;
             border-radius: 4px;
@@ -102,7 +102,7 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background: #008080;
+            background: #298300;
             color: white;
             display: flex;
             align-items: center;
@@ -125,7 +125,7 @@
 
         .profile-username {
             font-size: 16px;
-            color: #008080;
+            color: #298300;
             margin-bottom: 10px;
         }
 
@@ -161,7 +161,7 @@
         .stat-number {
             font-size: 24px;
             font-weight: bold;
-            color: #008080;
+            color: #298300;
         }
 
         .stat-label {
@@ -188,8 +188,8 @@
         }
 
         .tab.active {
-            color: #008080;
-            border-bottom: 3px solid #008080;
+            color: #298300;
+            border-bottom: 3px solid #298300;
             margin-bottom: -12px;
         }
 
@@ -260,7 +260,7 @@
         .no-publicaciones button {
             margin-top: 20px;
             padding: 12px 24px;
-            background: #008080;
+            background: #298300;
             color: white;
             border: none;
             border-radius: 4px;
@@ -270,7 +270,7 @@
 
         .loader {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #008080;
+            border-top: 4px solid #298300;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -302,7 +302,8 @@
             background: #e0e0e0;
         }
     </style>
-    <icon href="../GostarIcono.png" type="image/png">
+        <link rel="icon" href="FondoNegro.ico" type="image/ico">
+
 </head>
 
 <body>
@@ -504,7 +505,6 @@
                 <div class="publicacion-info">
                     <div class="publicacion-titulo">${pub.titulo}</div>
                     <div class="publicacion-duracion"> ${pub.duracion}</div>
-                    <div class="publicacion-likes"> ${pub.likes || 0}</div>
                 </div>
             </div>
         `;

@@ -23,13 +23,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid #008080;
+            border-bottom: 3px solid #298300;
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #008080;
+            color: #298300;
             cursor: pointer;
         }
 
@@ -80,7 +80,7 @@
         }
 
         .edit-card h1 {
-            color: #008080;
+            color: #298300;
             margin-bottom: 30px;
             text-align: center;
             font-size: 28px;
@@ -97,7 +97,7 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background: #008080;
+            background: #298300;
             color: white;
             display: flex;
             align-items: center;
@@ -116,7 +116,7 @@
         }
 
         .avatar-edit-btn {
-            background: #008080;
+            background: #298300;
             color: white;
             border: none;
             padding: 8px 16px;
@@ -226,7 +226,7 @@
 
         .loader {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #008080;
+            border-top: 4px solid #298300;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -252,6 +252,8 @@
             margin-top: 5px;
         }
     </style>
+    <link rel="icon" href="FondoNegro.ico" type="image/ico">
+
 </head>
 <body>
     <nav class="navbar">

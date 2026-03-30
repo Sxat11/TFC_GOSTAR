@@ -24,13 +24,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid #008080;
+            border-bottom: 3px solid #298300;
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #008080;
+            color: #298300;
             cursor: pointer;
         }
 
@@ -128,7 +128,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #008080;
+            background: #298300;
             color: white;
             display: flex;
             align-items: center;
@@ -148,7 +148,7 @@
         }
 
         .autor-username {
-            color: #008080;
+            color: #298300;
             font-size: 14px;
         }
 
@@ -164,7 +164,7 @@
 
         .receta-titulo {
             font-size: 32px;
-            color: #008080;
+            color: #298300;
             margin-bottom: 15px;
         }
 
@@ -176,7 +176,7 @@
             padding: 20px;
             background: #f9f9f9;
             border-radius: 8px;
-            border-left: 4px solid #008080;
+            border-left: 4px solid #298300;
         }
 
         /* Metadata */
@@ -207,7 +207,7 @@
             color: #333;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #008080;
+            border-bottom: 2px solid #298300;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -224,7 +224,7 @@
             background: #f9f9f9;
             padding: 12px 15px;
             border-radius: 8px;
-            border-left: 3px solid #008080;
+            border-left: 3px solid #298300;
             font-size: 15px;
             color: #555;
         }
@@ -253,7 +253,7 @@
             transform: translateY(-50%);
             width: 30px;
             height: 30px;
-            background: #008080;
+            background: #298300;
             color: white;
             border-radius: 50%;
             display: flex;
@@ -329,12 +329,12 @@
         }
 
         .edit-btn {
-            background: #008080;
+            background: #298300;
             color: white;
         }
 
         .edit-btn:hover {
-            background: #006666;
+            background: #298300;
         }
 
         .delete-btn {
@@ -377,7 +377,7 @@
 
         .loader {
             border: 4px solid #f3f3f3;
-            border-top: 4px solid #008080;
+            border-top: 4px solid #298300;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -406,13 +406,15 @@
         .error-mensaje button {
             margin-top: 20px;
             padding: 12px 24px;
-            background: #008080;
+            background: #298300;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
     </style>
+    <link rel="icon" href="FondoNegro.ico" type="image/ico">
+
 </head>
 
 <body>

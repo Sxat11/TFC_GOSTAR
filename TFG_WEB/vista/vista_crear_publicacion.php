@@ -9,7 +9,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GOSTAR - Crear Receta</title>
     <style>
-        /* Mismos estilos que antes */
+       
         * {
             margin: 0;
             padding: 0;
@@ -28,13 +28,13 @@ session_start();
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3px solid #008080;
+            border-bottom: 3px solid #298300;
         }
 
         .logo {
             font-size: 24px;
             font-weight: bold;
-            color: #008080;
+            color: #298300;
         }
 
         .user-info {
@@ -71,7 +71,7 @@ session_start();
         }
 
         .form-card h1 {
-            color: #008080;
+            color: #298300;
             margin-bottom: 30px;
             text-align: center;
         }
@@ -106,10 +106,10 @@ session_start();
         .section-title {
             font-size: 18px;
             font-weight: bold;
-            color: #008080;
+            color: #298300;
             margin: 30px 0 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #008080;
+            border-bottom: 2px solid #298300;
         }
 
         .dynamic-list {
@@ -131,7 +131,7 @@ session_start();
         }
 
         .btn-add {
-            background: #008080;
+            background: #298300;
             color: white;
             border: none;
             padding: 8px 16px;
@@ -153,7 +153,7 @@ session_start();
         }
 
         .btn-submit {
-            background: #008080;
+            background: #298300;
             color: white;
             border: none;
             padding: 15px 30px;
@@ -166,7 +166,7 @@ session_start();
         }
 
         .btn-submit:hover {
-            background: #006666;
+            background: #298300;
         }
 
         .error {
@@ -195,7 +195,10 @@ session_start();
         .col {
             flex: 1;
         }
+        
     </style>
+    <link rel="icon" href="FondoNegro.ico" type="image/ico">
+
 </head>
 <body>
     <nav class="navbar">

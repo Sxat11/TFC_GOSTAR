@@ -9,16 +9,69 @@
     <style>
         @media (min-width: 768px) {
             .auth-section {
-                align-items: center;    
+                align-items: center;
 
             }
         }
-        header {
-        
-           
-        }
 
-        
+        header {}
+
+        /* Contenedor del Like */
+.post-card-likes-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 10;
+}
+
+/* Ocultar el checkbox original */
+.like-checkbox {
+    display: none;
+}
+
+/* Estilo de la etiqueta (el corazón) */
+.like-label {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.heart-icon {
+    width: 25px;
+    height: 25px;
+    background-image: url('../corazon_vacio.png'); /* Tu imagen actual */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(0) invert(1); /* Lo hace blanco para que resalte sobre el fondo oscuro */
+    transition: all 0.3s ease;
+}
+
+/* Cuando el checkbox está marcado (Checked) */
+.like-checkbox:checked + .like-label .heart-icon {
+    background-image: url('../corazon_lleno.png'); /* Necesitarás esta imagen o una roja */
+    filter: none; /* Quita el filtro blanco para mostrar el color original (rojo) */
+    transform: scale(1.2);
+    animation: heart-pulse 0.4s ease;
+}
+
+/* Efecto de pulso al dar like */
+@keyframes heart-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1.2); }
+}
+
+.like-label:hover {
+    transform: scale(1.1);
+}
+
+.likes-count {
+    font-size: 16px;
+    font-weight: bold;
+}
+
         .navbar {
             background: white;
             padding: 15px 0;
@@ -124,7 +177,7 @@
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 8px;
-          
+
         }
 
         .post-card-meta {
@@ -133,7 +186,7 @@
             gap: 12px;
             margin-bottom: 12px;
             font-size: 14px;
-           
+
         }
 
         .post-card-author {
@@ -172,7 +225,7 @@
             position: absolute;
             top: 15px;
             right: 15px;
-           
+
             color: white;
             padding: 4px 10px;
             border-radius: 20px;
@@ -184,7 +237,7 @@
         .loading {
             text-align: center;
             padding: 40px;
-            
+
         }
 
         .no-recetas {
@@ -217,20 +270,36 @@
             animation: spin 1s linear infinite;
             margin: 40px auto;
         }
+.titulo-gostar {
+    font-family: 'Poppins', sans-serif;
+    font-size: 64px; /* Un poco más grande para impactar */
+    font-weight: 900;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    
+    /* Degradado de Rojo Intenso a Verde Vibrante */
+    background: linear-gradient(135deg, #ff4b2b 10%, #ff416c 30%, #2ecc71 70%, #27ae60 90%);
+    
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* Espaciado y elegancia */
+    letter-spacing: -1px; /* Letras un poco más juntas se ve más moderno */
+    text-transform: uppercase;
+    
+    /* Sombra sutil para que el texto "flote" (opcional) */
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+    
+    /* Animación suave al cargar */
+    transition: all 0.3s ease;
+}
 
-        .titulo-gostar {
-            font-family: 'Poppins', sans-serif;
-            font-size: 48px;
-            font-weight: 800;
-            text-align: center;
-            margin-top: 40px;
-
-            background: linear-gradient(90deg, #2E7D32, #43A047, #00C853);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-
-            letter-spacing: 2px;
-        }
+/* Efecto opcional: un ligero brillo al pasar el ratón */
+.titulo-gostar:hover {
+    transform: scale(1.02);
+    filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.2));
+}
 
         @keyframes spin {
             0% {
@@ -268,11 +337,122 @@
                 grid-template-columns: 1fr;
             }
         }
+    footer {
+        text-align: center;
+        padding: 20px 0;
+        background: #f8f8f8;
+        color: #333;
+        font-size: 14px;
+        margin-top: 40px;
+    }
     </style>
+
+
+<link rel="icon" href="FondoNegro.ico" type="image/ico">
 </head>
 
 <body>
     <script>
+        // 1. Añade esta variable global al principio de tu script
+        let todasLasPublicaciones = [];
+
+        // ... (tu código document.addEventListener y otras funciones se quedan igual) ...
+
+        // 2. Modifica tu función cargarPublicaciones así:
+        async function cargarPublicaciones() {
+            const token = localStorage.getItem('token');
+            const container = document.getElementById('publicaciones-grid');
+
+            try {
+                const response = await fetch('http://localhost:8080/mi-primera-api/rest/publicaciones?page=1&limit=20', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al cargar publicaciones');
+                }
+
+                const publicaciones = await response.json();
+
+                // ¡NUEVO! Guardamos la lista completa en nuestra variable global
+                todasLasPublicaciones = publicaciones;
+
+                mostrarPublicaciones(publicaciones);
+
+            } catch (error) {
+                console.error('Error:', error);
+                container.innerHTML = `
+            <div class="no-recetas">
+                <p>Error al cargar las recetas. Intenta de nuevo más tarde.</p>
+            </div>
+        `;
+            }
+        }
+
+        // 3. Añade esta nueva función al final de tu bloque <script>
+        function filtrarRecetas(categoria, event) {
+            document.getElementById('buscador').value = ""; // Limpia el buscador al filtrar por categoría
+            // Evitamos que el enlace recargue la página
+            if (event) event.preventDefault();
+
+            // Seleccionamos el título y el subtítulo para poder modificarlos
+            const tituloPrincipal = document.querySelector('.titulo-gostar');
+            const subtitulo = document.querySelector('.welcome-section p');
+
+            // Si el usuario hace clic en "Todas las categorias"
+            if (categoria === 'Todas') {
+                // Restauramos el texto original
+                tituloPrincipal.textContent = 'Bienvenido a GOSTAR';
+                if (subtitulo) subtitulo.textContent = '¿Qué vamos a hacer hoy?';
+
+                mostrarPublicaciones(todasLasPublicaciones);
+                return;
+            }
+
+            // Actualizamos el título y subtítulo con la categoría seleccionada
+            tituloPrincipal.textContent = categoria;
+            // También puedes poner algo como: tituloPrincipal.textContent = `Recetas de ${categoria}`;
+
+            if (subtitulo) subtitulo.textContent = `Mostrando resultados para: ${categoria}`;
+
+            // Filtramos las recetas
+            const recetasFiltradas = todasLasPublicaciones.filter(pub => {
+                return pub.titulo.toLowerCase().includes(categoria.toLowerCase());
+            });
+
+            // Mostramos las recetas filtradas
+            mostrarPublicaciones(recetasFiltradas);
+        }
+
+        function buscarRecetas(texto) {
+            const tituloPrincipal = document.querySelector('.titulo-gostar');
+            const subtitulo = document.querySelector('.welcome-section p');
+            const query = texto.toLowerCase().trim();
+
+            // Si el buscador está vacío, mostramos todo y restauramos títulos
+            if (query === "") {
+                tituloPrincipal.textContent = 'Bienvenido a GOSTAR';
+                subtitulo.textContent = '¿Qué vamos a hacer hoy?';
+                mostrarPublicaciones(todasLasPublicaciones);
+                return;
+            }
+
+            // Actualizamos los textos para feedback visual
+            tituloPrincipal.textContent = "Buscando...";
+            subtitulo.textContent = `Resultados para: "${texto}"`;
+
+            // Filtramos las recetas que contengan el texto en el título
+            const resultados = todasLasPublicaciones.filter(pub =>
+                pub.titulo.toLowerCase().includes(query)
+            );
+
+            // Pintamos los resultados
+            mostrarPublicaciones(resultados);
+        }
+
+
         // Verificar si hay token al cargar la página
         document.addEventListener('DOMContentLoaded', function() {
             const token = localStorage.getItem('token');
@@ -398,34 +578,39 @@
                 // Obtener inicial para avatar
                 const inicial = (pub.usuarioNombre || 'U').charAt(0).toUpperCase();
 
-                html += `
-                    <div class="post-card" onclick="verDetalle(${pub.id})">
-                        <img src="${pub.imagenPrincipal}" alt="${pub.titulo}" class="post-card-image">
-                        <div class="post-card-overlay"></div>
-                        
-                        <div class="post-card-duration"> ${pub.duracion}</div>
-                        
-                        <div class="post-card-content">
-                            <h3 class="post-card-title">${pub.titulo}</h3>
-                            
-                            <div class="post-card-meta">
-                                <div class="post-card-author">
-                                    <div class="post-card-avatar">${inicial}</div>
-                                    <span>${pub.usuarioNombre || 'Usuario'}</span>
-                                </div>
-                                
-                                <div class="post-card-likes">
-                                  
-                                    <span>${pub.likes || 0}</span>
-                                </div>
-                            </div>
-                            
-                            <button class="action-btn" onclick="darLike(${pub.id}, event)" style="background: none; border: none; color: white; cursor: pointer; padding: 5px 10px; border-radius: 20px; background: rgba(255,255,255,0.2); margin-top: 10px;">
-                                 Dar like
-                            </button>
-                        </div>
-                    </div>
-                `;
+                // Dentro de tu publicaciones.forEach(pub => { ...
+
+html += `
+    <div class="post-card" onclick="verDetalle(${pub.id})">
+        <img src="${pub.imagenPrincipal}" alt="${pub.titulo}" class="post-card-image">
+        <div class="post-card-overlay"></div>
+        
+        <div class="post-card-duration">${pub.duracion}</div>
+        
+        <div class="post-card-content">
+            <h3 class="post-card-title">${pub.titulo}</h3>
+            <div class="post-card-meta">
+                <div class="post-card-author">
+                    <div class="post-card-avatar">${inicial}</div>
+                    <span>${pub.usuarioNombre || 'Usuario'}</span>
+                </div>
+            
+                
+                <div class="post-card-likes-container">
+                    <input type="checkbox" id="like-${pub.id}" class="like-checkbox" 
+                        onclick="event.stopPropagation();" 
+                        ${pub.usuarioLeDioLike ? 'checked' : ''}>
+                    
+                    <label for="like-${pub.id}" class="like-label" onclick="event.stopPropagation();">
+                        <div class="heart-icon"></div>
+                    </label>
+                    
+                    <span class="likes-count">${pub.likes || 0}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+`;
             });
 
             container.innerHTML = html;
@@ -478,7 +663,7 @@
 
                 <div class="nav-group">
                     <a href="#" class="nav-link">
-                        <img src="../favoritos.png" alt="Favoritos" class="icon">
+                        <img src="../corazon_vacio.png" alt="Favoritos" class="icon">
                         <span>Favoritos</span>
                     </a>
                     <a href="vista_perfil.php" class="nav-link">
@@ -494,18 +679,19 @@
 
         <nav class="navbar2">
             <div class="nav-group">
-                <a href="/index.php" class="nav-link">Todas las categorias</a>
-                <a href="#" class="nav-link">Desayuno</a>
-                <a href="#" class="nav-link">Comida</a>
-                <a href="#" class="nav-link">Cena</a>
-                <a href="#" class="nav-link">Postre</a>
-                <a href="#" class="nav-link">Vegeteriano</a>
-                <a href="#" class="nav-link">Vegano</a>
-                <a href="#" class="nav-link">Sin gluten</a>
-                <a href="#" class="nav-link">Sin lactosa</a>
-                <a href="#" class="nav-link">Asiatico</a>
+                <a href="vista_principal.php" class="nav-link">Todas las categorías</a>
+                <a href="#" onclick="filtrarRecetas('Desayuno', event)" class="nav-link">Desayuno</a>
+                <a href="#" onclick="filtrarRecetas('Comida', event)" class="nav-link">Comida</a>
+                <a href="#" onclick="filtrarRecetas('Cena', event)" class="nav-link">Cena</a>
+                <a href="#" onclick="filtrarRecetas('Postre', event)" class="nav-link">Postre</a>
+                <a href="#" onclick="filtrarRecetas('Vegetariano', event)" class="nav-link">Vegetariano</a>
+                <a href="#" onclick="filtrarRecetas('Vegano', event)" class="nav-link">Vegano</a>
+                <a href="#" onclick="filtrarRecetas('Sin gluten', event)" class="nav-link">Sin gluten</a>
+                <a href="#" onclick="filtrarRecetas('Sin lactosa', event)" class="nav-link">Sin lactosa</a>
+                <a href="#" onclick="filtrarRecetas('Asiatico', event)" class="nav-link">Asiatico</a>
+
                 <button onclick="window.location.href='vista_crear_publicacion.php'"
-                    style="background: rgb(41, 131, 0);; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-left: 15px;">
+                    style="background: #298300; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-left: 15px;">
                     Nueva Receta
                 </button>
             </div>
@@ -513,17 +699,25 @@
     </header>
 
     <div class="container2" style="background-image: url('../fondo.png'); background-size: cover; background-position: center; min-height: 80vh;">
-    <div class="welcome-section">
-        <h1 class="titulo-gostar">Bienvenido a GOSTAR</h1>
-        <p>¿Qué vamos a hacer hoy?</p>
-    </div>
+        <div class="welcome-section">
+            <h1 class="titulo-gostar">Bienvenido a GOSTAR</h1>
+            <p>¿Qué vamos a hacer hoy?</p>
 
-    <!-- Contenedor para publicaciones en GRID de 3 columnas -->
-    <div id="publicaciones-grid" class="publicaciones-grid">
-        <div class="loader" ></div>
-    </div>
+            <div style="margin: 20px auto; max-width: 400px; padding: 0 20px;">
+                <input type="text" id="buscador" placeholder="Buscar receta por nombre..."
+                    style="width: 100%; padding: 12px 20px; border-radius: 25px; border: 2px solid #2E7D32; outline: none; font-size: 16px;"
+                    oninput="buscarRecetas(this.value)">
+            </div>
+        </div>
+
+        <!-- Contenedor para publicaciones en GRID de 3 columnas -->
+        <div id="publicaciones-grid" class="publicaciones-grid">
+            <div class="loader"></div>
+        </div>
     </div>
 
 </body>
-
+<footer>
+    Manuel Hay Fernández - Gostar Web - 2026
+</footer>
 </html>

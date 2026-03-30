@@ -208,10 +208,11 @@
             }
         }
     </style>
+    <link rel="icon" href="FondoNegro.ico" type="image/ico">
 </head>
 
 <body>
-
+    
     <main class="main-wrapper">
         <div class="container">
             <section class="promo-section">
