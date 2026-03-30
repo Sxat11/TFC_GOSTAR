@@ -1,29 +1,132 @@
-Buenos días, buenas tardes y buenas noches. Bienvenido a mi aplicación GOSTAR, consiste en una aplicación en la que compartir nuestras recetas y tradiciones al mundo, así como fomentar la buena alimentación y hábitos saludables.
+# 🍽️ GOSTAR
 
-20/01/2026 Hemos terminado de crear el Creador de Cuenta pero todavía no es funcional
+**Buenos días, buenas tardes y buenas noches.**  
+Bienvenido a **GOSTAR**, una aplicación diseñada para compartir recetas y tradiciones con el mundo, fomentando la buena alimentación y hábitos saludables.
 
-26/01/2026 Creamos el navigation bar y comenzamos a crear algunos fragment que aun no son funcionales. El Adaptador del RecycleView ya está terminado e implementado. 
+---
 
-03/02/2026 Hemos avanzado bastante en los últimos días hemos logrado hacer la navigation bar completamente funcional y el fragment inicial ya está bastante avanzado, las funciones del primer fragment funcionan correctamten podemos moder el recycle view y al clickar en cada celda podremos obtener información sobre ella. También hemos implementado el botón de "Me gusta". Hemos comenzado la parte de Aplicación Web, ya está creada la vista de "Inicio de Sesión" y "Crear Cuenta", aunque todavía no tienen funcionamiento real.
+## 📅 Historial de Desarrollo
 
-10/02/2026 Creamos la Base de Datos y sus respectivas tablas de momento utilizaremos las tablas Usuarios y Publicaciones en las que se guardaran usuarios y tablas respectivamente. Tambien comenzamos a crear el BackEnd en el que se realizaran las llamadas a la API. 
+### 🟢 20/01/2026
+- Finalización del sistema de **creación de cuentas** (aún no funcional).
 
-17/02/2026 Conseguimos hacer funcional el login tanto en Web como en Móvil, e intentamos hacer funcional el crear Cuenta. En móvil hacemos que los fragments ya sean funcionales y muestren algunas cosas. 
+### 🟢 26/01/2026
+- Creación de la **barra de navegación**.
+- Inicio del desarrollo de **fragments** (no funcionales todavía).
+- Implementación completa del **adaptador de RecyclerView**.
 
-20/02/2026 Ya se pueden cargar los datos y se muestran en el muro de Web, tambien implementamos el Editar Perfil en Web, además de intentar mejorar la apariencia Web. 
+### 🟢 03/02/2026
+- Barra de navegación completamente funcional.
+- Primer fragment muy avanzado:
+  - Scroll funcional en RecyclerView.
+  - Click en elementos muestra información detallada.
+  - Implementación del botón **"Me gusta"**.
+- Inicio del desarrollo de la **aplicación web**:
+  - Pantallas de **Inicio de sesión** y **Crear cuenta** (sin funcionalidad aún).
 
-21/02/2026 Debido a un error humano tenemos que reconstruir gran parte del proyecto de móvil lo que provoca un imporante retroceso en el proyecto
+### 🟢 10/02/2026
+- Creación de la **Base de Datos**:
+  - Tablas: `Usuarios` y `Publicaciones`.
+- Inicio del desarrollo del **BackEnd**:
+  - Preparación para llamadas a la API.
 
-22/02/2026 Implementamos el muro de móvil y ya se pueden crear publicaciones y cuentas tanto en móviles como en Web.
+### 🟢 17/02/2026
+- Login funcional en **Web y Móvil**.
+- Intentos de implementar **crear cuenta**.
+- Mejora de fragments en móvil (ya funcionales).
 
-24/02/2026 Completamos las últimas funcionalidades necesarias para hacer funcional una versión primigenia de apliación la cual es completamente multiplataforma, la API es común a ambas aplicaciones. Podemos hacer prácticamente todas las funciones típicas de la API Crear, Editar y Borrar Cuenta, y Crear,Editar y Borrar Publicaciones. Así como una versión primeriza de los Likes. 
+### 🟢 20/02/2026
+- Carga de datos en el **muro web**.
+- Implementación de **Editar Perfil** en web.
+- Mejoras visuales en la interfaz web.
 
-03/03/2026 Creamos la aplicación de Escritorio en (.NET Framework), en ella utilizaremos MaterialSkin2 para mejorar su apariencia. Y Comenzaremos a crear la ventana de Inicio de Sesión y Crear Cuenta. 
+### 🔴 21/02/2026
+- Error crítico:
+  - Reconstrucción parcial del proyecto móvil.
+  - Retroceso importante en el desarrollo.
 
-10/03/2026 Creamos el muro y todas las ventanas de las funcionaliadaes que tendrá la aplicación como Publicaciones, Perfil, ect...
+### 🟢 22/02/2026
+- Implementación del **muro en móvil**.
+- Creación de **publicaciones y cuentas** funcional en web y móvil.
 
-20/03/2026 Hacemos funcional el login y crear cuenta de Escritorio
+### 🟢 24/02/2026
+- Primera versión completamente funcional y **multiplataforma**:
+  - API común para todos los sistemas.
+  - Funcionalidades:
+    - Crear, editar y borrar cuentas.
+    - Crear, editar y borrar publicaciones.
+    - Sistema básico de **likes**.
 
-26/03/2026 Conectamos el muro a la API para que cargue los datos en las pestaña de aplicación. 
-30/03/26 Últimas pruebas, he vaciado y rellenado la base de datos y la he exportado al proyecto, las tres partes del proyecto están terminadas.
-Subo a GitHub todo los que faltaba por ser subido.
+### 🟢 03/03/2026
+- Inicio de la aplicación de **escritorio (.NET Framework)**.
+- Uso de **MaterialSkin2** para mejorar la interfaz.
+- Desarrollo de ventanas:
+  - Inicio de sesión
+  - Crear cuenta
+
+### 🟢 10/03/2026
+- Creación del **muro** y ventanas principales:
+  - Publicaciones
+  - Perfil
+  - Otras funcionalidades
+
+### 🟢 20/03/2026
+- Login y creación de cuenta funcional en **escritorio**.
+
+### 🟢 26/03/2026
+- Conexión del **muro de escritorio** con la API:
+  - Carga de datos en la aplicación.
+
+### 🟢 30/03/2026
+- Últimas pruebas:
+  - Base de datos vaciada, rellenada y exportada al proyecto.
+- Finalización de las tres plataformas:
+  - 📱 Móvil
+  - 🌐 Web
+  - 🖥️ Escritorio
+- Subida completa del proyecto a **GitHub**.
+
+---
+
+## 🚀 Estado del Proyecto
+
+✅ Aplicación **completamente funcional**  
+✅ Arquitectura **multiplataforma**  
+✅ API compartida entre todos los sistemas  
+
+---
+
+## 🧩 Tecnologías Utilizadas
+
+- **Frontend Móvil:** Android (Java)
+- **Frontend Web:** (HTML, CSS, JS)
+- **Backend:** API REST
+- **Base de Datos:** SQL
+- **Escritorio:** .NET Framework + MaterialSkin2
+
+---
+
+## 📌 Funcionalidades Principales
+
+- 👤 Gestión de usuarios (crear, editar, eliminar)
+- 📝 Publicaciones (crear, editar, eliminar)
+- ❤️ Sistema de likes
+- 📰 Muro de publicaciones
+- 🔐 Autenticación (login y registro)
+- 🌍 Plataforma compartida entre dispositivos
+
+---
+
+## 📷 Próximamente
+
+- Mejoras visuales
+- Sistema avanzado de interacción social
+- Optimización de rendimiento
+
+---
+
+## 💡 Autor
+
+Proyecto desarrollado como parte de aprendizaje y práctica en desarrollo multiplataforma.
+
+---
