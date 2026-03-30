@@ -25,3 +25,4 @@ Buenos días, buenas tardes y buenas noches. Bienvenido a mi aplicación GOSTAR,
 20/03/2026 Hacemos funcional el login y crear cuenta de Escritorio
 
 26/03/2026 Conectamos el muro a la API para que cargue los datos en las pestaña de aplicación. 
+30/03/26 Últimas pruebas, he vaciado y rellenado la base de datos y la he exportado al proyecto, las tres partes del proyecto están terminadas.
