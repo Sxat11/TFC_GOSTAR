@@ -1,42 +1,46 @@
-## 📚 **Documentación Técnica del Proyecto Intermodular**
+I'll provide the technical documentation in English for you.
 
-### **GOSTAR - Red Social de Recetas**
+---
+
+## 📚 **Technical Documentation – Intermodular Project**
+
+### **GOSTAR – Social Network for Recipes**
 
 **Manuel Hay Fernández**  
-Desarrollo de Aplicaciones Multiplataforma (2º curso)  
-Curso 2025/2026
+Multiplatform Application Development (2nd year)  
+Academic Year 2025/2026
+Colexio Vivas
 
 ---
 
-## 📑 **Índice**
+## 📑 **Table of Contents**
 
-1. [Arquitectura del sistema](#1-arquitectura-del-sistema)
+1. [System Architecture](#1-system-architecture)
 2. [API](#2-api)
-3. [Base de datos](#3-base-de-datos)
-4. [Aplicación Web](#4-aplicación-web)
-5. [Aplicación Móvil](#5-aplicación-móvil)
-6. [Aplicación de Escritorio](#6-aplicación-de-escritorio)
-7. [Seguridad](#7-seguridad)
-8. [Despliegue](#8-despliegue)
-9. [Pruebas](#9-pruebas)
-10. [Guía de uso y mantenimiento](#10-guía-de-uso-y-mantenimiento)
-11. [Mejoras futuras](#11-mejoras-futuras)
+3. [Database](#3-database)
+4. [Web Application](#4-web-application)
+5. [Mobile Application](#5-mobile-application)
+6. [Desktop Application](#6-desktop-application)
+7. [Security](#7-security)
+8. [Deployment](#8-deployment)
+9. [Testing](#9-testing)
+10. [User Guide & Maintenance](#10-user-guide--maintenance)
+11. [Future Improvements](#11-future-improvements)
 
 ---
 
-## 1. Arquitectura del sistema
+## 1. System Architecture
 
-### **Esquema general**
+### **General Overview**
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              CLIENTES                                       │
+│                              CLIENTS                                        │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐              │
-│  │  Aplicación Web │  │ Aplicación Móvil│  │Aplicación       │              │
-│  │  (PHP/HTML/CSS/JS)│ │ (Android/Java) │  │Escritorio       │              │
-│  │                 │  │                 │  │(.NET WinForms)  │              │
+│  │   Web App       │  │   Mobile App    │  │   Desktop App   │              │
+│  │ (PHP/HTML/CSS/JS)│ │ (Android/Java) │  │ (.NET WinForms) │              │
 │  └────────┬────────┘  └────────┬────────┘  └────────┬────────┘              │
 │           │                    │                    │                        │
 │           └────────────────────┼────────────────────┘                        │
@@ -44,82 +48,82 @@ Curso 2025/2026
 └────────────────────────────────┼────────────────────────────────────────────┘
                                  ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           API REST (Java)                                   │
+│                           REST API (Java)                                   │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  • JAX-RS / Jersey                                                          │
 │  • Apache Tomcat 10                                                         │
-│  • Autenticación mediante tokens (UUID)                                     │
+│  • Token-based authentication (UUID)                                        │
 └────────────────────────────────┬────────────────────────────────────────────┘
                                  │ JDBC
                                  ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         Base de Datos MySQL                                 │
+│                         MySQL Database                                      │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  • MariaDB / MySQL                                                          │
-│  • Tablas: usuarios, publicaciones, ingredientes, pasos, likes             │
+│  • Tables: users, recipes, ingredients, steps, likes                       │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### **Tecnologías principales**
+### **Technologies Used**
 
-| Componente | Tecnología | Versión |
-|------------|------------|---------|
+| Component | Technology | Version |
+|-----------|------------|---------|
 | **API** | Java + JAX-RS (Jersey) | Java 11, Jersey 3.0.3 |
-| **Servidor API** | Apache Tomcat | 10.0.27 |
-| **Base de datos** | MySQL / MariaDB | 8.0 / 10.4 |
-| **Aplicación Web** | PHP + HTML/CSS/JS | PHP 8.x |
-| **Aplicación Móvil** | Android (Java) | SDK 34 (Android 14) |
-| **Aplicación Escritorio** | .NET Framework (C#) | .NET Framework 4.8 |
+| **API Server** | Apache Tomcat | 10.0.27 |
+| **Database** | MySQL / MariaDB | 8.0 / 10.4 |
+| **Web App** | PHP + HTML/CSS/JS | PHP 8.x |
+| **Mobile App** | Android (Java) | SDK 34 (Android 14) |
+| **Desktop App** | .NET Framework (C#) | .NET Framework 4.8 |
 
 ---
 
 ## 2. API
 
-### **Lista de endpoints**
+### **Endpoints**
 
-#### **Autenticación (/auth)**
+#### **Authentication (/auth)**
 
-| Endpoint | Método | Descripción | Autenticación |
+| Endpoint | Method | Description | Auth Required |
 |----------|--------|-------------|---------------|
-| `/auth/registro` | POST | Registro de nuevo usuario | No |
-| `/auth/login` | POST | Inicio de sesión | No |
-| `/auth/logout` | POST | Cierre de sesión | Sí (token) |
-| `/auth/verificar` | GET | Verificar validez del token | Sí (token) |
-| `/auth/perfil` | GET | Obtener perfil del usuario | Sí (token) |
-| `/auth/perfil` | PUT | Actualizar perfil | Sí (token) |
-| `/auth/avatar` | POST | Actualizar avatar (URL) | Sí (token) |
-| `/auth/cambiar-password` | POST | Cambiar contraseña | Sí (token) |
-| `/auth/usuario` | DELETE | Eliminar cuenta | Sí (token) |
+| `/auth/registro` | POST | User registration | No |
+| `/auth/login` | POST | User login | No |
+| `/auth/logout` | POST | Logout | Yes (token) |
+| `/auth/verificar` | GET | Verify token validity | Yes (token) |
+| `/auth/perfil` | GET | Get user profile | Yes (token) |
+| `/auth/perfil` | PUT | Update profile | Yes (token) |
+| `/auth/avatar` | POST | Update avatar URL | Yes (token) |
+| `/auth/cambiar-password` | POST | Change password | Yes (token) |
+| `/auth/usuario` | DELETE | Delete account | Yes (token) |
 
-#### **Publicaciones (/publicaciones)**
+#### **Recipes (/publicaciones)**
 
-| Endpoint | Método | Descripción | Autenticación |
+| Endpoint | Method | Description | Auth Required |
 |----------|--------|-------------|---------------|
-| `/publicaciones` | GET | Obtener todas las recetas (feed) | Sí (token) |
-| `/publicaciones` | POST | Crear nueva receta | Sí (token) |
-| `/publicaciones/{id}` | GET | Obtener receta por ID | Sí (token) |
-| `/publicaciones/{id}` | PUT | Editar receta | Sí (token) |
-| `/publicaciones/{id}` | DELETE | Eliminar receta | Sí (token) |
-| `/publicaciones/{id}/like` | POST | Dar like a una receta | Sí (token) |
-| `/publicaciones/{id}/like` | DELETE | Quitar like | Sí (token) |
-| `/publicaciones/usuario/{usuarioId}` | GET | Recetas de un usuario | Sí (token) |
+| `/publicaciones` | GET | Get all recipes (feed) | Yes (token) |
+| `/publicaciones` | POST | Create new recipe | Yes (token) |
+| `/publicaciones/{id}` | GET | Get recipe by ID | Yes (token) |
+| `/publicaciones/{id}` | PUT | Edit recipe | Yes (token) |
+| `/publicaciones/{id}` | DELETE | Delete recipe | Yes (token) |
+| `/publicaciones/{id}/like` | POST | Like a recipe | Yes (token) |
+| `/publicaciones/{id}/like` | DELETE | Unlike a recipe | Yes (token) |
+| `/publicaciones/usuario/{usuarioId}` | GET | Get user's recipes | Yes (token) |
 
-### **Autenticación**
+### **Authentication**
 
-La API utiliza **tokens de sesión** generados con UUID. El flujo es el siguiente:
+The API uses **session tokens** generated with UUID. The flow is:
 
-1. El usuario se registra o inicia sesión
-2. El servidor genera un token único y lo devuelve
-3. El cliente debe incluir el token en todas las peticiones autenticadas en el header:
+1. User registers or logs in
+2. Server generates a unique token and returns it
+3. Client must include the token in all authenticated requests in the header:
    ```
    Authorization: Bearer <token>
    ```
 
-### **Ejemplos de peticiones y respuestas**
+### **Request & Response Examples**
 
-#### **Registro de usuario**
+#### **User Registration**
 
-**Petición:**
+**Request:**
 ```http
 POST /auth/registro HTTP/1.1
 Content-Type: application/json
@@ -127,13 +131,13 @@ Content-Type: application/json
 {
     "username": "chef_manuel",
     "email": "manuel@example.com",
-    "passwordHash": "miClave123",
+    "passwordHash": "myPassword123",
     "nombre": "Manuel Hay",
-    "bio": "Apasionado de la cocina"
+    "bio": "Passionate about cooking"
 }
 ```
 
-**Respuesta (201 Created):**
+**Response (201 Created):**
 ```json
 {
     "token": "550e8400-e29b-41d4-a716-446655440000",
@@ -142,103 +146,92 @@ Content-Type: application/json
         "username": "chef_manuel",
         "email": "manuel@example.com",
         "nombre": "Manuel Hay",
-        "bio": "Apasionado de la cocina",
+        "bio": "Passionate about cooking",
         "fechaRegistro": "2026-03-30T10:00:00"
     },
-    "mensaje": "Registro exitoso"
+    "mensaje": "Registration successful"
 }
 ```
 
-#### **Crear una receta**
+#### **Create a Recipe**
 
-**Petición:**
+**Request:**
 ```http
 POST /publicaciones HTTP/1.1
 Authorization: Bearer 550e8400-e29b-41d4-a716-446655440000
 Content-Type: application/json
 
 {
-    "titulo": "Tortilla de Patatas",
-    "duracion": "30 minutos",
-    "imagenPrincipal": "https://ejemplo.com/tortilla.jpg",
-    "descripcion": "La clásica tortilla española",
-    "dificultad": "Media",
+    "titulo": "Spanish Omelette",
+    "duracion": "30 minutes",
+    "imagenPrincipal": "https://example.com/omelette.jpg",
+    "descripcion": "The classic Spanish omelette",
+    "dificultad": "Medium",
     "calorias": 350,
     "ingredientes": [
-        "4 huevos",
-        "500g patatas",
-        "1 cebolla",
-        "Aceite de oliva",
-        "Sal"
+        "4 eggs",
+        "500g potatoes",
+        "1 onion",
+        "Olive oil",
+        "Salt"
     ],
     "pasos": [
-        "Pelar y cortar las patatas",
-        "Freír las patatas",
-        "Batir los huevos",
-        "Mezclar y cuajar"
+        "Peel and slice the potatoes",
+        "Fry the potatoes in olive oil",
+        "Beat the eggs",
+        "Mix and cook the omelette"
     ]
 }
 ```
 
-**Respuesta (201 Created):**
+**Response (201 Created):**
 ```json
 {
     "id": 1,
     "usuarioId": 1,
     "usuarioNombre": "chef_manuel",
-    "titulo": "Tortilla de Patatas",
-    "duracion": "30 minutos",
-    "imagenPrincipal": "https://ejemplo.com/tortilla.jpg",
+    "titulo": "Spanish Omelette",
+    "duracion": "30 minutes",
+    "imagenPrincipal": "https://example.com/omelette.jpg",
     "likes": 0,
     "likedByCurrentUser": false
 }
 ```
 
-#### **Obtener todas las recetas (feed)**
+#### **Get All Recipes (Feed)**
 
-**Petición:**
+**Request:**
 ```http
 GET /publicaciones?page=1&limit=20 HTTP/1.1
 Authorization: Bearer 550e8400-e29b-41d4-a716-446655440000
 ```
 
-**Respuesta (200 OK):**
+**Response (200 OK):**
 ```json
 [
     {
         "id": 1,
         "usuarioId": 1,
         "usuarioNombre": "chef_manuel",
-        "titulo": "Tortilla de Patatas",
-        "duracion": "30 minutos",
-        "imagenPrincipal": "https://ejemplo.com/tortilla.jpg",
+        "titulo": "Spanish Omelette",
+        "duracion": "30 minutes",
+        "imagenPrincipal": "https://example.com/omelette.jpg",
         "likes": 5,
         "likedByCurrentUser": true,
         "fechaCreacion": "2026-03-30T10:00:00"
-    },
-    {
-        "id": 2,
-        "usuarioId": 2,
-        "usuarioNombre": "cocinera_ana",
-        "titulo": "Gazpacho Andaluz",
-        "duracion": "15 minutos",
-        "imagenPrincipal": "https://ejemplo.com/gazpacho.jpg",
-        "likes": 12,
-        "likedByCurrentUser": false,
-        "fechaCreacion": "2026-03-29T18:30:00"
     }
 ]
 ```
 
-#### **Dar like**
+#### **Like a Recipe**
 
-**Petición:**
+**Request:**
 ```http
 POST /publicaciones/1/like HTTP/1.1
 Authorization: Bearer 550e8400-e29b-41d4-a716-446655440000
 ```
 
-**Respuesta (200 OK):**
+**Response (200 OK):**
 ```json
 {
     "likes": 6,
@@ -248,144 +241,144 @@ Authorization: Bearer 550e8400-e29b-41d4-a716-446655440000
 
 ---
 
-## 3. Base de datos
+## 3. Database
 
-### **Diagrama entidad-relación**
+### **Entity-Relationship Diagram**
 
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│    usuarios     │     │  publicaciones  │     │publicacion_     │
-├─────────────────┤     ├─────────────────┤     │  ingredientes   │
-│ id (PK)         │◄────│ usuario_id (FK) │     ├─────────────────┤
-│ username        │     │ id (PK)         │────►│ id (PK)         │
-│ email           │     │ titulo          │     │ publicacion_id  │
-│ password_hash   │     │ duracion        │     │ ingrediente     │
-│ nombre          │     │ imagen_principal│     └─────────────────┘
-│ bio             │     │ descripcion     │
-│ avatar_url      │     │ dificultad      │     ┌─────────────────┐
-│ fecha_registro  │     │ calorias        │     │publicacion_pasos│
-│ ultimo_acceso   │     │ likes           │     ├─────────────────┤
-│ activo          │     │ fecha_creacion  │     │ id (PK)         │
-└─────────────────┘     └─────────────────┘     │ publicacion_id  │
-                              │                 │ paso            │
-                              │                 │ orden           │
-                              ▼                 └─────────────────┘
+│     users       │     │    recipes      │     │recipe_ingredients│
+├─────────────────┤     ├─────────────────┤     ├─────────────────┤
+│ id (PK)         │◄────│ user_id (FK)    │     │ id (PK)         │
+│ username        │     │ id (PK)         │────►│ recipe_id (FK)  │
+│ email           │     │ title           │     │ ingredient      │
+│ password_hash   │     │ duration        │     └─────────────────┘
+│ name            │     │ main_image      │
+│ bio             │     │ description     │     ┌─────────────────┐
+│ avatar_url      │     │ difficulty      │     │   recipe_steps  │
+│ registration_date│     │ calories        │     ├─────────────────┤
+│ last_access     │     │ likes           │     │ id (PK)         │
+│ active          │     │ creation_date   │     │ recipe_id (FK)  │
+└─────────────────┘     └─────────────────┘     │ step            │
+                              │                 │ order           │
+                              │                 └─────────────────┘
+                              ▼
 ┌─────────────────┐     ┌─────────────────┐
-│publicacion_likes│     │publicacion_     │
-├─────────────────┤     │  imagenes       │
-│ usuario_id (PK) │     ├─────────────────┤
-│ publicacion_id  │     │ id (PK)         │
-│ fecha           │     │ publicacion_id  │
+│   recipe_likes  │     │recipe_additional│
+├─────────────────┤     │    images       │
+│ user_id (PK)    │     ├─────────────────┤
+│ recipe_id (PK)  │     │ id (PK)         │
+│ date            │     │ recipe_id (FK)  │
 └─────────────────┘     │ url             │
-                        │ orden           │
+                        │ order           │
                         └─────────────────┘
 ```
 
-### **Descripción de tablas y campos**
+### **Table Descriptions**
 
-#### **usuarios**
-| Campo | Tipo | Descripción |
+#### **users**
+| Field | Type | Description |
 |-------|------|-------------|
-| id | INT (PK, AUTO_INCREMENT) | Identificador único |
-| username | VARCHAR(50) UNIQUE | Nombre de usuario |
-| email | VARCHAR(100) UNIQUE | Correo electrónico |
-| password_hash | VARCHAR(255) | Contraseña hasheada (SHA-256) |
-| nombre | VARCHAR(100) | Nombre completo |
-| bio | TEXT | Biografía del usuario |
-| avatar_url | VARCHAR(500) | URL del avatar |
-| fecha_registro | TIMESTAMP | Fecha de registro |
-| ultimo_acceso | TIMESTAMP | Último inicio de sesión |
-| activo | BOOLEAN | Estado de la cuenta |
+| id | INT (PK, AUTO_INCREMENT) | Unique identifier |
+| username | VARCHAR(50) UNIQUE | Username |
+| email | VARCHAR(100) UNIQUE | Email address |
+| password_hash | VARCHAR(255) | Hashed password (SHA-256) |
+| name | VARCHAR(100) | Full name |
+| bio | TEXT | User biography |
+| avatar_url | VARCHAR(500) | Avatar image URL |
+| registration_date | TIMESTAMP | Registration date |
+| last_access | TIMESTAMP | Last login time |
+| active | BOOLEAN | Account status |
 
-#### **publicaciones**
-| Campo | Tipo | Descripción |
+#### **recipes**
+| Field | Type | Description |
 |-------|------|-------------|
-| id | INT (PK, AUTO_INCREMENT) | Identificador único |
-| usuario_id | INT (FK) | Autor de la receta |
-| titulo | VARCHAR(200) | Título de la receta |
-| duracion | VARCHAR(50) | Tiempo de preparación |
-| imagen_principal | VARCHAR(500) | URL de la imagen principal |
-| descripcion | TEXT | Descripción de la receta |
-| dificultad | VARCHAR(20) | Fácil, Media, Difícil |
-| calorias | INT | Calorías aproximadas |
-| likes | INT | Contador de likes |
-| fecha_creacion | TIMESTAMP | Fecha de publicación |
+| id | INT (PK, AUTO_INCREMENT) | Unique identifier |
+| user_id | INT (FK) | Recipe author |
+| title | VARCHAR(200) | Recipe title |
+| duration | VARCHAR(50) | Preparation time |
+| main_image | VARCHAR(500) | Main image URL |
+| description | TEXT | Recipe description |
+| difficulty | VARCHAR(20) | Easy, Medium, Hard |
+| calories | INT | Approximate calories |
+| likes | INT | Like counter |
+| creation_date | TIMESTAMP | Publication date |
 
-#### **publicacion_ingredientes**
-| Campo | Tipo | Descripción |
+#### **recipe_ingredients**
+| Field | Type | Description |
 |-------|------|-------------|
-| id | INT (PK, AUTO_INCREMENT) | Identificador único |
-| publicacion_id | INT (FK) | Receta asociada |
-| ingrediente | TEXT | Nombre y cantidad |
+| id | INT (PK, AUTO_INCREMENT) | Unique identifier |
+| recipe_id | INT (FK) | Associated recipe |
+| ingredient | TEXT | Ingredient name and quantity |
 
-#### **publicacion_pasos**
-| Campo | Tipo | Descripción |
+#### **recipe_steps**
+| Field | Type | Description |
 |-------|------|-------------|
-| id | INT (PK, AUTO_INCREMENT) | Identificador único |
-| publicacion_id | INT (FK) | Receta asociada |
-| paso | TEXT | Descripción del paso |
-| orden | INT | Orden de los pasos |
+| id | INT (PK, AUTO_INCREMENT) | Unique identifier |
+| recipe_id | INT (FK) | Associated recipe |
+| step | TEXT | Step description |
+| order | INT | Step order |
 
-#### **publicacion_imagenes**
-| Campo | Tipo | Descripción |
+#### **recipe_additional_images**
+| Field | Type | Description |
 |-------|------|-------------|
-| id | INT (PK, AUTO_INCREMENT) | Identificador único |
-| publicacion_id | INT (FK) | Receta asociada |
-| url | VARCHAR(500) | URL de la imagen |
-| orden | INT | Orden de las imágenes |
+| id | INT (PK, AUTO_INCREMENT) | Unique identifier |
+| recipe_id | INT (FK) | Associated recipe |
+| url | VARCHAR(500) | Image URL |
+| order | INT | Image order |
 
-#### **publicacion_likes**
-| Campo | Tipo | Descripción |
+#### **recipe_likes**
+| Field | Type | Description |
 |-------|------|-------------|
-| usuario_id | INT (PK, FK) | Usuario que da like |
-| publicacion_id | INT (PK, FK) | Receta que recibe like |
-| fecha | TIMESTAMP | Fecha del like |
+| user_id | INT (PK, FK) | User who liked |
+| recipe_id | INT (PK, FK) | Recipe that received like |
+| date | TIMESTAMP | Like timestamp |
 
-### **Reglas importantes**
+### **Important Rules**
 
-1. **Integridad referencial**: Todas las claves foráneas tienen `ON DELETE CASCADE` para mantener consistencia
-2. **Username y email únicos**: No puede haber dos usuarios con el mismo nombre o email
-3. **Contraseñas hasheadas**: Nunca se almacenan en texto plano
-4. **Tokens en memoria**: Los tokens activos se guardan en un mapa estático
+1. **Referential integrity**: All foreign keys use `ON DELETE CASCADE` to maintain consistency
+2. **Unique constraints**: Username and email must be unique
+3. **Password hashing**: Passwords are never stored in plain text
+4. **Tokens in memory**: Active tokens are stored in a static map
 
 ---
 
-## 4. Aplicación Web
+## 4. Web Application
 
-### **Tecnología utilizada**
+### **Technologies Used**
 
-| Tecnología | Versión | Uso |
-|------------|---------|-----|
-| **PHP** | 8.x | Plantillas HTML y lógica de presentación |
-| **HTML5** | - | Estructura de la página |
-| **CSS3** | - | Estilos y diseño responsive |
-| **JavaScript** | ES6+ | Comunicación con la API y manipulación del DOM |
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **PHP** | 8.x | HTML templates and presentation logic |
+| **HTML5** | - | Page structure |
+| **CSS3** | - | Styles and responsive design |
+| **JavaScript** | ES6+ | API communication and DOM manipulation |
 
-### **Estructura del proyecto**
+### **Project Structure**
 
 ```
-vista/
-├── index2.php                 # Login
-├── vista_registro.php         # Registro de usuarios
-├── vista_principal.php        # Muro principal (feed)
-├── vista_perfil.php           # Perfil de usuario
-├── vista_editar_perfil.php    # Edición de perfil
-├── vista_crear_publicacion.php # Crear receta
-├── vista_detalle.php          # Detalle de receta
-├── api_proxy.php              # Proxy para CORS (opcional)
-├── styles.css                 # Estilos globales
+web/
+├── index2.php                 # Login page
+├── registro.php               # User registration
+├── principal.php              # Main feed
+├── perfil.php                 # User profile
+├── editar_perfil.php          # Edit profile
+├── crear_publicacion.php      # Create recipe
+├── detalle.php                # Recipe details
+├── api_proxy.php              # CORS proxy (optional)
+├── styles.css                 # Global styles
 └── assets/
-    ├── imagenes/              # Imágenes del sitio
-    └── iconos/                # Iconos
+    ├── images/                # Site images
+    └── icons/                 # Icons
 ```
 
-### **Conexión con la API**
+### **API Integration**
 
-La aplicación web utiliza `fetch` para realizar peticiones asíncronas a la API Java. El token se almacena en `localStorage`.
+The web app uses `fetch` to make asynchronous requests to the Java API. Tokens are stored in `localStorage`.
 
 ```javascript
-// Ejemplo de login
-async function iniciarSesion() {
+// Login example
+async function login() {
     const response = await fetch('http://localhost:8080/mi-primera-api/rest/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -395,59 +388,57 @@ async function iniciarSesion() {
     const data = await response.json();
     if (response.ok) {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('usuario', JSON.stringify(data.usuario));
-        window.location.href = 'vista_principal.php';
+        localStorage.setItem('user', JSON.stringify(data.usuario));
+        window.location.href = 'principal.php';
     }
 }
 ```
 
 ---
 
-## 5. Aplicación Móvil
+## 5. Mobile Application
 
-### **Tecnología utilizada**
+### **Technologies Used**
 
-| Tecnología | Versión | Uso |
-|------------|---------|-----|
-| **Android SDK** | API 34 (Android 14) | Desarrollo nativo |
-| **Java** | 11 | Lenguaje de programación |
-| **Retrofit** | 2.9.0 | Cliente HTTP para la API |
-| **Gson** | 2.10.1 | Serialización/deserialización JSON |
-| **Picasso** | 2.8 | Carga de imágenes |
-| **Material Design** | 1.11.0 | Componentes UI |
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Android SDK** | API 34 (Android 14) | Native development |
+| **Java** | 11 | Programming language |
+| **Retrofit** | 2.9.0 | HTTP client for API |
+| **Gson** | 2.10.1 | JSON serialization/deserialization |
+| **Picasso** | 2.8 | Image loading |
+| **Material Design** | 1.11.0 | UI components |
 
-### **Estructura del proyecto**
+### **Project Structure**
 
 ```
-app/src/main/java/com/example/gostar3/
-├── IniciarSesion.java          # Login
-├── CrearCuenta.java             # Registro
-├── Muro.java                    # Actividad principal
-├── DetalleRecetaActivity.java   # Detalle de receta
-├── CrearRecetaActivity.java     # Crear receta
-├── EditarPerfilActivity.java    # Editar perfil
-├── PerfilFragment.java          # Fragment del perfil
-├── InicioFragment.java          # Fragment del feed
-├── BuscarFragment.java          # Fragment de búsqueda
-├── NotificacionesFragment.java  # Fragment de notificaciones
-├── CrearFragment.java           # Fragment para crear
+app/src/main/java/com/example/gostar/
+├── LoginActivity.java              # Login
+├── RegisterActivity.java           # Registration
+├── MainActivity.java               # Main activity
+├── RecipeDetailActivity.java       # Recipe details
+├── CreateRecipeActivity.java       # Create recipe
+├── EditProfileActivity.java        # Edit profile
+├── ProfileFragment.java            # Profile fragment
+├── FeedFragment.java               # Feed fragment
+├── SearchFragment.java             # Search fragment
 ├── adapter/
-│   └── PublicacionAdapter.java  # Adaptador para RecyclerView
+│   └── RecipeAdapter.java          # RecyclerView adapter
 ├── model/
-│   ├── Usuario.java
-│   ├── Publicacion.java
+│   ├── User.java
+│   ├── Recipe.java
 │   ├── LoginRequest.java
 │   ├── LoginResponse.java
-│   ├── RegistroRequest.java
+│   ├── RegisterRequest.java
 │   └── LikeResponse.java
 └── network/
-    ├── ApiClient.java           # Configuración Retrofit
-    └── ApiService.java          # Interfaz de endpoints
+    ├── ApiClient.java              # Retrofit configuration
+    └── ApiService.java             # Endpoint interface
 ```
 
-### **Conexión con la API**
+### **API Integration**
 
-La app utiliza **Retrofit** para la comunicación con la API. Se configura un cliente singleton que maneja las peticiones HTTP.
+The app uses **Retrofit** for API communication. A singleton client handles HTTP requests.
 
 ```java
 // ApiService.java
@@ -456,17 +447,17 @@ public interface ApiService {
     Call<LoginResponse> login(@Body LoginRequest request);
     
     @GET("publicaciones")
-    Call<List<Publicacion>> getPublicaciones(@Header("Authorization") String token,
-                                             @Query("page") int page,
-                                             @Query("limit") int limit);
+    Call<List<Recipe>> getRecipes(@Header("Authorization") String token,
+                                  @Query("page") int page,
+                                  @Query("limit") int limit);
 }
 
-// Uso en el Fragment
-apiService.getPublicaciones("Bearer " + token, 1, 20).enqueue(new Callback<>() {
+// Usage in Fragment
+apiService.getRecipes("Bearer " + token, 1, 20).enqueue(new Callback<>() {
     @Override
-    public void onResponse(Call<List<Publicacion>> call, Response<List<Publicacion>> response) {
-        publicaciones.clear();
-        publicaciones.addAll(response.body());
+    public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+        recipes.clear();
+        recipes.addAll(response.body());
         adapter.notifyDataSetChanged();
     }
 });
@@ -474,46 +465,46 @@ apiService.getPublicaciones("Bearer " + token, 1, 20).enqueue(new Callback<>() {
 
 ---
 
-## 6. Aplicación de Escritorio
+## 6. Desktop Application
 
-### **Tecnología utilizada**
+### **Technologies Used**
 
-| Tecnología | Versión | Uso |
-|------------|---------|-----|
-| **.NET Framework** | 4.8 | Framework de desarrollo |
-| **C#** | 7.0 | Lenguaje de programación |
-| **Windows Forms** | - | Interfaz gráfica |
-| **HttpClient** | .NET | Cliente HTTP |
-| **Newtonsoft.Json** | 13.0.3 | Serialización JSON |
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **.NET Framework** | 4.8 | Development framework |
+| **C#** | 7.0 | Programming language |
+| **Windows Forms** | - | GUI framework |
+| **HttpClient** | .NET | HTTP client |
+| **Newtonsoft.Json** | 13.0.3 | JSON serialization |
 
-### **Estructura del proyecto**
+### **Project Structure**
 
 ```
 GostarDesktop/
-├── Program.cs                     # Punto de entrada
-├── FormLogin.cs                   # Login
-├── FormRegistro.cs                # Registro
-├── FormMuro.cs                    # Muro principal
-├── FormDetalle.cs                 # Detalle de receta
-├── FormCrearReceta.cs             # Crear receta
-├── FormEditarPerfil.cs            # Editar perfil
+├── Program.cs                     # Entry point
+├── LoginForm.cs                   # Login
+├── RegisterForm.cs                # Registration
+├── MainForm.cs                    # Main feed
+├── RecipeDetailForm.cs            # Recipe details
+├── CreateRecipeForm.cs            # Create recipe
+├── EditProfileForm.cs             # Edit profile
 ├── Controls/
-│   └── PublicacionControl.cs      # UserControl de publicación
+│   └── RecipeControl.cs           # Reusable recipe control
 ├── Models/
-│   ├── Usuario.cs
-│   ├── Publicacion.cs
+│   ├── User.cs
+│   ├── Recipe.cs
 │   ├── LoginRequest.cs
 │   ├── LoginResponse.cs
-│   ├── RegistroRequest.cs
+│   ├── RegisterRequest.cs
 │   └── LikeResponse.cs
-├── ApiClient.cs                   # Cliente HTTP singleton
+├── ApiClient.cs                   # HTTP client singleton
 └── Properties/
-    └── Settings.settings          # Almacenamiento de token
+    └── Settings.settings          # Token storage
 ```
 
-### **Conexión con la API**
+### **API Integration**
 
-La aplicación utiliza `HttpClient` para realizar peticiones a la API. Se implementa un patrón singleton en `ApiClient`.
+The application uses `HttpClient` for API requests with a singleton pattern.
 
 ```csharp
 // ApiClient.cs
@@ -544,35 +535,35 @@ public class ApiClient
 
 ---
 
-## 7. Seguridad
+## 7. Security
 
-### **Mecanismos de seguridad implementados**
+### **Security Mechanisms Implemented**
 
-#### **1. Tokens de sesión**
-- Los tokens son generados con `UUID.randomUUID()` (128 bits)
-- Cada token es único y se almacena en un mapa en memoria
-- El token se envía en el header `Authorization: Bearer <token>`
-- Se valida en cada petición autenticada
+#### **1. Session Tokens**
+- Tokens generated with `UUID.randomUUID()` (128 bits)
+- Each token is unique and stored in a memory map
+- Token sent in `Authorization: Bearer <token>` header
+- Validated on every authenticated request
 
-#### **2. Contraseñas**
-- Las contraseñas se hashean con **SHA-256** antes de almacenarse
-- Nunca se almacenan en texto plano
-- La verificación se hace comparando hashes
+#### **2. Password Security**
+- Passwords hashed with **SHA-256** before storage
+- Never stored in plain text
+- Verification performed by comparing hashes
 
-#### **3. Prevención de SQL Injection**
-- Se utilizan **Prepared Statements** en todas las consultas
-- No se concatenan strings en las consultas SQL
+#### **3. SQL Injection Prevention**
+- **Prepared Statements** used for all queries
+- No string concatenation in SQL queries
 
 ```java
-// Ejemplo correcto
-String sql = "SELECT * FROM usuarios WHERE username = ?";
+// Correct example
+String sql = "SELECT * FROM users WHERE username = ?";
 PreparedStatement stmt = conn.prepareStatement(sql);
 stmt.setString(1, username);
 ```
 
 #### **4. CORS (Cross-Origin Resource Sharing)**
-- Se implementó un filtro CORS para permitir peticiones desde diferentes orígenes
-- Configurado para desarrollo local
+- CORS filter implemented to allow requests from different origins
+- Configured for local development
 
 ```java
 @Provider
@@ -585,133 +576,133 @@ public class CorsFilter implements ContainerResponseFilter {
 }
 ```
 
-#### **5. Validación de datos**
-- Validación en servidor de campos obligatorios
-- Validación de email duplicado
-- Verificación de permisos (solo el autor puede editar/eliminar)
+#### **5. Input Validation**
+- Server-side validation of required fields
+- Duplicate email validation
+- Permission verification (only author can edit/delete)
 
-### **Gestión de usuarios y permisos**
+### **User Permissions**
 
-| Acción | Permiso requerido |
-|--------|-------------------|
-| Registrarse | No requiere autenticación |
-| Ver publicaciones | Token válido |
-| Crear publicación | Token válido |
-| Editar publicación | Ser el autor |
-| Eliminar publicación | Ser el autor |
-| Dar like | Token válido |
+| Action | Permission Required |
+|--------|---------------------|
+| Register | No authentication |
+| View recipes | Valid token |
+| Create recipe | Valid token |
+| Edit recipe | Be the author |
+| Delete recipe | Be the author |
+| Like recipe | Valid token |
 
-### **Buenas prácticas aplicadas**
+### **Best Practices Applied**
 
-1. **Principio de mínima exposición**: Los endpoints devuelven solo la información necesaria
-2. **Logs de errores**: Los errores se registran en consola para depuración
-3. **Manejo de excepciones**: Try-catch para evitar caídas del servidor
-4. **Cierre de recursos**: Uso de `finally` para cerrar conexiones
+1. **Principle of Least Exposure**: Endpoints return only necessary information
+2. **Error Logging**: Errors are logged to console for debugging
+3. **Exception Handling**: Try-catch blocks to prevent server crashes
+4. **Resource Cleanup**: Using `finally` blocks to close connections
 
 ---
 
-## 8. Despliegue
+## 8. Deployment
 
-### **Requisitos previos**
+### **Prerequisites**
 
-- **Java 11** o superior
-- **Apache Tomcat 10** o superior
-- **MySQL / MariaDB** instalado y funcionando
-- **PHP 8.x** con servidor web (Apache o similar)
-- **Android Studio** (para compilar la app móvil)
-- **Visual Studio** (para compilar la app de escritorio)
+- **Java 11** or higher
+- **Apache Tomcat 10** or higher
+- **MySQL / MariaDB** installed and running
+- **PHP 8.x** with web server (Apache or similar)
+- **Android Studio** (to compile mobile app)
+- **Visual Studio** (to compile desktop app)
 
-### **Ejecutar la API**
+### **Running the API**
 
-1. **Crear la base de datos**:
+1. **Create the database**:
 ```sql
-CREATE DATABASE red_social;
-USE red_social;
--- Las tablas se crearán automáticamente al iniciar la API
+CREATE DATABASE gostar;
+USE gostar;
+-- Tables are created automatically when the API starts
 ```
 
-2. **Configurar conexión** en `DatabaseConfig.java`:
+2. **Configure connection** in `DatabaseConfig.java`:
 ```java
-config.setJdbcUrl("jdbc:mysql://localhost:3306/red_social");
+config.setJdbcUrl("jdbc:mysql://localhost:3306/gostar");
 config.setUsername("root");
 config.setPassword("");
 ```
 
-3. **Compilar el proyecto**:
+3. **Compile the project**:
 ```bash
 mvn clean package
 ```
 
-4. **Desplegar en Tomcat**:
-- Copiar el archivo `target/mi-primera-api.war` a la carpeta `webapps` de Tomcat
-- Iniciar Tomcat
+4. **Deploy to Tomcat**:
+- Copy `target/gostar-api.war` to Tomcat's `webapps` folder
+- Start Tomcat
 
-5. **Verificar**:
+5. **Verify**:
 ```
-http://localhost:8080/mi-primera-api/rest/auth/verificar
+http://localhost:8080/gostar-api/rest/auth/verificar
 ```
 
-### **Ejecutar la aplicación web**
+### **Running the Web Application**
 
-1. **Colocar los archivos PHP** en el directorio del servidor web (ej: `htdocs` de XAMPP)
-2. **Asegurar que la API esté corriendo** en `localhost:8080`
-3. **Acceder a** `http://localhost/vista/index2.php`
+1. **Place PHP files** in web server directory (e.g., `htdocs` of XAMPP)
+2. **Ensure API is running** on `localhost:8080`
+3. **Access** `http://localhost/gostar-web/index2.php`
 
-### **Ejecutar la aplicación móvil**
+### **Running the Mobile Application**
 
-1. **Abrir el proyecto en Android Studio**
-2. **Configurar la URL de la API** en `ApiClient.java`:
+1. **Open the project in Android Studio**
+2. **Configure API URL** in `ApiClient.java`:
 ```java
-private static final String BASE_URL = "http://10.0.2.2:8080/mi-primera-api/rest/";
+private static final String BASE_URL = "http://10.0.2.2:8080/gostar-api/rest/";
 ```
-3. **Compilar y ejecutar** en emulador o dispositivo real
+3. **Build and run** on emulator or physical device
 
-### **Ejecutar la aplicación de escritorio**
+### **Running the Desktop Application**
 
-1. **Abrir la solución en Visual Studio**
-2. **Configurar la URL de la API** en `ApiClient.cs`:
+1. **Open the solution in Visual Studio**
+2. **Configure API URL** in `ApiClient.cs`:
 ```csharp
-private string _baseUrl = "http://localhost:8080/mi-primera-api/rest/";
+private string _baseUrl = "http://localhost:8080/gostar-api/rest/";
 ```
-3. **Compilar y ejecutar** (F5)
+3. **Build and run** (F5)
 
 ---
 
-## 9. Pruebas
+## 9. Testing
 
-### **Pruebas unitarias realizadas**
+### **Unit Tests Conducted**
 
-| Módulo | Prueba | Resultado |
-|--------|--------|-----------|
-| AuthService | Registro con datos válidos | ✅ OK |
-| AuthService | Registro con email duplicado | ❌ 409 Conflict |
-| AuthService | Login con credenciales correctas | ✅ 200 OK |
-| AuthService | Login con contraseña incorrecta | ❌ 401 Unauthorized |
-| PublicacionService | Crear receta con token válido | ✅ 201 Created |
-| PublicacionService | Crear receta sin token | ❌ 401 Unauthorized |
-| PublicacionService | Obtener recetas del feed | ✅ 200 OK |
-| PublicacionService | Dar like a receta | ✅ 200 OK |
-| PublicacionService | Dar like repetido | ❌ 400 Bad Request |
-| PublicacionService | Eliminar receta como autor | ✅ 200 OK |
-| PublicacionService | Eliminar receta no autor | ❌ 403 Forbidden |
+| Module | Test | Result |
+|--------|------|--------|
+| AuthService | Registration with valid data | ✅ OK |
+| AuthService | Registration with duplicate email | ❌ 409 Conflict |
+| AuthService | Login with correct credentials | ✅ 200 OK |
+| AuthService | Login with incorrect password | ❌ 401 Unauthorized |
+| RecipeService | Create recipe with valid token | ✅ 201 Created |
+| RecipeService | Create recipe without token | ❌ 401 Unauthorized |
+| RecipeService | Get feed recipes | ✅ 200 OK |
+| RecipeService | Like a recipe | ✅ 200 OK |
+| RecipeService | Duplicate like | ❌ 400 Bad Request |
+| RecipeService | Delete own recipe | ✅ 200 OK |
+| RecipeService | Delete someone else's recipe | ❌ 403 Forbidden |
 
-### **Pruebas de integración**
+### **Integration Tests**
 
-| Escenario | Descripción | Resultado |
-|-----------|-------------|-----------|
-| Flujo completo web | Registro → Login → Crear receta → Like → Perfil | ✅ OK |
-| Flujo completo móvil | Registro → Login → Ver feed → Dar like | ✅ OK |
-| Flujo completo escritorio | Login → Crear receta → Ver detalle → Eliminar | ✅ OK |
-| Persistencia de sesión | Cerrar y abrir app, token válido | ✅ OK |
-| CORS | Peticiones desde web a API | ✅ OK |
+| Scenario | Description | Result |
+|----------|-------------|--------|
+| Full web flow | Register → Login → Create recipe → Like → Profile | ✅ OK |
+| Full mobile flow | Register → Login → View feed → Like | ✅ OK |
+| Full desktop flow | Login → Create recipe → View details → Delete | ✅ OK |
+| Session persistence | Close and reopen app, token valid | ✅ OK |
+| CORS | Requests from web to API | ✅ OK |
 
 ---
 
-## 10. Guía de uso y mantenimiento
+## 10. User Guide & Maintenance
 
-### **Ejecución en local**
+### **Local Execution**
 
-1. **Iniciar MySQL**:
+1. **Start MySQL**:
 ```bash
 # Windows
 net start MySQL
@@ -719,82 +710,83 @@ net start MySQL
 sudo systemctl start mysql
 ```
 
-2. **Iniciar Tomcat**:
+2. **Start Tomcat**:
 ```bash
-# Navegar a la carpeta bin de Tomcat
+# Navigate to Tomcat's bin folder
 ./catalina.sh start  # Linux/Mac
 catalina.bat start   # Windows
 ```
 
-3. **Iniciar servidor web** (XAMPP, WAMP, etc.)
+3. **Start web server** (XAMPP, WAMP, etc.)
 
-4. **Acceder a la aplicación**:
-- Web: `http://localhost/vista/index2.php`
-- Móvil: Ejecutar desde Android Studio
-- Escritorio: Ejecutar desde Visual Studio
+4. **Access the applications**:
+- Web: `http://localhost/gostar-web/index2.php`
+- Mobile: Run from Android Studio
+- Desktop: Run from Visual Studio
 
-### **Añadir funcionalidades**
+### **Adding New Features**
 
-Para añadir nuevas funcionalidades a la API:
+To add new features to the API:
 
-1. **Crear el endpoint** en el servicio correspondiente
-2. **Añadir el método en ApiService** (para móvil y escritorio)
-3. **Actualizar las vistas** con el nuevo endpoint
+1. **Create the endpoint** in the corresponding service class
+2. **Add the method to ApiService** (for mobile and desktop)
+3. **Update the views** with the new endpoint
 
-### **Problemas frecuentes**
+### **Common Issues**
 
-| Problema | Causa | Solución |
-|----------|-------|----------|
-| `CLEARTEXT communication not permitted` | Android 9+ no permite HTTP | Añadir `android:usesCleartextTraffic="true"` en manifest |
-| CORS error | Diferente origen web-API | Implementar filtro CORS en Java |
-| `Connection refused` | API no corriendo | Verificar que Tomcat está iniciado |
-| `404 Not Found` | Endpoint incorrecto | Verificar URL y Paths |
-| Token inválido | Token expirado o no guardado | Volver a hacer login |
-
----
-
-## 11. Mejoras futuras
-
-### **Mejoras previstas**
-
-| Área | Mejora | Prioridad |
-|------|--------|-----------|
-| **Seguridad** | Implementar JWT en lugar de tokens en memoria | Alta |
-| **API** | Añadir paginación y filtros de búsqueda | Media |
-| **Web** | Implementar lazy loading en el feed | Media |
-| **Móvil** | Añadir notificaciones push | Baja |
-
-### **Nuevas funcionalidades**
-
-1. **Comentarios en recetas**: Sistema de comentarios anidados
-2. **Seguir usuarios**: Feed personalizado con recetas de usuarios seguidos
-3. **Valoraciones con estrellas**: Sistema de puntuación de recetas
-4. **Categorías**: Filtrado por tipo de receta (Desayuno, Comida, Postre)
-5. **Subida de imágenes**: En lugar de URLs, subir archivos al servidor
-6. **Recetas favoritas**: Guardar recetas en favoritos
-7. **Exportar recetas**: Generar PDF con la receta
-
-### **Optimizaciones posibles**
-
-1. **Caché de imágenes**: Implementar caché local para imágenes
-2. **Paginación infinita**: Scroll infinito en el feed
-3. **Índices en BD**: Optimizar consultas frecuentes
-4. **Conexión pooling**: Mejorar gestión de conexiones a BD
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| `CLEARTEXT communication not permitted` | Android 9+ blocks HTTP | Add `android:usesCleartextTraffic="true"` to manifest |
+| CORS error | Different web-API origin | Implement CORS filter in Java |
+| `Connection refused` | API not running | Verify Tomcat is started |
+| `404 Not Found` | Incorrect endpoint | Check URL and Path annotations |
+| Invalid token | Expired or missing token | Re-login |
 
 ---
 
-## 📝 **Conclusión**
+## 11. Future Improvements
 
-GOSTAR es una plataforma completa de red social de recetas que demuestra la integración de tres tipos de aplicaciones (web, móvil y escritorio) con una API REST centralizada. El proyecto aplica los conocimientos adquiridos en el ciclo de Desarrollo de Aplicaciones Multiplataforma, incluyendo:
+### **Planned Improvements**
 
-- Desarrollo de API REST con Java y JAX-RS
-- Persistencia de datos con MySQL
-- Consumo de APIs desde diferentes plataformas
-- Patrones de diseño y buenas prácticas
-- Seguridad en aplicaciones web
+| Area | Improvement | Priority |
+|------|------------|----------|
+| **Security** | Implement JWT instead of memory tokens | High |
+| **API** | Add pagination and search filters | Medium |
+| **Web** | Implement lazy loading for feed | Medium |
+| **Mobile** | Add push notifications | Low |
+
+### **New Features**
+
+1. **Comments on recipes**: Nested comment system
+2. **Follow users**: Personalized feed with followed users' recipes
+3. **Star ratings**: Recipe rating system
+4. **Categories**: Filter by recipe type (Breakfast, Lunch, Dessert)
+5. **Image upload**: Upload files instead of URLs
+6. **Favorite recipes**: Save recipes to favorites
+7. **Export recipes**: Generate PDF of recipe
+
+### **Possible Optimizations**
+
+1. **Image caching**: Implement local image cache
+2. **Infinite scrolling**: Scroll to load more recipes
+3. **Database indexes**: Optimize frequent queries
+4. **Connection pooling**: Improve database connection management
+
+---
+
+## 📝 **Conclusion**
+
+GOSTAR is a complete recipe social network platform demonstrating the integration of three types of applications (web, mobile, desktop) with a centralized REST API. The project applies knowledge acquired in the Multiplatform Application Development program, including:
+
+- REST API development with Java and JAX-RS
+- Data persistence with MySQL
+- API consumption from different platforms
+- Design patterns and best practices
+- Security in web applications
 
 ---
 
 **Manuel Hay Fernández**  
-Desarrollo de Aplicaciones Multiplataforma (2º curso)  
-Curso 2025/2026
+Multiplatform Application Development (2nd year)  
+Academic Year 2025/2026
+Colexio Vivas
