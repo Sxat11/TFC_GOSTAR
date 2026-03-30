@@ -117,16 +117,135 @@ Bienvenido a **GOSTAR**, una aplicación diseñada para compartir recetas y trad
 
 ---
 
-## 📷 Próximamente
+# 🍽️ GOSTAR
 
-- Mejoras visuales
-- Sistema avanzado de interacción social
-- Optimización de rendimiento
+**Good morning, good afternoon, and good evening.**  
+Welcome to **GOSTAR**, an application designed to share recipes and traditions with the world, promoting healthy eating and good lifestyle habits.
 
 ---
 
-## 💡 Autor
+## 📅 Development History
 
-Proyecto desarrollado como parte de aprendizaje y práctica en desarrollo multiplataforma.
+### 🟢 01/20/2026
+- Finished the **account creation system** (not functional yet).
+
+### 🟢 01/26/2026
+- Created the **navigation bar**.
+- Started developing **fragments** (not functional yet).
+- Fully implemented the **RecyclerView adapter**.
+
+### 🟢 02/03/2026
+- Navigation bar fully functional.
+- First fragment highly developed:
+  - Functional RecyclerView scrolling.
+  - Clicking items shows detailed information.
+  - Implemented **"Like" button**.
+- Started **web application**:
+  - **Login** and **Sign Up** views created (not functional yet).
+
+### 🟢 02/10/2026
+- Created the **database**:
+  - Tables: `Users` and `Posts`.
+- Started developing the **backend**:
+  - API call structure.
+
+### 🟢 02/17/2026
+- Functional login on **Web and Mobile**.
+- Attempted to implement **Sign Up**.
+- Mobile fragments now functional.
+
+### 🟢 02/20/2026
+- Data loading implemented in the **web feed**.
+- Added **Edit Profile** feature on web.
+- Improved web interface design.
+
+### 🔴 02/21/2026
+- Critical issue:
+  - Partial rebuild of the mobile project.
+  - Significant development setback.
+
+### 🟢 02/22/2026
+- Implemented **mobile feed**.
+- Account and post creation working on both web and mobile.
+
+### 🟢 02/24/2026
+- First fully functional **multiplatform version**:
+  - Shared API across all platforms.
+  - Features:
+    - Create, edit, and delete accounts.
+    - Create, edit, and delete posts.
+    - Basic **like system**.
+
+### 🟢 03/03/2026
+- Started **desktop application (.NET Framework)**.
+- Using **MaterialSkin2** for UI improvements.
+- Developed:
+  - Login window
+  - Sign Up window
+
+### 🟢 03/10/2026
+- Created **main feed** and core windows:
+  - Posts
+  - Profile
+  - Other features
+
+### 🟢 03/20/2026
+- Functional login and sign up on **desktop**.
+
+### 🟢 03/26/2026
+- Connected **desktop feed** to API:
+  - Data loading implemented.
+
+### 🟢 03/30/2026
+- Final testing:
+  - Database cleared, refilled, and exported to the project.
+- All three platforms completed:
+  - 📱 Mobile
+  - 🌐 Web
+  - 🖥️ Desktop
+- Full project uploaded to **GitHub**.
+
+---
+
+## 🚀 Project Status
+
+✅ Fully functional application  
+✅ Multiplatform architecture  
+✅ Shared API across all platforms  
+
+---
+
+## 🧩 Technologies Used
+
+- **Mobile Frontend:** Android (Java)
+- **Web Frontend:** HTML, CSS, JavaScript
+- **Backend:** REST API
+- **Database:** SQL
+- **Desktop:** .NET Framework + MaterialSkin2
+
+---
+
+## 📌 Main Features
+
+- 👤 User management (create, edit, delete)
+- 📝 Posts (create, edit, delete)
+- ❤️ Like system
+- 📰 Feed system
+- 🔐 Authentication (login & sign up)
+- 🌍 Cross-platform support
+
+---
+
+## 📷 Coming Soon
+
+- UI/UX improvements
+- Advanced social interaction features
+- Performance optimization
+
+---
+
+## 💡 Author
+
+Project developed as part of learning and practice in multiplatform development.
 
 ---
