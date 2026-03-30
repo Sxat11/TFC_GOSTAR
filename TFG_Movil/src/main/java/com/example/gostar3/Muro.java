@@ -49,8 +49,9 @@ public class Muro extends AppCompatActivity {
                     startActivity(new Intent(Muro.this, CrearRecetaActivity.class));
                     return true;
             } else if (itemId == R.id.navigation_notificaciones) {
-              //  cargarFragment(new NotificacionesFragment(), false);
-                return true;
+                    cargarFragment(new FavoritosFragment(), false);
+                    return true;
+
             } else if (itemId == R.id.navigation_perfil) {
                 cargarFragment(new PerfilFragment(), false);
                 return true;
@@ -70,5 +71,8 @@ public class Muro extends AppCompatActivity {
         }
 
         transaction.commit();
+    }
+    public void seleccionarFragment(int posicion) {
+        bottomNavigationView.setSelectedItemId(bottomNavigationView.getMenu().getItem(posicion).getItemId());
     }
 }

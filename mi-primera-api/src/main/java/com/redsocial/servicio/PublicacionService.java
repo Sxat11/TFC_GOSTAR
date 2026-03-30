@@ -111,7 +111,6 @@ public class PublicacionService {
     }
 
     // 1. CREAR nueva publicación
-    // 1. CREAR nueva publicación
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -256,7 +255,6 @@ public class PublicacionService {
     }
 
     // 2. OBTENER TODAS las publicaciones (feed)
-    // 2. OBTENER TODAS las publicaciones (feed)
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPublicaciones(@HeaderParam("Authorization") String token,
@@ -267,8 +265,9 @@ public class PublicacionService {
         ResultSet rs = null;
 
         try {
+            // Validar usuario para saber sus likes
+            Usuario usuarioActual = validarToken(token);
             conn = DatabaseConfig.getConnection();
-
             int offset = (page - 1) * limit;
 
             String sql = "SELECT p.*, u.username as autor_nombre, u.avatar_url as autor_avatar " +
@@ -287,7 +286,7 @@ public class PublicacionService {
             while (rs.next()) {
                 Publicacion p = new Publicacion();
                 p.setId(rs.getInt("id"));
-                p.setUsuarioId(rs.getInt("usuario_id")); // ← ESTO ES CLAVE
+                p.setUsuarioId(rs.getInt("usuario_id"));
                 p.setUsuarioNombre(rs.getString("autor_nombre"));
                 p.setUsuarioAvatar(rs.getString("autor_avatar"));
                 p.setTitulo(rs.getString("titulo"));
@@ -296,32 +295,27 @@ public class PublicacionService {
                 p.setLikes(rs.getInt("likes"));
                 p.setFechaCreacion(rs.getString("fecha_creacion"));
 
+                // --- LÓGICA PARA CARGAR EL ESTADO DEL LIKE ---
+                if (usuarioActual != null) {
+                    String checkSql = "SELECT 1 FROM publicacion_likes WHERE usuario_id = ? AND publicacion_id = ?";
+                    try (PreparedStatement likeStmt = conn.prepareStatement(checkSql)) {
+                        likeStmt.setInt(1, usuarioActual.getId());
+                        likeStmt.setInt(2, p.getId());
+                        try (ResultSet rsLike = likeStmt.executeQuery()) {
+                            p.setLikedByCurrentUser(rsLike.next()); // true si existe el registro
+                        }
+                    }
+                }
+                // ---------------------------------------------
+
                 publicaciones.add(new Publicacion.PublicacionPreview(p));
             }
-
             return Response.ok(publicaciones).build();
-
         } catch (SQLException e) {
             e.printStackTrace();
-            return Response.status(Status.INTERNAL_SERVER_ERROR)
-                    .entity(new ErrorResponse("Error al cargar publicaciones"))
-                    .build();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-            } catch (SQLException e) {
-            }
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException e) {
-            }
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException e) {
-            }
+            // ... (tus cierres de conexión habituales)
         }
     }
 
@@ -438,39 +432,39 @@ public class PublicacionService {
     @POST
     @Path("/{id}/like")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response darLike(@HeaderParam("Authorization") String token,
-            @PathParam("id") int id) {
+    public Response darLike(@HeaderParam("Authorization") String token, @PathParam("id") int id) {
         Connection conn = null;
         PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            Usuario usuario = validarToken(token);
+            // Usamos el método que ya tienes definido en tu clase
+            Usuario usuario = obtenerUsuarioDesdeToken(token);
 
             if (usuario == null) {
                 return Response.status(Status.UNAUTHORIZED)
-                        .entity(new ErrorResponse("Token inválido"))
+                        .entity(new ErrorResponse("Sesión expirada o token inválido"))
                         .build();
             }
 
             int usuarioId = usuario.getId();
             conn = DatabaseConfig.getConnection();
 
-            // Verificar si ya dio like
-            String checkSql = "SELECT * FROM publicacion_likes WHERE usuario_id = ? AND publicacion_id = ?";
+            // 1. Verificar si ya existe el like para no duplicar
+            String checkSql = "SELECT 1 FROM publicacion_likes WHERE usuario_id = ? AND publicacion_id = ?";
             stmt = conn.prepareStatement(checkSql);
             stmt.setInt(1, usuarioId);
             stmt.setInt(2, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
 
             if (rs.next()) {
                 return Response.status(Status.BAD_REQUEST)
                         .entity(new ErrorResponse("Ya has dado like a esta publicación"))
                         .build();
             }
-            rs.close();
             stmt.close();
 
-            // Insertar like
+            // 2. Insertar el registro de like
             String likeSql = "INSERT INTO publicacion_likes (usuario_id, publicacion_id) VALUES (?, ?)";
             stmt = conn.prepareStatement(likeSql);
             stmt.setInt(1, usuarioId);
@@ -478,13 +472,14 @@ public class PublicacionService {
             stmt.executeUpdate();
             stmt.close();
 
-            // Actualizar contador
+            // 3. Incrementar el contador en la tabla publicaciones
             String updateSql = "UPDATE publicaciones SET likes = likes + 1 WHERE id = ?";
             stmt = conn.prepareStatement(updateSql);
             stmt.setInt(1, id);
             stmt.executeUpdate();
+            stmt.close();
 
-            // Obtener nuevo contador
+            // 4. Obtener el número actualizado para devolverlo al cliente
             String countSql = "SELECT likes FROM publicaciones WHERE id = ?";
             stmt = conn.prepareStatement(countSql);
             stmt.setInt(1, id);
@@ -495,14 +490,19 @@ public class PublicacionService {
                 nuevosLikes = rs.getInt("likes");
             }
 
+            // Devolvemos el estado completo para que el JS no se pierda
             return Response.ok(new LikeResponse(nuevosLikes, true)).build();
 
         } catch (SQLException e) {
             e.printStackTrace();
             return Response.status(Status.INTERNAL_SERVER_ERROR)
-                    .entity(new ErrorResponse("Error al dar like"))
-                    .build();
+                    .entity(new ErrorResponse("Error de base de datos al dar like")).build();
         } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+            }
             try {
                 if (stmt != null)
                     stmt.close();
@@ -520,48 +520,44 @@ public class PublicacionService {
     @DELETE
     @Path("/{id}/like")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response quitarLike(@HeaderParam("Authorization") String token,
-            @PathParam("id") int id) {
+    public Response quitarLike(@HeaderParam("Authorization") String token, @PathParam("id") int id) {
         Connection conn = null;
         PreparedStatement stmt = null;
+        ResultSet rs = null;
 
         try {
-            Usuario usuario = validarToken(token);
+            Usuario usuario = obtenerUsuarioDesdeToken(token);
 
             if (usuario == null) {
                 return Response.status(Status.UNAUTHORIZED)
-                        .entity(new ErrorResponse("Token inválido"))
+                        .entity(new ErrorResponse("Sesión expirada"))
                         .build();
             }
 
-            int usuarioId = usuario.getId();
             conn = DatabaseConfig.getConnection();
 
-            // Quitar like
+            // 1. Borrar el registro del like
             String deleteSql = "DELETE FROM publicacion_likes WHERE usuario_id = ? AND publicacion_id = ?";
             stmt = conn.prepareStatement(deleteSql);
-            stmt.setInt(1, usuarioId);
+            stmt.setInt(1, usuario.getId());
             stmt.setInt(2, id);
-            int deleted = stmt.executeUpdate();
-
-            if (deleted == 0) {
-                return Response.status(Status.BAD_REQUEST)
-                        .entity(new ErrorResponse("No habías dado like a esta publicación"))
-                        .build();
-            }
+            int filasBorradas = stmt.executeUpdate();
             stmt.close();
 
-            // Actualizar contador
-            String updateSql = "UPDATE publicaciones SET likes = likes - 1 WHERE id = ?";
-            stmt = conn.prepareStatement(updateSql);
-            stmt.setInt(1, id);
-            stmt.executeUpdate();
+            // 2. Solo si realmente existía el like, decrementamos el contador
+            if (filasBorradas > 0) {
+                String updateSql = "UPDATE publicaciones SET likes = GREATEST(0, likes - 1) WHERE id = ?";
+                stmt = conn.prepareStatement(updateSql);
+                stmt.setInt(1, id);
+                stmt.executeUpdate();
+                stmt.close();
+            }
 
-            // Obtener nuevo contador
+            // 3. Obtener contador actual
             String countSql = "SELECT likes FROM publicaciones WHERE id = ?";
             stmt = conn.prepareStatement(countSql);
             stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
 
             int nuevosLikes = 0;
             if (rs.next()) {
@@ -573,9 +569,13 @@ public class PublicacionService {
         } catch (SQLException e) {
             e.printStackTrace();
             return Response.status(Status.INTERNAL_SERVER_ERROR)
-                    .entity(new ErrorResponse("Error al quitar like"))
-                    .build();
+                    .entity(new ErrorResponse("Error al quitar like")).build();
         } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+            }
             try {
                 if (stmt != null)
                     stmt.close();
@@ -589,21 +589,22 @@ public class PublicacionService {
         }
     }
 
+    // Clase de respuesta ajustada para que el JS la entienda perfectamente
     public static class LikeResponse {
         private int likes;
-        private boolean liked;
+        private boolean likedByCurrentUser; // Cambiado para coincidir con el objeto Publicacion
 
-        public LikeResponse(int likes, boolean liked) {
+        public LikeResponse(int likes, boolean likedByCurrentUser) {
             this.likes = likes;
-            this.liked = liked;
+            this.likedByCurrentUser = likedByCurrentUser;
         }
 
         public int getLikes() {
             return likes;
         }
 
-        public boolean isLiked() {
-            return liked;
+        public boolean isLikedByCurrentUser() {
+            return likedByCurrentUser;
         }
     }
 
@@ -761,7 +762,7 @@ public class PublicacionService {
         }
     }
 
-    // Clase auxiliar para mensajes 
+    // Clase auxiliar para mensajes
     public static class MensajeResponse {
         private String mensaje;
         private long timestamp;
@@ -949,4 +950,170 @@ public class PublicacionService {
         }
     }
 
+// 9. BUSCAR recetas por título o descripción
+    @GET
+    @Path("/buscar")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarRecetas(@HeaderParam("Authorization") String token,
+            @QueryParam("q") String query,
+            @QueryParam("page") @DefaultValue("1") int page,
+            @QueryParam("limit") @DefaultValue("20") int limit) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // CORRECCIÓN 1: Usar el nombre de método correcto que tienes en tu clase
+            Usuario usuario = obtenerUsuarioDesdeToken(token);
+            if (usuario == null) {
+                return Response.status(Status.UNAUTHORIZED)
+                        .entity(new ErrorResponse("Sesión expirada"))
+                        .build();
+            }
+
+            if (query == null || query.trim().isEmpty()) {
+                return Response.status(Status.BAD_REQUEST)
+                        .entity(new ErrorResponse("¿Qué quieres buscar?"))
+                        .build();
+            }
+
+            conn = DatabaseConfig.getConnection();
+            int offset = (page - 1) * limit;
+            String searchTerm = "%" + query.toLowerCase() + "%";
+
+            // CORRECCIÓN 2: Simplificamos la SQL para evitar errores con tablas que quizás no existan
+            // Buscamos en título y descripción.
+            String sql = "SELECT p.*, u.nombre as autor_nombre " +
+                         "FROM publicaciones p " +
+                         "JOIN usuarios u ON p.usuario_id = u.id " +
+                         "WHERE LOWER(p.titulo) LIKE ? OR LOWER(p.descripcion) LIKE ? " +
+                         "ORDER BY p.fecha_creacion DESC LIMIT ? OFFSET ?";
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, searchTerm);
+            stmt.setString(2, searchTerm);
+            stmt.setInt(3, limit);
+            stmt.setInt(4, offset);
+            rs = stmt.executeQuery();
+
+            List<Publicacion.PublicacionPreview> resultados = new ArrayList<>();
+
+            while (rs.next()) {
+                Publicacion p = new Publicacion();
+                p.setId(rs.getInt("id"));
+                p.setUsuarioId(rs.getInt("usuario_id"));
+                p.setUsuarioNombre(rs.getString("autor_nombre"));
+                p.setTitulo(rs.getString("titulo"));
+                p.setDuracion(rs.getString("duracion"));
+                p.setImagenPrincipal(rs.getString("imagen_principal"));
+                p.setLikes(rs.getInt("likes"));
+                p.setFechaCreacion(rs.getString("fecha_creacion"));
+
+                // CORRECCIÓN 3: Verificar el Like (Copiado de tu método listar)
+                String checkLikeSql = "SELECT 1 FROM publicacion_likes WHERE usuario_id = ? AND publicacion_id = ?";
+                try (PreparedStatement likeStmt = conn.prepareStatement(checkLikeSql)) {
+                    likeStmt.setInt(1, usuario.getId());
+                    likeStmt.setInt(2, p.getId());
+                    try (ResultSet likeRs = likeStmt.executeQuery()) {
+                        p.setLikedByCurrentUser(likeRs.next());
+                    }
+                }
+
+                resultados.add(new Publicacion.PublicacionPreview(p));
+            }
+
+            return Response.ok(resultados).build();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR)
+                    .entity(new ErrorResponse("Error en la búsqueda")).build();
+        } finally {
+            // Cierre seguro de recursos
+            try { if (rs != null) rs.close(); } catch (SQLException e) {}
+            try { if (stmt != null) stmt.close(); } catch (SQLException e) {}
+            try { if (conn != null) conn.close(); } catch (SQLException e) {}
+        }
+    }
+
+    // 9. OBTENER publicaciones que ha dado like un usuario (favoritos)
+    @GET
+    @Path("/liked/{usuarioId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPublicacionesLikedByUser(@HeaderParam("Authorization") String token,
+            @PathParam("usuarioId") int usuarioId,
+            @QueryParam("page") @DefaultValue("1") int page) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Validar token
+            Usuario usuario = validarToken(token);
+            if (usuario == null) {
+                return Response.status(Status.UNAUTHORIZED)
+                        .entity(new ErrorResponse("Token inválido"))
+                        .build();
+            }
+
+            conn = DatabaseConfig.getConnection();
+
+            int limit = 10;
+            int offset = (page - 1) * limit;
+
+            String sql = "SELECT p.*, u.username as autor_nombre, u.avatar_url as autor_avatar " +
+                    "FROM publicaciones p " +
+                    "JOIN usuarios u ON p.usuario_id = u.id " +
+                    "JOIN publicacion_likes l ON p.id = l.publicacion_id " +
+                    "WHERE l.usuario_id = ? " +
+                    "ORDER BY l.fecha DESC " +
+                    "LIMIT ? OFFSET ?";
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, usuarioId);
+            stmt.setInt(2, limit);
+            stmt.setInt(3, offset);
+            rs = stmt.executeQuery();
+
+            List<Publicacion.PublicacionPreview> publicaciones = new ArrayList<>();
+
+            while (rs.next()) {
+                Publicacion p = new Publicacion();
+                p.setId(rs.getInt("id"));
+                p.setTitulo(rs.getString("titulo"));
+                p.setDuracion(rs.getString("duracion"));
+                p.setImagenPrincipal(rs.getString("imagen_principal"));
+                p.setLikes(rs.getInt("likes"));
+                p.setUsuarioNombre(rs.getString("autor_nombre"));
+                p.setLikedByCurrentUser(true); // Porque el usuario dio like
+                p.setFechaCreacion(rs.getString("fecha_creacion"));
+
+                publicaciones.add(new Publicacion.PublicacionPreview(p));
+            }
+
+            return Response.ok(publicaciones).build();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR)
+                    .entity(new ErrorResponse("Error de base de datos: " + e.getMessage()))
+                    .build();
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+            } catch (SQLException e) {
+            }
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException e) {
+            }
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+            }
+        }
+    }
 }

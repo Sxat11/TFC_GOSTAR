@@ -17,60 +17,72 @@
         header {}
 
         /* Contenedor del Like */
-.post-card-likes-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    z-index: 10;
-}
+        .post-card-likes-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
 
-/* Ocultar el checkbox original */
-.like-checkbox {
-    display: none;
-}
+        /* Ocultar el checkbox original */
+        .like-checkbox {
+            display: none;
+        }
 
-/* Estilo de la etiqueta (el corazón) */
-.like-label {
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    display: flex;
-    align-items: center;
-}
+        /* Estilo de la etiqueta (el corazón) */
+        .like-label {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
 
-.heart-icon {
-    width: 25px;
-    height: 25px;
-    background-image: url('../corazon_vacio.png'); /* Tu imagen actual */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    filter: brightness(0) invert(1); /* Lo hace blanco para que resalte sobre el fondo oscuro */
-    transition: all 0.3s ease;
-}
+        .heart-icon {
+            width: 25px;
+            height: 25px;
+            background-image: url('../corazon_vacio.png');
+            /* Tu imagen actual */
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: brightness(0) invert(1);
+            /* Lo hace blanco para que resalte sobre el fondo oscuro */
+            transition: all 0.3s ease;
+        }
 
-/* Cuando el checkbox está marcado (Checked) */
-.like-checkbox:checked + .like-label .heart-icon {
-    background-image: url('../corazon_lleno.png'); /* Necesitarás esta imagen o una roja */
-    filter: none; /* Quita el filtro blanco para mostrar el color original (rojo) */
-    transform: scale(1.2);
-    animation: heart-pulse 0.4s ease;
-}
+        /* Cuando el checkbox está marcado (Checked) */
+        .like-checkbox:checked+.like-label .heart-icon {
+            background-image: url('../corazon_lleno.png');
+            /* Necesitarás esta imagen o una roja */
+            filter: none;
+            /* Quita el filtro blanco para mostrar el color original (rojo) */
+            transform: scale(1.2);
+            animation: heart-pulse 0.4s ease;
+        }
 
-/* Efecto de pulso al dar like */
-@keyframes heart-pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.4); }
-    100% { transform: scale(1.2); }
-}
+        /* Efecto de pulso al dar like */
+        @keyframes heart-pulse {
+            0% {
+                transform: scale(1);
+            }
 
-.like-label:hover {
-    transform: scale(1.1);
-}
+            50% {
+                transform: scale(1.4);
+            }
 
-.likes-count {
-    font-size: 16px;
-    font-weight: bold;
-}
+            100% {
+                transform: scale(1.2);
+            }
+        }
+
+        .like-label:hover {
+            transform: scale(1.1);
+        }
+
+        .likes-count {
+            font-size: 16px;
+            font-weight: bold;
+        }
 
         .navbar {
             background: white;
@@ -270,36 +282,39 @@
             animation: spin 1s linear infinite;
             margin: 40px auto;
         }
-.titulo-gostar {
-    font-family: 'Poppins', sans-serif;
-    font-size: 64px; /* Un poco más grande para impactar */
-    font-weight: 900;
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 10px;
-    
-    /* Degradado de Rojo Intenso a Verde Vibrante */
-    background: linear-gradient(135deg, #ff4b2b 10%, #ff416c 30%, #2ecc71 70%, #27ae60 90%);
-    
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    
-    /* Espaciado y elegancia */
-    letter-spacing: -1px; /* Letras un poco más juntas se ve más moderno */
-    text-transform: uppercase;
-    
-    /* Sombra sutil para que el texto "flote" (opcional) */
-    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
-    
-    /* Animación suave al cargar */
-    transition: all 0.3s ease;
-}
 
-/* Efecto opcional: un ligero brillo al pasar el ratón */
-.titulo-gostar:hover {
-    transform: scale(1.02);
-    filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.2));
-}
+        .titulo-gostar {
+            font-family: 'Poppins', sans-serif;
+            font-size: 64px;
+            /* Un poco más grande para impactar */
+            font-weight: 900;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 10px;
+
+            /* Degradado de Rojo Intenso a Verde Vibrante */
+            background: linear-gradient(135deg, #ff4b2b 10%, #ff416c 30%, #2ecc71 70%, #27ae60 90%);
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            /* Espaciado y elegancia */
+            letter-spacing: -1px;
+            /* Letras un poco más juntas se ve más moderno */
+            text-transform: uppercase;
+
+            /* Sombra sutil para que el texto "flote" (opcional) */
+            filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
+
+            /* Animación suave al cargar */
+            transition: all 0.3s ease;
+        }
+
+        /* Efecto opcional: un ligero brillo al pasar el ratón */
+        .titulo-gostar:hover {
+            transform: scale(1.02);
+            filter: drop-shadow(2px 4px 10px rgba(0, 0, 0, 0.2));
+        }
 
         @keyframes spin {
             0% {
@@ -337,18 +352,86 @@
                 grid-template-columns: 1fr;
             }
         }
-    footer {
-        text-align: center;
-        padding: 20px 0;
-        background: #f8f8f8;
-        color: #333;
-        font-size: 14px;
-        margin-top: 40px;
-    }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #f8f8f8;
+            color: #333;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        .post-card:hover .post-card-image {
+            transform: scale(1.1);
+            /* La imagen crece un poco */
+        }
+
+        .post-card-image {
+            transition: transform 0.5s ease;
+            /* Transición suave para el zoom */
+        }
+
+        .post-card-duration {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .navbar2 {
+            background: #fdfdfd;
+            border-bottom: 1px solid #eee;
+            overflow-x: auto;
+            /* Permite scroll lateral */
+            white-space: nowrap;
+            /* Evita que las categorías salten de línea */
+            padding: 10px 0;
+        }
+
+        .navbar2::-webkit-scrollbar {
+            display: none;
+            /* Oculta la barra de scroll para que se vea limpio */
+        }
+
+        .navbar2 .nav-group {
+            display: inline-flex;
+            padding: 0 20px;
+        }
+
+        #buscador {
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        #buscador:focus {
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.2);
+            transform: translateY(-2px);
+            border-color: #2ecc71;
+        }
+
+        .titulo-gostar {
+            /* text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5); */
+            /* Opcional: una animación de entrada */
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 
 
-<link rel="icon" href="FondoNegro.ico" type="image/ico">
+    <link rel="icon" href="FondoNegro.ico" type="image/ico">
 </head>
 
 <body>
@@ -393,63 +476,56 @@
 
         // 3. Añade esta nueva función al final de tu bloque <script>
         function filtrarRecetas(categoria, event) {
-            document.getElementById('buscador').value = ""; // Limpia el buscador al filtrar por categoría
-            // Evitamos que el enlace recargue la página
+            // 1. Evitamos que la página se recargue
             if (event) event.preventDefault();
 
-            // Seleccionamos el título y el subtítulo para poder modificarlos
-            const tituloPrincipal = document.querySelector('.titulo-gostar');
-            const subtitulo = document.querySelector('.welcome-section p');
+            // 2. Obtenemos el elemento del buscador
+            const buscador = document.getElementById('buscador');
 
-            // Si el usuario hace clic en "Todas las categorias"
+            // 3. Si pulsas "Todas", limpiamos el buscador. Si no, ponemos el nombre de la categoría
             if (categoria === 'Todas') {
-                // Restauramos el texto original
-                tituloPrincipal.textContent = 'Bienvenido a GOSTAR';
-                if (subtitulo) subtitulo.textContent = '¿Qué vamos a hacer hoy?';
-
-                mostrarPublicaciones(todasLasPublicaciones);
-                return;
+                buscador.value = "";
+            } else {
+                buscador.value = categoria;
             }
 
-            // Actualizamos el título y subtítulo con la categoría seleccionada
-            tituloPrincipal.textContent = categoria;
-            // También puedes poner algo como: tituloPrincipal.textContent = `Recetas de ${categoria}`;
-
-            if (subtitulo) subtitulo.textContent = `Mostrando resultados para: ${categoria}`;
-
-            // Filtramos las recetas
-            const recetasFiltradas = todasLasPublicaciones.filter(pub => {
-                return pub.titulo.toLowerCase().includes(categoria.toLowerCase());
-            });
-
-            // Mostramos las recetas filtradas
-            mostrarPublicaciones(recetasFiltradas);
+            // 4. Disparamos manualmente la función de buscar para que filtre los resultados
+            buscarRecetas(buscador.value);
         }
 
-        function buscarRecetas(texto) {
+        
+
+        async function buscarRecetas(texto) {
             const tituloPrincipal = document.querySelector('.titulo-gostar');
             const subtitulo = document.querySelector('.welcome-section p');
             const query = texto.toLowerCase().trim();
 
-            // Si el buscador está vacío, mostramos todo y restauramos títulos
             if (query === "") {
                 tituloPrincipal.textContent = 'Bienvenido a GOSTAR';
                 subtitulo.textContent = '¿Qué vamos a hacer hoy?';
-                mostrarPublicaciones(todasLasPublicaciones);
+                mostrarPublicaciones(todasLasPublicaciones); // Volver al listado inicial
                 return;
             }
 
-            // Actualizamos los textos para feedback visual
             tituloPrincipal.textContent = "Buscando...";
             subtitulo.textContent = `Resultados para: "${texto}"`;
 
-            // Filtramos las recetas que contengan el texto en el título
-            const resultados = todasLasPublicaciones.filter(pub =>
-                pub.titulo.toLowerCase().includes(query)
-            );
+            try {
+                const token = localStorage.getItem('token');
+                // Llamamos al endpoint de búsqueda que arreglamos en Java
+                const response = await fetch(`http://localhost:8080/mi-primera-api/rest/publicaciones/buscar?q=${encodeURIComponent(query)}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
 
-            // Pintamos los resultados
-            mostrarPublicaciones(resultados);
+                if (response.ok) {
+                    const resultados = await response.json();
+                    mostrarPublicaciones(resultados);
+                }
+            } catch (error) {
+                console.error("Error en la búsqueda:", error);
+            }
         }
 
 
@@ -580,7 +656,7 @@
 
                 // Dentro de tu publicaciones.forEach(pub => { ...
 
-html += `
+                html += `
     <div class="post-card" onclick="verDetalle(${pub.id})">
         <img src="${pub.imagenPrincipal}" alt="${pub.titulo}" class="post-card-image">
         <div class="post-card-overlay"></div>
@@ -597,9 +673,11 @@ html += `
             
                 
                 <div class="post-card-likes-container">
-                    <input type="checkbox" id="like-${pub.id}" class="like-checkbox" 
-                        onclick="event.stopPropagation();" 
-                        ${pub.usuarioLeDioLike ? 'checked' : ''}>
+               
+
+<input type="checkbox" id="like-${pub.id}" class="like-checkbox" 
+    onclick="event.stopPropagation(); toggleLike(${pub.id}, this)" 
+    ${pub.likedByCurrentUser ? 'checked' : ''}>
                     
                     <label for="like-${pub.id}" class="like-label" onclick="event.stopPropagation();">
                         <div class="heart-icon"></div>
@@ -616,36 +694,31 @@ html += `
             container.innerHTML = html;
         }
 
-        async function darLike(publicacionId, event) {
-            event.stopPropagation(); // Evitar que se active el clic en la tarjeta
-
+        // Añade esta función para manejar el clic
+        async function toggleLike(publicacionId, checkbox) {
             const token = localStorage.getItem('token');
-            const boton = event.currentTarget;
+            if (!token) return;
 
-            try {
-                const response = await fetch(`http://localhost:8080/mi-primera-api/rest/publicaciones/${publicacionId}/like`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                });
+            // Si el token guardado NO tiene "Bearer ", se lo ponemos
+            const tokenFormateado = token.startsWith('Bearer ') ? token : 'Bearer ' + token;
 
-                if (response.ok) {
-                    const data = await response.json();
-                    // Actualizar el contador en la tarjeta
-                    const likeSpan = boton.closest('.post-card').querySelector('.post-card-likes span');
-                    if (likeSpan) {
-                        likeSpan.textContent = data.likes;
-                    }
+            const esLike = checkbox.checked;
+            const metodo = esLike ? 'POST' : 'DELETE';
 
-                    // Feedback visual rápido
-                    boton.style.background = '#ff4444';
-                    setTimeout(() => {
-                        boton.style.background = 'rgba(255,255,255,0.2)';
-                    }, 200);
+            const response = await fetch(`http://localhost:8080/mi-primera-api/rest/publicaciones/${publicacionId}/like`, {
+                method: metodo,
+                headers: {
+                    'Authorization': tokenFormateado
                 }
-            } catch (error) {
-                console.error('Error al dar like:', error);
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const card = checkbox.closest('.post-card-likes-container');
+                card.querySelector('.likes-count').textContent = data.likes;
+            } else {
+                // Si hay error (401 o 400), revertimos el checkbox
+                checkbox.checked = !esLike;
             }
         }
 
@@ -662,10 +735,10 @@ html += `
                 </a>
 
                 <div class="nav-group">
-                    <a href="#" class="nav-link">
+                    <!-- <a href="#" class="nav-link" onclick="filtrarFavoritosHome(event)">
                         <img src="../corazon_vacio.png" alt="Favoritos" class="icon">
                         <span>Favoritos</span>
-                    </a>
+                    </a> -->
                     <a href="vista_perfil.php" class="nav-link">
                         <img src="../perfil.png" alt="Tú" class="icon">
                         <span id="username-display">Tú</span>
@@ -720,4 +793,5 @@ html += `
 <footer>
     Manuel Hay Fernández - Gostar Web - 2026
 </footer>
+
 </html>

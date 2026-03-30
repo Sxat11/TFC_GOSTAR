@@ -412,6 +412,60 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
+        /* Contenedor del Like */
+        .post-card-likes-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        /* Ocultar el checkbox original */
+        .like-checkbox {
+            display: none;
+        }
+
+        /* Estilo del corazón */
+        .like-label {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .heart-icon {
+            width: 30px;
+            height: 30px;
+            background-image: url('../corazon_vacio.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        /* Cuando el checkbox está marcado, cambia la imagen a corazón lleno */
+        .like-checkbox:checked+.like-label .heart-icon {
+            background-image: url('../corazon_lleno.png');
+            animation: pulse 0.3s ease-in-out;
+        }
+
+        .likes-count {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.3);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
     </style>
     <link rel="icon" href="FondoNegro.ico" type="image/ico">
 
@@ -425,9 +479,9 @@
     </div>
 
     <nav class="navbar">
-          <a href="vista_principal.php" class="logo-main">
-                    <img src="../GostarLogoLargo.png" alt="GOSTAR Logo" height="60px">
-                </a>
+        <a href="vista_principal.php" class="logo-main">
+            <img src="../GostarLogoLargo.png" alt="GOSTAR Logo" height="60px">
+        </a>
         <div class="user-info">
             <span class="username" id="username">Cargando...</span>
             <a href="vista_crear_publicacion.php" style="background: #008080; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; text-decoration: none;">+ Nueva Receta</a>
@@ -595,9 +649,18 @@
                        
 
 <div class="receta-acciones">
-    <button class="action-btn like-btn ${recetaActual.likedByCurrentUser ? 'liked' : ''}" onclick="toggleLike()">
-         <span id="like-count">${recetaActual.likes || 0}</span> Me gusta
-    </button>
+    <div class="post-card-likes-container">
+        <input type="checkbox" id="like-${recetaActual.id}" class="like-checkbox" 
+            onclick="toggleLike(this)" 
+            ${recetaActual.likedByCurrentUser ? 'checked' : ''}>
+        
+        <label for="like-${recetaActual.id}" class="like-label">
+            <div class="heart-icon"></div>
+        </label>
+        
+        <span class="likes-count" id="like-count">${recetaActual.likes || 0}</span>
+        <span style="color: #666; font-size: 14px;">Me gusta</span>
+    </div>
     
     ${esAutor ? `
         <button class="action-btn edit-btn" onclick="editarReceta()">
@@ -613,32 +676,40 @@
             `;
         }
 
-        async function toggleLike() {
+        async function toggleLike(checkbox) {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            // Aseguramos el prefijo Bearer
+            const tokenFormateado = token.startsWith('Bearer ') ? token : 'Bearer ' + token;
+
+            // Si está checked es que queremos dar LIKE (POST), si no, QUITAR (DELETE)
+            const esLike = checkbox.checked;
+            const metodo = esLike ? 'POST' : 'DELETE';
+
             try {
                 const response = await fetch(`http://localhost:8080/mi-primera-api/rest/publicaciones/${recetaId}/like`, {
-                    method: 'POST',
+                    method: metodo,
                     headers: {
-                        'Authorization': 'Bearer ' + token
+                        'Authorization': tokenFormateado
                     }
                 });
 
                 if (response.ok) {
                     const data = await response.json();
+                    // Actualizamos el contador visual
                     document.getElementById('like-count').textContent = data.likes;
 
-                    const likeBtn = document.querySelector('.like-btn');
-                    if (data.liked) {
-                        likeBtn.classList.add('liked');
-                    } else {
-                        likeBtn.classList.remove('liked');
-                    }
-
+                    // Actualizamos el objeto local por si se necesita
                     recetaActual.likes = data.likes;
-                    recetaActual.likedByCurrentUser = data.liked;
+                    recetaActual.likedByCurrentUser = data.likedByCurrentUser;
+                } else {
+                    // Si falla el servidor, revertimos el checkbox visualmente
+                    checkbox.checked = !esLike;
                 }
             } catch (error) {
-                console.error('Error al dar like:', error);
-                alert('Error al procesar el like');
+                checkbox.checked = !esLike;
+                console.error('Error al procesar like:', error);
             }
         }
 

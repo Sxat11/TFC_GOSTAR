@@ -302,15 +302,15 @@
             background: #e0e0e0;
         }
     </style>
-        <link rel="icon" href="FondoNegro.ico" type="image/ico">
+    <link rel="icon" href="FondoNegro.ico" type="image/ico">
 
 </head>
 
 <body>
     <nav class="navbar">
         <a href="vista_principal.php" class="logo-main">
-                    <img src="../GostarLogoLargo.png" alt="GOSTAR Logo" height="60px">
-                </a>
+            <img src="../GostarLogoLargo.png" alt="GOSTAR Logo" height="60px">
+        </a>
         <div class="user-info">
             <span class="username" id="username">Cargando...</span>
             <a href="vista_crear_publicacion.php" class="crear-btn">Nueva Receta</a>
@@ -406,85 +406,119 @@
             }
         }
 
-       async function cargarMisPublicaciones() {
-    const container = document.getElementById('publicaciones-container');
+        async function cargarMisPublicaciones() {
+            const container = document.getElementById('publicaciones-container');
 
-    try {
-        // Obtener ID del usuario actual
-        const perfilResponse = await fetch('http://localhost:8080/mi-primera-api/rest/auth/perfil', {
-            headers: { 'Authorization': 'Bearer ' + token }
-        });
-        const perfil = await perfilResponse.json();
-        const usuarioId = perfil.id;
-        console.log(' Usuario ID actual:', usuarioId);
+            try {
+                // Obtener ID del usuario actual
+                const perfilResponse = await fetch('http://localhost:8080/mi-primera-api/rest/auth/perfil', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                const perfil = await perfilResponse.json();
+                const usuarioId = perfil.id;
+                console.log(' Usuario ID actual:', usuarioId);
 
-        // Obtener TODAS las publicaciones
-        const response = await fetch('http://localhost:8080/mi-primera-api/rest/publicaciones?page=1&limit=100', {
-            headers: { 'Authorization': 'Bearer ' + token }
-        });
+                // Obtener TODAS las publicaciones
+                const response = await fetch('http://localhost:8080/mi-primera-api/rest/publicaciones?page=1&limit=100', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
 
-        if (!response.ok) {
-            throw new Error('Error HTTP: ' + response.status);
-        }
+                if (!response.ok) {
+                    throw new Error('Error HTTP: ' + response.status);
+                }
 
-        const todasPublicaciones = await response.json();
-        console.log(' Respuesta completa:', todasPublicaciones);
-        
-        if (todasPublicaciones.length > 0) {
-            const primeraPub = todasPublicaciones[0];
-            console.log(' PRIMERA PUBLICACIÓN (COMPLETA):', primeraPub);
-            console.log(' CAMPOS DISPONIBLES:', Object.keys(primeraPub));
-            console.log(' Valor de usuarioId:', primeraPub.usuarioId);
-            console.log(' Valor de usuario_id:', primeraPub.usuario_id);
-            console.log(' Valor de userId:', primeraPub.userId);
-        }
+                const todasPublicaciones = await response.json();
+                console.log(' Respuesta completa:', todasPublicaciones);
 
-        // Filtrar solo las del usuario actual
-        const misPublicaciones = todasPublicaciones.filter(pub => {
-            // Comprobar TODOS los posibles nombres
-            const posibleId = pub.usuarioId || pub.usuario_id || pub.userId || pub.user_id;
-            console.log(`Pub ID ${pub.id}: posibleId=${posibleId}, tipo=${typeof posibleId}, usuarioActual=${usuarioId}, coincide=${posibleId === usuarioId}`);
-            return posibleId === usuarioId;
-        });
+                if (todasPublicaciones.length > 0) {
+                    const primeraPub = todasPublicaciones[0];
+                    console.log(' PRIMERA PUBLICACIÓN (COMPLETA):', primeraPub);
+                    console.log(' CAMPOS DISPONIBLES:', Object.keys(primeraPub));
+                    console.log(' Valor de usuarioId:', primeraPub.usuarioId);
+                    console.log(' Valor de usuario_id:', primeraPub.usuario_id);
+                    console.log(' Valor de userId:', primeraPub.userId);
+                }
 
-        console.log(' Mis publicaciones filtradas:', misPublicaciones);
+                // Filtrar solo las del usuario actual
+                const misPublicaciones = todasPublicaciones.filter(pub => {
+                    // Comprobar TODOS los posibles nombres
+                    const posibleId = pub.usuarioId || pub.usuario_id || pub.userId || pub.user_id;
+                    console.log(`Pub ID ${pub.id}: posibleId=${posibleId}, tipo=${typeof posibleId}, usuarioActual=${usuarioId}, coincide=${posibleId === usuarioId}`);
+                    return posibleId === usuarioId;
+                });
 
-        // Actualizar estadísticas
-        document.getElementById('stat-recetas').textContent = misPublicaciones.length;
-        const totalLikes = misPublicaciones.reduce((sum, pub) => sum + (pub.likes || 0), 0);
-        document.getElementById('stat-likes').textContent = totalLikes;
+                console.log(' Mis publicaciones filtradas:', misPublicaciones);
 
-        mostrarPublicaciones(misPublicaciones);
+                // Actualizar estadísticas
+                document.getElementById('stat-recetas').textContent = misPublicaciones.length;
+                const totalLikes = misPublicaciones.reduce((sum, pub) => sum + (pub.likes || 0), 0);
+                document.getElementById('stat-likes').textContent = totalLikes;
 
-    } catch (error) {
-        console.error('Error completo:', error);
-        container.innerHTML = `
+                mostrarPublicaciones(misPublicaciones);
+
+            } catch (error) {
+                console.error('Error completo:', error);
+                container.innerHTML = `
             <div class="no-publicaciones">
                 <p style="color: #ff4444;">Error: ${error.message}</p>
                 <button onclick="location.reload()">Reintentar</button>
             </div>
         `;
-    }
-}
+            }
+        }
 
         async function cargarFavoritos() {
             const container = document.getElementById('publicaciones-container');
+            // Mostramos el loader mientras carga
+            container.innerHTML = '<div class="loader"></div>';
 
-            // Por ahora, mostrar mensaje de próximamente
-            container.innerHTML = `
+            try {
+                // 1. Pedimos todas las publicaciones al servidor
+                // El servidor ya nos dice en cada una si el usuario actual le dio like
+                const response = await fetch('http://localhost:8080/mi-primera-api/rest/publicaciones?page=1&limit=100', {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+
+                if (!response.ok) throw new Error('Error al cargar favoritos');
+
+                const todas = await response.json();
+
+                // 2. Filtramos solo las que tienen likedByCurrentUser en true
+                const misFavoritos = todas.filter(pub => pub.likedByCurrentUser === true);
+
+                // 3. Reutilizamos la función de mostrar para pintarlas
+                if (misFavoritos.length === 0) {
+                    container.innerHTML = `
                 <div class="no-publicaciones">
-                    <h3> Próximamente</h3>
-                    <p>La sección de favoritos estará disponible pronto</p>
+                    <h3>Aún no tienes favoritos</h3>
+                    <p>Explora recetas y dales a "Me gusta" para verlas aquí.</p>
+                    <button onclick="window.location.href='vista_principal.php'">
+                        Explorar recetas
+                    </button>
                 </div>
             `;
+                } else {
+                    mostrarPublicaciones(misFavoritos);
+                }
+
+            } catch (error) {
+                console.error('Error cargando favoritos:', error);
+                mostrarError('No se pudieron cargar tus favoritos');
+            }
         }
 
-       function mostrarPublicaciones(publicaciones) {
-    console.log(' Mostrando publicaciones:', publicaciones);
-    const container = document.getElementById('publicaciones-container');
+        function mostrarPublicaciones(publicaciones) {
+            console.log(' Mostrando publicaciones:', publicaciones);
+            const container = document.getElementById('publicaciones-container');
 
-    if (!publicaciones || publicaciones.length === 0) {
-        container.innerHTML = `
+            if (!publicaciones || publicaciones.length === 0) {
+                container.innerHTML = `
             <div class="no-publicaciones">
                 <h3>¡No has publicado ninguna receta!</h3>
                 <p>Comparte tu primera receta con la comunidad</p>
@@ -493,13 +527,13 @@
                 </button>
             </div>
         `;
-        return;
-    }
+                return;
+            }
 
-    let html = '<div class="publicaciones-grid">';
-    publicaciones.forEach(pub => {
-        console.log('Renderizando pub:', pub.id, pub.titulo);
-        html += `
+            let html = '<div class="publicaciones-grid">';
+            publicaciones.forEach(pub => {
+                console.log('Renderizando pub:', pub.id, pub.titulo);
+                html += `
             <div class="publicacion-card" onclick="verDetalle(${pub.id})">
                 <img src="${pub.imagenPrincipal}" alt="${pub.titulo}" class="publicacion-image">
                 <div class="publicacion-info">
@@ -508,10 +542,10 @@
                 </div>
             </div>
         `;
-    });
-    html += '</div>';
-    container.innerHTML = html;
-}
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
 
         function cambiarTab(tab) {
             tabActual = tab;
