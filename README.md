@@ -14,4 +14,14 @@ Buenos días, buenas tardes y buenas noches. Bienvenido a mi aplicación GOSTAR,
 
 21/02/2026 Debido a un error humano tenemos que reconstruir gran parte del proyecto de móvil lo que provoca un imporante retroceso en el proyecto
 
-22/02/2026 Implementamos el muro de móvil y ya se pueden crear publicaciones y cuentas tanto en móviles como 
+22/02/2026 Implementamos el muro de móvil y ya se pueden crear publicaciones y cuentas tanto en móviles como en Web.
+
+24/02/2026 Completamos las últimas funcionalidades necesarias para hacer funcional una versión primigenia de apliación la cual es completamente multiplataforma, la API es común a ambas aplicaciones. Podemos hacer prácticamente todas las funciones típicas de la API Crear, Editar y Borrar Cuenta, y Crear,Editar y Borrar Publicaciones. Así como una versión primeriza de los Likes. 
+
+03/03/2026 Creamos la aplicación de Escritorio en (.NET Framework), en ella utilizaremos MaterialSkin2 para mejorar su apariencia. Y Comenzaremos a crear la ventana de Inicio de Sesión y Crear Cuenta. 
+
+10/03/2026 Creamos el muro y todas las ventanas de las funcionaliadaes que tendrá la aplicación como Publicaciones, Perfil, ect...
+
+20/03/2026 Hacemos funcional el login y crear cuenta de Escritorio
+
+26/03/2026 Conectamos el muro a la API para que cargue los datos en las pestaña de aplicación. 
